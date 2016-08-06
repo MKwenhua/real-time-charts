@@ -1,0 +1,80 @@
+.seclect-chart-butt {
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    color: white;
+    font-size: 12px;
+    margin: 0px 20px;
+}
+.in-view-opts{
+    height: 100%;
+}
+.current-type {
+    height: 20px;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    padding: 2px;
+    vertical-align: top;
+    display: inline-block;
+}
+.current-type:hover {
+    color: #30b911;
+}
+.current-type span {
+    display: inline-block;
+}
+.add-chart-warn{
+        display: block!important;
+    text-align: center;
+    color: #f70;
+    padding-top:50px;
+}
+.add-chart-cnt{
+    display: block!important;
+}
+i.small-i {
+    vertical-align: bottom!important;
+    float: right!important;
+    font-size: 13px!important;
+    padding: 0px 10px;
+    line-height: 0.7!important;
+}
+.chart-select-ul {
+    width: 100%;
+    overflow: visible;
+    list-style: none;
+    cursor: pointer;
+    vertical-align: top;
+    background: white;
+    padding: 0;
+    margin: 0;
+    padding: 3px;
+    border-radius: 2px;
+    -webkit-box-shadow: 3px 5px 9px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 5px 9px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 3px 5px 9px -4px rgba(0, 0, 0, 0.75);
+}
+ul.chart-select-ul li {
+    padding: 4px;
+    color: #222;
+    border: 2px solid white;
+}
+ul.chart-select-ul li:hover {
+    color: #00d8ff;
+}
+ul.chart-select-ul img {
+    display: inline-block;
+    margin-left: 10px;
+    float: right;
+}
+.selected-chart {
+    color: #00d8ff;
+    font-weight: bold;
+    border-color: #00d8ff;
+}
+.chartContainer {
+    margin-top: 20px;
+    z-index: -1;
+    padding-bottom: 20px;
+}

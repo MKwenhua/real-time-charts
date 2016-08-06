@@ -1,0 +1,12 @@
+@media (max-height: 700px) {
+     .trade-butt {
+         font-size: 14px;
+     }
+     .trade-butt>img {
+         height: 20px;
+         margin-bottom: 3px;
+     }
+     .profit {
+         font-size: 25px;
+     }
+ }
