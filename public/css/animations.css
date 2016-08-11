@@ -13,7 +13,6 @@ div.fade-in {
         opacity: 1;
     }
 }
-
 @-moz-keyframes fadein {
     from {
         opacity: 0;

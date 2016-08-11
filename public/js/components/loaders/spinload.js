@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default class LoadConnect extends React.Component {
-	
-	render() {
-	
-    return (
-    	<div className="connecting">
+
+   render() {
+
+      return (
+         <div className="connecting">
     	<div className="spinner-bn">
 						  <div className="bounce1"></div>
 						  <div className="bounce2"></div>
@@ -14,6 +14,6 @@ export default class LoadConnect extends React.Component {
 						</div>
 						<h2>Connecting to WebSocket. . . </h2>
 		</div>
-            )
-	}
+      )
+   }
 };

@@ -1,0 +1,164 @@
+.trade-ul-list {
+    display: block;
+    padding-top: 10px;
+}
+.history-list {
+    background: #18252e;
+    overflow-y: auto;
+}
+.head-line-list {
+    text-align: center;
+    display: block;
+    color: #73879C;
+    border-bottom: 1px solid #73879C;
+}
+#pastTrades {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    -webkit-flex-direction: column;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.no-padd-center {
+    text-align: center;
+    padding: 0px!important;
+    margin: 0px!important;
+}
+.li-info-box {
+    border-radius: 2px;
+    margin-bottom: 2px;
+    border: 1px solid #fff;
+    color: #000;
+    /* background: #fff; */
+    
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    background-color: #18252e;
+    text-align: left;
+    position: relative;
+}
+.li-info-box:hover {
+    border-color: #00d8ff;
+}
+.view-trd {
+    color: #fff;
+    width: 100%;
+}
+.under-line {
+    border-bottom: 1px solid #ADB2B5;
+}
+.pos-li-active {
+    background-color: black;
+    border-color: rgb(0, 216, 255);
+}
+#statTiles {
+    text-align: center;
+}
+.stat-tile {
+    height: 65px;
+    color: #73879C;
+    font-weight: 400;
+    border-left: 2px solid #ADB2B5;
+    margin-top: 10px;
+    float: none!important;
+    display: inline-block!important;
+}
+.li-span-block {
+    display: inline-block;
+    width: 20%;
+    line-height: 40px;
+    text-align: center;
+    font-weight: 500;
+    vertical-align: top;
+}
+.dt-span {
+    color: #73879C;
+}
+.th-span {
+    font-weight: 600;
+}
+.li-span-block i {
+    vertical-align: middle;
+}
+.pos-overview {
+    margin-top: 6px;
+}
+.pos-col {
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+.margin-btm-sm {
+    margin-bottom: 5px;
+}
+.pos-first {
+    width: auto!important;
+}
+.pos-col strong {
+    color: #73879C;
+    font-size: 11px;
+    display: block;
+    line-height: 18px;
+}
+.pos-col i {
+    vertical-align: middle;
+}
+.span-green {
+    color: #30d94c;
+}
+.deposit-span {
+    background: #30d94c;
+    border-radius: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 6px;
+    font-size: 13px;
+    margin-right: -4px;
+}
+.span-label-blue {
+    color: #00d8ff;
+}
+.span-red {
+    color: #DC143C;
+}
+.border-none {
+    border-left: 0;
+}
+.stat-tile span.top_span {
+    font-size: 13px;
+}
+.stat-tile span.bottom_span {
+    font-size: 13px;
+}
+.stat-tile > div.count {
+    font-size: 40px;
+    line-height: 47px;
+    font-weight: 600;
+}
+.ctx-charts-class a {
+    display: none!important;
+}
+#chart1view {
+    width: 40%;
+    min-height: 250px;
+    overflow: hidden;
+    display: inline-block;
+}
+#chart2view {
+    width: 55%;
+    min-height: 250px;
+    overflow: hidden;
+    margin-left: 3%;
+    display: inline-block;
+}

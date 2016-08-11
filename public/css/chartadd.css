@@ -61,7 +61,7 @@ select option[disabled] {
     width: 100%;
     padding-top: 20px;
 }
-.no-see-no-click{
+.no-see-no-click {
     opacity: 0;
     pointer-events: none;
 }
@@ -84,16 +84,16 @@ select option[disabled] {
 .add-chart-bt:hover {
     border-radius: 15px;
 }
-.chart-remove{
+.chart-remove {
     display: inline-block;
     float: right;
     cursor: pointer;
     color: silver;
-        height: 20px;
-        overflow: hidden;
+    height: 20px;
+    overflow: hidden;
     padding: 1px 15px;
 }
-.chart-remove span{
+.chart-remove span {
     vertical-align: top;
 }
 .chart-remove i {

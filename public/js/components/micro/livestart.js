@@ -2,28 +2,28 @@ const React = require('react');
 const exchangeOptions = require('../data/stocks.js');
 
 export default class LiveStart extends React.Component {
-    constructor(props) {
+   constructor(props) {
       super(props);
       this.state = {
-        exchange: 'NASDAQ'
+         exchange: 'NASDAQ'
       }
       this.exchangeChange = this.exchangeChange.bind(this);
-    };
-    exchangeChange(e) {
+   };
+   exchangeChange(e) {
       let ex = e.target.value;
 
       this.setState({
-        exchange: ex
+         exchange: ex
       });
-    }
-    handleStart() {
+   }
+   handleStart() {
       this.props.startChart(
-        this.refs.feedSymbol.value
+         this.refs.feedSymbol.value
       )
-    };
-    render() { 
+   };
+   render() {
 
-    return (<div className="container"> 
+      return (<div className="container"> 
             <div className="chart-controller chart-live-cntrl live-set">
 		            <div className="select-holders spread-m">
 		            <strong>Symbols:</strong>
@@ -46,7 +46,6 @@ export default class LiveStart extends React.Component {
 		          <div className="row text-center">
 		          <div onClick={this.handleStart.bind(this)} className="big-butt cool-button">Start LiveFeed!</div>
 		          </div>
-		          </div>
-            )
-	}
+		          </div>)
+   }
 };

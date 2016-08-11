@@ -1,4 +1,12 @@
-const CtxChart = (symbl) => {
+function CtxController () {
+ let inView = true;
+ this.outOfView = () => {
+    inView = false;
+  };
+  this.backInView = () => {
+    inView = true;
+  };
+const CtxChrt = (symbl) => {
 
   const chartSettings = {
     cT: "candlestick",
@@ -215,5 +223,13 @@ const CtxChart = (symbl) => {
   }
 
 }
+
+  }
+  this.passCTXconstructor = () => {
+    return CtxChrt;
+  }
+}
+CtxController.bind(this);
+const CtxChart = new CtxController();
 
 module.exports = CtxChart;
