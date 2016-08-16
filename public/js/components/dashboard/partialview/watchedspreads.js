@@ -1,35 +1,40 @@
-const React = require('react');
+const React = require('react'); 
+import PositionTile from "./positionTiles.js";
 
 
-
+const currentBlocks = (currentPos, posCTX) => {
+ let list = currentPos.map((itm, i) => {
+   let keyy = itm.ctxid + '_' + itm.type 
+   return <PositionTile key={keyy} posTileCTX={posCTX}  pos={itm} />;
+ });
+ return (<ul className="pos-blocks">{list}</ul>)
+}
 export default class WatchedSpreads extends React.Component {
-   constructor(props) {
+   constructor (props) {
       super(props);
-      this.CTXspread = null;
-      this.dbSource = this.props.dataSource;
-      this.state = {
-         trackedBids: [],
-         onView: false
-      };
-
-   }
-   componentDidMount() {
-
+       
+      
+      }
+    componentDidMount () {
+    /*   this.CTXspread = this.props.callCT()
+      this.CTXspread.seedSpread();
+      this.props.setSpreadRef(this.CTXspread);
+      */
    }
    componentWillMount() {
+      
 
-
+    }
+   componentWillUnmount () {
+      
    }
-   componentWillUnmount() {
-
-   }
-   render() {
-      const {
-         activePosList
-      } = this.props;
-      const posList = activePosList.length === 0 ? <div className="no-positions">No Active Positions</div> : null;
-      return (<div className="active-spreads">
-    			{posList}
-              </div>)
+   render() { 
+   const {activePosList, PositionTiles} = this.props;
+   const posList = activePosList.length  ? currentBlocks(activePosList, PositionTiles) : <div className="no-positions">No Active Positions</div> ;
+    return (   <div className="active-spreads watched-spreads">
+            
+            {posList}
+              </div>
+            )
    }
 };

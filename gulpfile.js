@@ -24,8 +24,6 @@ gulp.task('scripts', function () {
 
 });
 
-
-
 gulp.task('css', function () {
    return gulp.src([
          'node_modules/bootstrap-grid/dist/grid.min.css',
@@ -33,6 +31,11 @@ gulp.task('css', function () {
          'public/css/loaderbars.css',
          'public/css/loadbounce.css',
          'public/css/nav.css',
+         'public/css/askbid.css',
+         'public/css/table.css',
+         'public/css/positionblocks.css',
+         'public/css/tradecards.css',
+         'public/css/loadpulse.css',
          'public/css/buttons.css',
          'public/css/chartnav.css',
          'public/css/chartcolors.css',

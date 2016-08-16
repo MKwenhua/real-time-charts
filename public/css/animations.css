@@ -5,6 +5,13 @@ div.fade-in {
     -o-animation: fadein 0.5s;
     animation: fadein 0.5s;
 }
+div.fade-in-fast {
+    -webkit-animation: fadein 0.3s;
+    -moz-animation: fadein 0.3s;
+    -ms-animation: fadein 0.3s;
+    -o-animation: fadein 0.3s;
+    animation: fadein 0.3s;
+}
 @keyframes fadein {
     from {
         opacity: 0;

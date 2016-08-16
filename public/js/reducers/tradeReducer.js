@@ -34,7 +34,6 @@ const pastTrades = [{
       pricestart: 1.327,
       priceend: 1.3272
    },
-
    {
       position: "AUD/JPY",
       volume: 20,
@@ -126,10 +125,11 @@ const pastTrades = [{
 export default function reducer(state = {
    pastTrades: pastTrades,
    currentPos: [],
-   todayTotal: 0.0,
+   todayTotalNet: 0.0,
    moneyAvaliable: 0.0,
    fetching: false,
    fetched: false,
+   deposit: 2500,
    error: null,
 }, action) {
 
@@ -156,20 +156,33 @@ export default function reducer(state = {
                pastTrades: action.payload,
             }
          }
+      case "DEPOSIT_CHANGE":
+         {
+            return {...state,
+               deposit: action.payload
+            }
+            break;
+
+         }
       case "ADD_TRADE":
          {
             return {
                ...state,
-               currentPos: [...state.currentPos, action.payload],
+               deposit: action.payload.deposit,
+               currentPos: action.payload.currentPos,
             }
+            break;
          }
       case "TRADE_COMPLETE":
          {
 
-            return {
-               ...state,
-               pastTrades: [...state.pastTrades, action.payload],
-            }
+            return Object.assign({},
+               ...state, {
+                  deposit: action.payload.deposit,
+                  currentPos: action.payload.currentPos,
+                  pastTrades: action.payload.pastTrades,
+                  todayTotalNet: action.payload.todayTotalNet,
+               });
          }
       case "ADD_MONEY":
          {

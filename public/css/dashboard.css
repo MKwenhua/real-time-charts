@@ -1,6 +1,24 @@
 [draggable=true] {
     -khtml-user-drag: element;
 }
+.chart-blocked {
+    height: 90%;
+}
+.widget-handle {
+    position: absolute;
+    height: 40px;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.fix-fa {
+    margin-bottom: 6px;
+    font-size: 20px!important;
+}
 .wrapper {
     height: 100%;
 }
@@ -38,6 +56,8 @@
 }
 .can-drag {
     cursor: move;
+    /* fallback if grab cursor is unsupported */
+    
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
@@ -61,4 +81,7 @@
     color: #30d94c;*/
     
     color: white;
+}
+.opts-active-sec {
+    color: #00d8ff;
 }

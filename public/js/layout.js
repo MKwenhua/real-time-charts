@@ -1,9 +1,10 @@
 import React from "react";
 
-
+import { connect } from "react-redux";
 import Graph from "./components/graph";
 import RealTime from "./components/realtime";
 import Map from "./components/map";
+import TopNav from "./components/topnav";
 
 const _applyListener = function(type) {
     var histFunc = history[type];
@@ -16,69 +17,50 @@ const _applyListener = function(type) {
     };
 };
  
-window.checkPath = (() => {
-  	const allPaths =  ['/', '/history', '/realtime','/map'];
 
-	const allTitles = {
-		'/': 'Examples',
-		'/history': 'History',
-		'/realtime': 'Real Time',
-		'/map': 'Map Stuff'
-	};
-
-	const ChangeUrl = (title, url) => {
-	  	if (typeof (history.pushState) === "undefined") return ; 
-	  	let obj = { Title: title, Url: url };
-	  	history.pushState(obj, obj.Title, obj.Url);
-	};
-
-	
-	return (path) => {
-		let pathIS = allPaths.reduce((q,i) => { return i === path ?  i : q; },"/" );
-		ChangeUrl(allTitles[pathIS], pathIS);
-		return pathIS;
-	}
-})(); 
-
+@connect((store) => {
+  return {routes: store.routes}
+}) 
 export default class Layout extends React.Component {
 	
-	constructor() {
-		super();
-			history.pushState = _applyListener('pushState');
-			window.onpopstate = (e) => {
-				console.log( e);
-				let newPath = e.state.Url;
-				this.setState({pathName: newPath, blocked: this.routeComponents[newPath]});
-			};
-		    const eventHandler =  (() => {
-		    	const thisScope = this;
-		    	return (e) => {
-		    		console.log('State Changed!', e);
-		    		let newPath = e.arguments[0].Url;
-		    		thisScope.setState({pathName: newPath, blocked: thisScope.routeComponents[newPath]});
-		    	}
-		    })();
-
-			window.addEventListener('pushState', eventHandler);
-			this.routeComponents = {
-				"/": (<Graph  /> ),
-				"/history": (<Graph  />) ,
-				"/realtime" : ( <RealTime  />),
-				"/map" : (<Map />)
-			}
-			this.state = {
-			  pathName: window.location.pathname,
-			  blocked: this.routeComponents[window.checkPath(window.location.pathname)]
-			}
-		} 
-	 	newSet (newPath) {	
-			this.setState({pathName: newPath, blocked: this.routeComponents[newPath]});
+	constructor(props) {
+		super(props);
+		history.pushState = _applyListener('pushState');
+		window.onpopstate = (e) => {
+			console.log(e);
+			let newPath = e.state.Url;
+			let comp = this.props.routes.routeComponents[newPath];
+			let topNav = <TopNav theClass={newPath === '/realtime' ? "rt-alter" : ""} pathName={newPath} />;
+			 this.props.dispatch({
+		          type: "NEW_PATH",
+		          payload: {pathName: newPath, blocked: comp, topNav: topNav}
+		      });
+		
 		};
+	    const eventHandler =  (() => {
+	    	const thisScope = this;
+	    	return (e) => {
+	    		console.log('State Changed!', e);
+	    		let newPath = e.arguments[0].Url;
+	    		let comp = thisScope.props.routes.routeComponents[newPath];
+	    		let topNav = <TopNav theClass={newPath === '/realtime' ? "rt-alter" : ""} pathName={newPath} />;
+	    		thisScope.props.dispatch({
+		          type: "NEW_PATH",
+	    		  payload:{pathName: newPath, blocked: comp , topNav: topNav}
+	    		  });
+	    	}
+	    })();
 
-		setPath () {
-		 	let len = 	window.location.pathname.match('/').length;
-			let path = len === 1 ? '/' : window.location.pathname.replace('/', '');
-		 	this.newSet(checkPath(window.location.pathname));
+		window.addEventListener('pushState', eventHandler);
+			
+		
+		} 
+	 	newSet (newPath) {
+			let comp = thisScope.props.routes.routeComponents[newPath];
+			this.props.dispatch({
+		     type: "NEW_PATH",
+			 payload:{pathName: newPath, blocked: comp}
+			});
 		};
 
 		goState (pp) {
@@ -86,16 +68,13 @@ export default class Layout extends React.Component {
 		}
 
 	render() {
-		
+		console.log('routes', this.props.routes);
+		const {pathName, blocked, topNav} = this.props.routes;
 		return (
 		<div>
-			<nav  id="topNav" className={this.state.pathName === '/realtime' ? "rt-alter" : ""}>
-				<span onClick={this.goState.bind(null,'/history')} className={(this.state.pathName === '/history' || this.state.pathName === '/') ? "blocked-at" : ""}>History</span>
-				<span onClick={this.goState.bind(null,'/realtime')}  className={this.state.pathName === '/realtime' ? "blocked-at" : ""}>Real Time</span>
-				<span onClick={this.goState.bind(null,'/map')}  className={this.state.pathName === '/map' ? "blocked-at" : ""}>Map Thing</span>
-       		</nav> 
-			{this.state.blocked}
+			{topNav}
+			{blocked}
 		</div>
-		);
+		        );
 	}
 };

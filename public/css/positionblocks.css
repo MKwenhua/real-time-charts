@@ -1,0 +1,48 @@
+ul.pos-blocks {
+    list-style: none;
+    margin: 0;
+    padding: 1px;
+    width: 199px;
+    height: 100%;
+    border-right: 1px solid #fff;
+    color: white;
+}
+.watched-spreads {
+    background: #18252e!important;
+    background: rgb(17, 17, 17)!important;
+    background: rgba(24, 37, 46, .95)!important;
+}
+li.pos-block {
+    background: #111;
+    margin: 0px;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    height: 32px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    border: 1px solid;
+    cursor: pointer;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+li.pos-block canvas {
+    float: right;
+    display: inline-block;
+    z-index: 2;
+    vertical-align: top;
+}
+li.pos-block div {
+    line-height: 30px;
+    display: inline-block;
+    height: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+.div-symb-hold {
+    margin-right: 8px;
+}
+.pos-put {
+    border-color: #DC143C!important;
+}
+.pos-call {
+    border-color: #30d94c!important;
+}

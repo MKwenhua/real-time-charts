@@ -111,6 +111,7 @@
 }
 .span-green {
     color: #30d94c;
+    fill: #30d94c!important;
 }
 .deposit-span {
     background: #30d94c;
@@ -131,6 +132,7 @@
 }
 .span-red {
     color: #DC143C;
+    fill: #DC143C!important;
 }
 .border-none {
     border-left: 0;
@@ -144,6 +146,19 @@
 .stat-tile > div.count {
     font-size: 40px;
     line-height: 47px;
+    font-weight: 600;
+}
+.svg-container {
+    overflow: visible;
+    display: inline-block;
+}
+.count-47 {
+    height: 47px;
+}
+.svg-count {
+    font-size: 40px;
+    line-height: 47px;
+    fill: #73879C;
     font-weight: 600;
 }
 .ctx-charts-class a {
