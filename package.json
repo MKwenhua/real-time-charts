@@ -6,7 +6,7 @@
   "main": "start.js",
   "scripts": {
     "start": "node --use_strict start.js",
-    "packit": "webpack && gulp && node --use_strict start.js",
+    "packit": "webpack --progress --colors --bail && gulp && node --use_strict start.js",
     "build": "browserify public/js/main.js -o public/build/bundle.min.js -t [ babelify --presets [ es2015 react stage-1]  --plugins [transform-decorators-legacy transform-strict-mode] ] && gulp css",
     "buildstart": " browserify public/js/main.js -o public/build/bundle.min.js -t [ babelify --presets [ es2015 react ] ] && gulp  && node --use_strict start.js"
   },
