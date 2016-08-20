@@ -6,6 +6,12 @@ module.exports = {
   context: path.join(__dirname, "public"),
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./js/main.js",
+   resolve: {
+    alias: {
+    'react': 'react-lite',
+    'react-dom': 'react-lite'
+    }
+  }, 
   module: {
     loaders: [
       {
