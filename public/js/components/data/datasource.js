@@ -1,5 +1,4 @@
-import io from 'socket.io-client';
-
+//import io from 'socket.io-client';
 import xhr from "xhr";
 
 function DATASOURCE(instanceName = "Default") {
@@ -41,12 +40,7 @@ function DATASOURCE(instanceName = "Default") {
 
    this.instanceName = instanceName;
 
-   this.getRealTimeFeed = function() {
-      console.log('used sockets for getUsers');
-      this.socket.emit('getUsers', {
-         ok: 'give me user list please'
-      });
-   };
+  
    this.getRealTimeXHR = function(cb) {
       xhrGet('getusers', cb);
    };
@@ -55,6 +49,13 @@ function DATASOURCE(instanceName = "Default") {
       var route = 'listparams/' + param;
       xhrGet(route, cb);
 
+   };
+   /*
+   this.getRealTimeFeed = function() {
+      console.log('used sockets for getUsers');
+      this.socket.emit('getUsers', {
+         ok: 'give me user list please'
+      });
    };
    this.getIndicatorSockets = function(country) {
       this.socket.emit('getIndicators', {
@@ -77,6 +78,7 @@ function DATASOURCE(instanceName = "Default") {
    this.startLiveFeed = function(symbol) {
       this.socket.emit('startLiveFeed', symbol);
    };
+   */
    this.getIndicatorXHR = function(country, cb) {
       var route = 'indicator/' + country;
       xhrGet(route, cb);
@@ -89,6 +91,7 @@ function DATASOURCE(instanceName = "Default") {
    }
 
 }
+/*
 //DATASOURCE.prototype.socket = io('https://rtcharts-scgraph.rhcloud.com:8443',{'forceNew':false,'reconnect': false, transports:['websocket'] });
 DATASOURCE.prototype.socket = io('http://localhost:8443', {
    'forceNew': false,
@@ -131,5 +134,5 @@ DATASOURCE.prototype.socket.on('newInstance', (details) => {
    console.log('DATASOURCE.prototype.socketID ', DATASOURCE.prototype.socketID);
 });
 
-
+*/
 module.exports = new DATASOURCE('main');

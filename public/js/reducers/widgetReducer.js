@@ -128,21 +128,6 @@ export default function reducer(state = innitialState, action) {
             return action.payload
             break;
          }
-      case "CONNECTION_LOST":
-         {
-
-            return {...state,
-               connected: false
-            }
-            break;
-         }
-      case "CONNECTED":
-         {
-            return {...state,
-               connected: true
-            }
-            break;
-         }
 
    }
 

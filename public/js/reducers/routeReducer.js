@@ -1,7 +1,7 @@
 import React from "react";
 
 
-import Graph from "../components/graph";
+import Graph from "../components/graph_temp";
 import RealTime from "../components/realtime";
 import Map from "../components/map";
 import TopNav from "../components/topnav";
