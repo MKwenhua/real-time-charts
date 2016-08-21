@@ -6,15 +6,9 @@
   "main": "start.js",
   "scripts": {
     "start": "node --use_strict start.js",
-<<<<<<< HEAD
     "packit": "webpack --progress --colors --bail && gulp && node --use_strict start.js"
-=======
-    "packit": "webpack --progress --colors --bail && gulp && node --use_strict start.js",
-    "build": "browserify public/js/main.js -o public/build/bundle.min.js -t [ babelify --presets [ es2015 react stage-1]  --plugins [transform-decorators-legacy transform-strict-mode] ] && gulp css",
-    "buildstart": " browserify public/js/main.js -o public/build/bundle.min.js -t [ babelify --presets [ es2015 react ] ] && gulp  && node --use_strict start.js"
->>>>>>> 16c68fda4fd19e365474e70bee16ff8484b5f73a
   },
-  "author": "Pete",
+  "author": "Peter Halloran",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.10.4",
