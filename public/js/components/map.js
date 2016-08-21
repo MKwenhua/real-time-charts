@@ -20,7 +20,14 @@ export default class Map extends React.Component {
    }
    gotData(data) {
       console.log('got indicators', data);
-      let dta = JSON.stringify(data, undefined, 2);
+      let theData = {};
+      theData.sec1 = data[0][0];
+      theData.sec2 = data[1].reduce((ob,itm, i) => {
+        let t = 'index_' + i;
+        ob[t] = itm;
+        return ob;
+      },{});
+      let dta = JSON.stringify(theData, undefined, 2);
       this.setState({
          dataBlob: dta
       });
@@ -84,9 +91,9 @@ export default class Map extends React.Component {
 				  <div className="row text-center">
 		          	<div onClick={this.getIndicator.bind(this)} className="big-butt get-indicators-butt">Get Indicators</div>
 		          </div>
-				<div className="row jsonblob">
+				<pre className="row jsonblob">
 					{dataBlob}
-				</div>
+				</pre>
 
 			   </div>)
    }
