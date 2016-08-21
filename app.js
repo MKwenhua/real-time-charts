@@ -44,11 +44,14 @@ app.get(/\/info\/(gen|poll)/, (req,res) => {
 });
 
 app.get('/', (req,res) => {
-	res.render('start');
+  res.render('start',{ 
+    csrfToken: req.csrfToken()
+  });
 });
-
 app.get(/\/(history|map|realtime)/, (req,res) => {
-	res.render('start');
+  res.render('start',{ 
+    csrfToken: req.csrfToken()
+  });
 });
 
 app.get('/xhrs/marketdata/:symbol',  (req,res) => {
