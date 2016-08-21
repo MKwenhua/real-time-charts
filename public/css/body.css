@@ -31,3 +31,14 @@ body {
 .text-center{
 	text-align: center;
 }
+.just-so-you-know{
+	text-align: center;
+	color:#222;
+	font-size: 20px;
+	padding-top: 60px;
+}
+.just-so-you-know ol{
+	width: auto;
+    display: inline-block;
+    text-align: left;
+}

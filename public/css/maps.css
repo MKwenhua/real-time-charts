@@ -1,0 +1,27 @@
+#mapContainer{
+	text-align: center;
+}
+.col-center-sele{
+
+}
+.select-col-maps{
+	display: inline-block;
+	width: 40%;
+	padding: 8px 0px;
+	background: #fff;
+	vertical-align: top;
+}
+.jsonblob{
+	font-size: 13px;
+}
+
+.get-indicators-butt{
+	width: 80%!important;
+	padding: 5px!important;
+	color:#222;
+	background: #00d8ff!important;
+	text-transform: uppercase;
+	font-size: 13px;
+	cursor: pointer;
+	border: 1px solid  #00d8ff!important;
+}

@@ -2,12 +2,14 @@
 import xhr from "xhr";
 
 function DATASOURCE(instanceName = "Default") {
+   this.csrfToken = document.getElementById('hasCsrf').dataset.csrf;
+   let self = this;
    function xhrGet(route, cb) {
       var theURL = '/xhrs/' + route;
 
       var request = new XMLHttpRequest();
-
       request.open('GET', theURL, true);
+      request.setRequestHeader('X-CSRF-Token', self.csrfToken);
       request.onload = function() {
          if (request.status >= 200 && request.status < 400) {
             var resp = request.responseText;

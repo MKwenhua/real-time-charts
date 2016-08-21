@@ -7,6 +7,7 @@ const CardCtx = require('./canvas/cardctx.js');
 const Clock = require('./canvas/clock.js');
 const PositionTiles = require('./canvas/positionTile.js');
 const totalAmountCtx = require('./canvas/depositamt.js');
+const statSVGs = require('./svg/statSVG.js');
 import DATASOURCE from "./data/datasource";
 import OpenWebsocket from "./data/gowebsocket";
 import CanvasChart from "./micro/canvaschart";
@@ -48,6 +49,7 @@ export default class RealTime extends React.Component {
       super(props)
       this.dbSource = OpenWebsocket();
       this.spreadRef = null;
+      this.SvgCB = statSVGs();
       this.cardCtx = CardCtx();
      
       console.log('this.props in constructor', this.props);
@@ -218,6 +220,8 @@ export default class RealTime extends React.Component {
           currentClass = "full-view";
           CtxChart.outOfView();
           Clock.outView();
+          this.SvgCB.inViewBool = true;
+          this.SvgCB.inView();
           this.cardCtx.outView();
           this.spreadRef.outView(); 
           break;
@@ -227,6 +231,7 @@ export default class RealTime extends React.Component {
           this.cardCtx.outView();
           Clock.inView();
           PositionTiles.outView();
+          this.SvgCB.inViewBool = false;
           CtxChart.backInView();
           dashview = "live graphs";
           break;
@@ -237,6 +242,7 @@ export default class RealTime extends React.Component {
           Clock.outView();
           PositionTiles.outView();
           this.cardCtx.inView();
+          this.SvgCB.inViewBool = false;
           this.spreadRef.outView(); 
           break;
         }
@@ -508,7 +514,7 @@ export default class RealTime extends React.Component {
                  <WidgetBlock inView={platformView === "trade history"} />
                 </div>
                  <div  className={platformView === "trade list" ? "wrap-block history-list" : "hide-elm"}>
-                  <TransactionList inView={platformView === "trade list"} pastTrades={this.props.trades.pastTrades} />
+                  <TransactionList inView={platformView === "trade list"} SvgCB={this.SvgCB} pastTrades={this.props.trades.pastTrades} />
                 </div>
                  <div  className={platformView === "live options" ? "wrap-block history-list" : "hide-elm"}>
                   <LiveTickers cardCtx={this.cardCtx} inView={platformView === "live options"}  />

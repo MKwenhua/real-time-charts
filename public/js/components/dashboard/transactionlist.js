@@ -32,7 +32,7 @@ export default class TransactionList extends React.Component {
          return <InfoLi clicked={this.postionClick.bind(this)} key={i+ '_trade'} active={activeNum === i} index={i} animate={this.state.animate} pos={itm} />
       });
       return (<div className="container-fluid wrapper"> 
-            <StatTiles />
+            <StatTiles  SvgCB={ this.props.SvgCB} tradeProps={this.props} />
             <div className="head-line-list">
             <strong>Past Transactions</strong>
             </div>

@@ -31,6 +31,7 @@ gulp.task('css', function () {
          'public/css/loaderbars.css',
          'public/css/loadbounce.css',
          'public/css/nav.css',
+         'public/css/maps.css',
          'public/css/askbid.css',
          'public/css/table.css',
          'public/css/positionblocks.css',

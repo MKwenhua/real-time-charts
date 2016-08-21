@@ -102,7 +102,7 @@ function getIndicator(country, cb) {
    let keyy = country + '_indicators';
    redisShare.get(keyy, (err, reply) => {
       if (reply) {
-         cb(tables);
+         cb(reply);
       } else {
          scrapeIndicators(country, cb, keyy);
       }
