@@ -37,10 +37,10 @@ export default class TransactionList extends React.Component {
             <strong>Past Transactions</strong>
             </div>
             <div className="row">
-            <div className="col-md-7 col-sm-6">
+            <div className="col-lg-7 col-md-6">
             <PositionView inView={inView} pos={pastTrades[activeNum]}/>
             </div>
-                <div className="trade-ul-list col-md-5 col-sm-6"> 
+                <div className="trade-ul-list col-lg-5 col-md-6"> 
                     <ul id="pastTrades">
                     {pastTradeList}
                     </ul>

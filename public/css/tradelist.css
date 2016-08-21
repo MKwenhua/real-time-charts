@@ -168,11 +168,14 @@
     width: 40%;
     min-height: 250px;
     overflow: hidden;
+
     display: inline-block;
 }
 #chart2view {
     width: 55%;
     min-height: 250px;
+    float: right;
+ 
     overflow: hidden;
     margin-left: 3%;
     display: inline-block;

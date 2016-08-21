@@ -6,7 +6,6 @@ function DATASOURCE(instanceName = "Default") {
    let self = this;
    function xhrGet(route, cb) {
       var theURL = '/xhrs/' + route;
-
       var request = new XMLHttpRequest();
       request.open('GET', theURL, true);
       request.setRequestHeader('X-CSRF-Token', self.csrfToken);

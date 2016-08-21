@@ -49,7 +49,7 @@ app.get('/', (req,res) => {
   });
 });
 app.get(/\/(history|map|realtime)/, (req,res) => {
-  res.render('start',{ 
+  res.render('start',{
     csrfToken: req.csrfToken()
   });
 });
