@@ -13,7 +13,6 @@ const innitialState = {
         platformView: "live graphs",
         tradViewClass: "full-view",
         connected: false,
-        charts: {},
         seriesWatch: [] 
 }
     

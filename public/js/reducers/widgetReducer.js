@@ -16,6 +16,7 @@ const WidgetList = {
       kind: "table",
       content: {
          title: "鳳凰傳奇",
+         data: null
       }
    },
    widget3: {
@@ -36,6 +37,7 @@ const WidgetList = {
       kind: "progress",
       content: {
          title: "東西",
+          data: null
       }
    }
 }
@@ -61,7 +63,7 @@ const innitialState = {
       style: {},
       holdType: "FullWidget",
       shown: true,
-      data: WidgetList.widget1,
+      data: WidgetList.widget1
 
 
    },
@@ -71,7 +73,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget2,
+      data: WidgetList.widget2
 
 
    },
@@ -81,7 +83,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget3,
+      data: WidgetList.widget3
 
 
 
@@ -92,7 +94,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget4,
+      data: WidgetList.widget4
 
    }
 
@@ -119,7 +121,7 @@ export default function reducer(state = innitialState, action) {
       case "GOT_MESSAGE":
          {
             return {...state,
-               needsUpdate: action.payload
+               needsUpdate: Object.assign({}, state.needsUpdate, action.payload)
             }
             break;
          }

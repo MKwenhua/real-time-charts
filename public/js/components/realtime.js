@@ -215,7 +215,7 @@ export default class RealTime extends React.Component {
     }
     addNewChart(symb, index) {
         let stateOB = Object.assign({}, this.props.rt);
-        let { charts, chartList, chartsActive } = stateOB;
+        let { chartList, chartsActive } = stateOB;
         let keyy = symb + '_canvas';
 
         stateOB.chartPositions[symb] = {
