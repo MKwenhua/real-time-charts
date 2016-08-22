@@ -10,7 +10,7 @@ const totalAmountCtx = require('./canvas/depositamt.js');
 const statSVGs = require('./svg/statSVG.js');
 import DATASOURCE from "./data/datasource";
 import OpenWebsocket from "./data/gowebsocket";
-import CanvasChart from "./micro/canvaschart";
+import CanvasChart from "./dashboard/livegraph/canvaschart";
 import LiveStart from "./micro/livestart";
 import LoadConnect from "./loaders/spinload";
 import ForexList from "./micro/lists/forexlist";
@@ -22,23 +22,18 @@ import TransactionList from "./dashboard/transactionlist";
 import LiveTickers from "./dashboard/livetickers";
 import WatchedSpreads from "./dashboard/partialview/watchedspreads";
 
- 
-const chartClasses = (chartsLen) => {
-  if(chartsLen === 0){
-    return ["chart-box-100 col-sm-12", "chart-box-50 col-sm-12"];
-  }
-  if (chartsLen === 1){
-    return ["chart-box-100 col-sm-12", "chart-box-50 col-sm-12"];
-  }
-  if (chartsLen === 2) {
-    return  ["chart-box-50 col-sm-12", "chart-box-50 col-sm-12"];
-  }
-  if (chartsLen === 3) {
-    return  ["chart-box-50 td-reduce col-sm-6", "chart-box-50 col-sm-12"];
-  }
-  if (chartsLen === 4) {
-    return  ["chart-box-50 td-reduce col-sm-6","chart-box-50 td-reduce col-sm-6"];
-  }
+const chartContainers = (charts) => {
+  let chartsLen = charts.length;
+  return charts.map((itm, i) => {
+     let clName = (chartsLen === 4) ? "chart-box-50 td-reduce col-sm-6" : "chart-box-100 col-sm-12";
+     if (chartsLen === 2) {
+        clName = "chart-box-50 col-sm-12"
+     }
+     if (chartsLen === 3) {
+        clName = i === 2 ? "chart-box-50 col-sm-12" : "chart-box-50 td-reduce col-sm-6";
+     }
+     return <div key={itm.keyy} className={clName}>  {itm.component}  </div>;
+  });
 
 };
 @connect((store) => {
@@ -57,7 +52,6 @@ export default class RealTime extends React.Component {
       this.optView = this.optView.bind(this);
       this.closeCrt = this.closeCrt.bind(this);
       this.wbClosed = this.wbClosed.bind(this);
-      this.freshSet = this.freshSet.bind(this);
       this.setSpreadRef = this.setSpreadRef.bind(this);
       this.canvasPlaced = this.canvasPlaced.bind(this);
       this.switchIndices = this.switchIndices.bind(this);
@@ -102,81 +96,21 @@ export default class RealTime extends React.Component {
           payload:   !this.props.rt.chartAddOpen 
       })
     }
-    freshSet () {
-      let lvStart = <LiveStart startChart={this.addNewChart.bind(this)} />;
-      let cleanSlate =  {
-        chart1: null,
-        chart2: null,
-        chart3: null,
-        chart4: null,
-        chartPositions: {},
-        totalCharts: 0,
-        newSet: lvStart,
-        charts: {},
-        chartClass: ["chart-box-100 col-sm-12", "chart-box-50 col-sm-12"],
-        chartSlots: ['chart1', 'chart2', 'chart3', 'chart4'],
-        seriesWatch: []};
-      let stateSwitch = Object.assign({},this.props.rt, cleanSlate);
-      this.props.dispatch({
-          type: "CLOSE_CHART",
-          payload: stateSwitch
-      })
-    }
-    closeCrt (chrtSym) {
-      let stateSwitch = Object.assign({},this.props.rt, {chart1: null, chart2:null, chart3: null, chart4: null});
-      if (stateSwitch.totalCharts <= 1) {
-        this.freshSet();
-        return false;
-
-      }
-      let chartInd = {chart1: 0, chart2: 1, chart3: 2, chart4: 3 }
-      let chartArr = ['chart1', 'chart2', 'chart3', 'chart4'];
-      let series = this.props.rt.seriesWatch.filter((itm) => {
-        return itm !== chrtSym;
-      })
-      let chartPositions = this.props.rt.seriesWatch.reduce((ob,itm) => {
-         if(itm !== chrtSym){
-          ob[itm] = this.props.rt.chartPositions[itm];
-         }
-         return ob;
-      }, {});
-      let cts = this.props.rt.charts; 
-      let chartIndex = chartInd[cts[chrtSym].slot];
-
-      let charts = Object.keys(cts).reduce((ob,itm) => {
-        if (itm === chrtSym){
-          return ob
-        }else{
-          if (chartInd[cts[itm].slot] > chartIndex ){
-            let chartRef =  { slot: chartArr[chartInd[cts[itm].slot] - 1],
-              symbol: cts[itm].symbol
-            }
-            ob[itm] = chartRef;
-            stateSwitch[chartRef.slot] = this.props.rt[cts[itm].slot];
-          }else{
-            ob[itm] = cts[itm];
-            stateSwitch[cts[itm].slot] = this.props.rt[cts[itm].slot];
-          }
-          return ob;
-        }
-      },{})
-    
-      let chartsLen = Object.keys(charts).length;
-      stateSwitch['chartClass'] = chartClasses(chartsLen);
-      stateSwitch['totalCharts'] = this.props.rt.totalCharts - 1;
-      stateSwitch['seriesWatch'] = series;
+   closeCrt(chrtSym) {
+      let {chartList, totalCharts } = this.props.rt;
+      let stateSwitch = Object.assign({}, this.props.rt);
+      let newChartTotal = totalCharts - 1;
+      stateSwitch.chartList = chartList.filter((itm, i) => itm.symb !== chrtSym);
+      stateSwitch['totalCharts'] = newChartTotal;
+      stateSwitch['newSet'] = newChartTotal ? null : <LiveStart startChart={this.addNewChart.bind(this)} />;
       stateSwitch['platformView'] = "live graphs";
-      stateSwitch['chartPositions'] = chartPositions;
-      stateSwitch['chartSlots'] = chartArr.slice(chartsLen);
-      stateSwitch['charts'] = charts;
-
-     this.props.dispatch({
-          type: "CLOSE_CHART",
-          payload: stateSwitch
-      }) 
+      this.props.dispatch({
+         type: "CLOSE_CHART",
+         payload: stateSwitch
+      })
 
 
-    } 
+   }
     switchIndices(e) {
       if (e.target.classList.contains('selected-li')) return 'yo';
 
@@ -280,46 +214,43 @@ export default class RealTime extends React.Component {
   
     }
     addNewChart(symb, index) {
-      let charts = this.props.rt.charts;
-      let chartSlots = this.props.rt.chartSlots;
-      let slot = chartSlots.shift();
-      charts[symb] = {
-        slot: slot,
-        symbol: symb
-      };
-      let chartsLen = Object.keys(charts).length;
-      let chartClass = this.props.rt.chartClass;
-      if (chartsLen === 2) {
-        chartClass[0] = "chart-box-50 col-sm-12";
-      }
-      if (chartsLen === 3) {
-        chartClass[0] = "chart-box-50 td-reduce col-sm-6";
-      }
-      if (chartsLen === 4) {
-        chartClass[1] = "chart-box-50 td-reduce col-sm-6";
-      }
-      let stateOB = Object.assign({},this.props.rt);
-   
-      if(this.props.rt.totalCharts === 0){
-      stateOB['onStart'] = false;
-      }
-      stateOB.chartPositions[symb] = {trades: [], position: {}, total: 0.0, current: null}
-      stateOB['charts'] = charts;
-      stateOB['chartSlots'] = chartSlots;
-      stateOB['chartClass'] = chartClass;
-      stateOB['addButton'] = true;
-      stateOB['newSet'] = null;
-      stateOB['chartAddOpen'] = false;
-  
-      stateOB['totalCharts'] = this.props.rt.totalCharts + 1;
-      let keyy = symb + '_key';
-      stateOB[slot] = <CanvasChart key={keyy} newPos={this.newPos.bind(this)} depChg={this.depositChanged.bind(this)}  ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={stateOB.chartPositions[symb]} clCtx={this.closeCrt.bind(this)} dataSource={this.dbSource} mainSym={symb} whenMounted={this.canvasPlaced.bind(this)} />;
-      
-      this.props.dispatch({
-          type: "ADD_CHART",
-          payload: stateOB
+        let stateOB = Object.assign({}, this.props.rt);
+        let { charts, chartList, chartsActive } = stateOB;
+        let keyy = symb + '_canvas';
+
+        stateOB.chartPositions[symb] = {
+           trades: [],
+           position: {},
+           total: 0.0,
+           current: null
+        };
+        let newCtx = {
+           symb: symb,
+           keyy: keyy,
+           component: <CanvasChart 
+            newPos={this.newPos.bind(this)} 
+            depChg={this.depositChanged.bind(this)}  
+            ctx={CtxChart.passCTXconstructor()}
+            clock={Clock} 
+            positions={stateOB.chartPositions[symb]} 
+            clCtx={this.closeCrt.bind(this)} 
+            dataSource={this.dbSource} 
+            mainSym={symb} 
+            whenMounted={this.canvasPlaced.bind(this)} />
+        };
+        stateOB.chartList.push(newCtx);
+        if (this.props.rt.totalCharts === 0) {
+           stateOB['onStart'] = false;
+        }
+        stateOB.totalCharts = stateOB.chartList.length;
+        stateOB['addButton'] = true;
+        stateOB['newSet'] = null;
+        stateOB['chartAddOpen'] = false;
+        this.props.dispatch({
+           type: "ADD_CHART",
+           payload: stateOB
         })
-    }
+     }
 
     
     canvasPlaced() {
@@ -432,11 +363,12 @@ export default class RealTime extends React.Component {
     }
   
   render() {
-    let {optsComponent,onStart, platformView, tradViewClass, chart1, chart2, chart3, chart4 , chartClass}  = this.props.rt;
+    let {optsComponent,onStart, platformView, tradViewClass, chartList}  = this.props.rt;
     let tdClass = tradViewClass === "half-view";
     const onlineStatus = this.props.rt.connected ? "Connected" : "Not Connected";
     let blockStart = onStart ? <LiveStart startChart={this.addNewChart.bind(this)} /> : null;
     let blocked = this.props.rt.connected ? blockStart : <LoadConnect />;
+    let allCharts = chartList.length ? chartContainers(chartList) : null;
     return (<div>
             <div id="rtTopNavUI">
               <div className="fake-logo">
@@ -496,19 +428,8 @@ export default class RealTime extends React.Component {
                  <div className={platformView === "live graphs" ? "wrap-block" : "hide-elm"}>
                    {this.props.rt.newSet}
 
-               
-                  <div className={chart1 ? chartClass[0] : "hide-elm"}>
-                     {chart1}
-                  </div>
-                  <div className={chart2 ? chartClass[0] : "hide-elm"}>
-                    {chart2}
-                  </div>
-                  <div className={chart3 ? chartClass[1] : "hide-elm"}>
-                    {chart3}
-                  </div>
-                 <div className={chart4 ? chartClass[1] : "hide-elm"}>
-                     {chart4}
-                 </div>
+                   {allCharts}
+
                 </div>
                 <div id="dashView" className={platformView === "trade history" ? "wrap-block" : "hide-elm"}>
                  <WidgetBlock inView={platformView === "trade history"} />

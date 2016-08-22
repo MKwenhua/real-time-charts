@@ -2,10 +2,6 @@ const React = require('react');
 
 const innitialState = {
         onStart: true,
-        chart1: null,
-        chart2: null,
-        chart3: null,
-        chart4: null, 
         chartPositions: {},
         chartAddOpen: false,
         selectUl: "forex",
@@ -13,13 +9,12 @@ const innitialState = {
         addButton: false,
         optsComponent: null,
         newSet: null,
+        chartList: [],
         platformView: "live graphs",
         tradViewClass: "full-view",
-        chartClass: ["chart-box-100 col-sm-12", "chart-box-50 col-sm-12"],
-        chartSlots: ['chart1', 'chart2', 'chart3', 'chart4'],
         connected: false,
         charts: {},
-        seriesWatch: []
+        seriesWatch: [] 
 }
     
 
