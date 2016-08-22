@@ -13,12 +13,14 @@ const env          = process.env;
 const socketio     = require('socket.io');
 const redis        = require('redis'); 
 const sio_redis    = require('socket.io-redis'); 
-const inLocal      = false;
-const sub          = redis.createClient(6379, '127.0.0.1' ,{ return_buffers: true});
-const pub          = redis.createClient(6379, '127.0.0.1' ,{ return_buffers: true});
-const marketData = require('./marketdata.js');
-const tradingEcon = require('./tradingecon.js');
-const userNrooms  = {};
+const inLocal      = true;
+const redisPort    = inLocal ? 6379 : 16379;
+const redisAddress = inLocal ? '127.0.0.1' : '127.9.140.2';
+const sub          = redis.createClient(redisPort, redisAddress ,{ return_buffers: true});
+const pub          = redis.createClient(redisPort, redisAddress ,{ return_buffers: true});
+const marketData   = require('./marketdata.js');
+const tradingEcon  = require('./tradingecon.js');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -90,8 +92,10 @@ var setAdapter = (() => {
     }
   }
 })();
-
-
+if (inLocal) {
+  setAdapter();
+  setAdapter();
+} else {
 sub.auth(env.REDIS_PW , (err) => {
   if (err) {
     console.log(err)
@@ -105,13 +109,9 @@ pub.auth(env.REDIS_PW , (err) => {
   };
   setAdapter();
 });
-
-function removeSockId(sockID){
-		userNrooms[sockID].forEach((a) =>{
-      userNrooms[a] = userNrooms[a].filter((q) => q !== sockID)
-		});
-		delete userNrooms[sockID]; 
 }
+
+
 io.on('connection', (socket) => {
 
   socket.emit('newInstance', { sockId: socket.id  }); 
