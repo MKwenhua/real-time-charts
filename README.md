@@ -11,4 +11,8 @@
 <br>
 <strong>Thanks</strong>
 
+<br>
+<p>This is a quick view of the current UI before I make a few big changes:</p>
+<a href="https://vid.me/9cCj"  target="_blank">Vid.me Video</a>
+
 
