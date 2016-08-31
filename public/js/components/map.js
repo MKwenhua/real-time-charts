@@ -16,18 +16,20 @@ export default class Map extends React.Component {
       this.gotData = this.gotData.bind(this);
       this.getDataCall = this.getDataCall.bind(this);
       this.continentChange = this.continentChange.bind(this);
+      this.countryChange = this.countryChange.bind(this);
       this.getIndicator = this.getIndicator.bind(this);
    }
    gotData(data) {
       console.log('got indicators', data);
       let theData = {};
       theData.sec1 = data[0][0];
-      theData.sec2 = data[1].reduce((ob,itm, i) => {
-        let t = 'index_' + i;
-        ob[t] = itm;
-        return ob;
-      },{});
+      theData.sec2 = data[1].reduce((ob, itm, i) => {
+         let t = 'index_' + i;
+         ob[t] = itm;
+         return ob;
+      }, {});
       let dta = JSON.stringify(theData, undefined, 2);
+      this.refs.regionSelect
       this.setState({
          dataBlob: dta
       });
@@ -35,6 +37,13 @@ export default class Map extends React.Component {
    }
    getDataCall(country) {
       this.dbSource.getIndicatorXHR(country, this.gotData);
+   }
+   countryChange(e) {
+      let ex = e.target.value;
+
+      this.setState({
+         country: ex
+      });
    }
    continentChange(e) {
       let ex = e.target.value;
@@ -46,7 +55,7 @@ export default class Map extends React.Component {
    }
    getIndicator() {
       let cntry = this.refs.countrySelect.value;
-      this.getDataCall('china');
+      this.getDataCall(cntry);
    }
    componentDidMount() {
       this.getDataCall('china');
@@ -64,37 +73,38 @@ export default class Map extends React.Component {
 
       });
       return (<div id="mapContainer" className="container">
-						 <h2>成龍大哥</h2>
-				<div className="row col-center-sele">
-						 <div className="select-col-maps">
-						         <strong>Continent:</strong>
-								 <select ref="regionSelect"
-								         className="symbol-pick live-sym"
-								         value={continent}
-								         onChange={this.continentChange.bind(this)} >
-								 	 <option key='AFRICA-KEY' value="AFRICA">AFRICA</option>
-									 <option key='AMERICA-KEY' value="AMERICA">AMERICA</option>
-									 <option key='ASIA-KEY' value="ASIA">ASIA</option>
-									 <option key='AUSTRALIA-KEY' value="AUSTRALIA">AUS/PACIFIC</option>
-									 <option key='EUROPE-KEY' value="EUROPE">EUROPE</option>
-								 </select>
-						 </div>
-						 <div className="select-col-maps">
-						         <strong>Country:</strong>
-								 <select ref="countrySelect"
-								 		 value={country}
-								         className="symbol-pick live-sym">
-								  {countryOpts}
-								 </select>
-				  		</div>
-				  </div>
-				  <div className="row text-center">
-		          	<div onClick={this.getIndicator.bind(this)} className="big-butt get-indicators-butt">Get Indicators</div>
-		          </div>
-				<pre className="row jsonblob">
-					{dataBlob}
-				</pre>
+                   <h2>Econ Indicators</h2>
+            <div className="row col-center-sele">
+                   <div className="select-col-maps">
+                           <strong>Continent:</strong>
+                         <select ref="regionSelect"
+                                 className="symbol-pick live-sym"
+                                 value={continent}
+                                 onChange={this.continentChange.bind(this)} >
+                            <option key='AFRICA-KEY' value="AFRICA">AFRICA</option>
+                            <option key='AMERICA-KEY' value="AMERICA">AMERICA</option>
+                            <option key='ASIA-KEY' value="ASIA">ASIA</option>
+                            <option key='AUSTRALIA-KEY' value="AUSTRALIA">AUS/PACIFIC</option>
+                            <option key='EUROPE-KEY' value="EUROPE">EUROPE</option>
+                         </select>
+                   </div>
+                   <div className="select-col-maps">
+                           <strong>Country:</strong>
+                         <select ref="countrySelect"
+                               value={country}
+                                 className="symbol-pick live-sym"
+                         onChange={this.countryChange.bind(this)} >
+                          {countryOpts}
+                         </select>
+                  </div>
+              </div>
+              <div className="row text-center">
+                  <div onClick={this.getIndicator.bind(this)} className="big-butt get-indicators-butt">Get Indicators</div>
+                </div>
+            <pre className="row jsonblob">
+               {dataBlob}
+            </pre>
 
-			   </div>)
+            </div>)
    }
 };

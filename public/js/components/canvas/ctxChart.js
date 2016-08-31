@@ -1,3 +1,4 @@
+const trendLineCreate = require('./trendlineCTX.js');
 function CtxController () {
  let inView = true;
  this.outOfView = () => {
@@ -16,6 +17,7 @@ const CtxChrt = (symbl) => {
   let dataFull = false;
   let hadData = false;
   const mainSymbol = symbl;
+  const TrendLine = trendLineCreate(symbl + '_trend');
   const dataPoints = {}
   const aX = {
     interval: 5,
@@ -125,6 +127,7 @@ const CtxChrt = (symbl) => {
     backgroundColor: "#18252e",
     data: series
   });
+  chart.setTrendLineCB(TrendLine.lineShift, TrendLine.callPutLines);
   const modifySeries = (type) => {
     let chartConfig = chartConfigs[type]();
     let tyChange = {

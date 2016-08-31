@@ -1,3 +1,6 @@
+/**********
+Note: This code is no longer in use, but I decided to keep it for
+/*********/
 const redis        = require('redis'); 
 const redisShare = redis.createClient();
 const tickData = {};
@@ -26,7 +29,7 @@ function liveStream(room, indexx, lastVal){
 
 function startRoom(roomName) {
 	 let lastVal = tickData.eur_usd_m1[tickData.len - 1][3];
-    let theMin = tickData.eur_usd_m1[0][2];
+   let theMin = tickData.eur_usd_m1[0][2];
 	 io.sockets.in(roomName).emit(roomName + '_Feed',{symb:roomName ,   data: tickData.eur_usd_m1[0], lastVal: lastVal, min:theMin }); 
    setTimeout(function(){  liveStream(roomName, 0); }, 100);
 }

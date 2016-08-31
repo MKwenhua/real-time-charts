@@ -92,6 +92,7 @@ function scrapeIndicators(country, cb, keyy) {
       redisShare.set(keyy, JSON.stringify(tables), (err, reply) => {
          if (!err) {
             cb(tables);
+            redisShare.expireat(keyy, parseInt((+new Date)/1000) + 86400);
          }
       });
 

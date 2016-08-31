@@ -16,7 +16,7 @@ var stripCssComments = require('gulp-strip-css-comments');
 
 gulp.task('scripts', function () {
    return gulp.src([
-        'public/js/components/canvas/canvas.js',
+        'public/js/components/canvas/canvasJS.js',
         'public/build/bundle.min.js'
       ])
       .pipe(concat('app.min.js'))
@@ -30,6 +30,7 @@ gulp.task('css', function () {
          'public/css/body.css',
          'public/css/loaderbars.css',
          'public/css/loadbounce.css',
+         'public/css/trendline.css',
          'public/css/nav.css',
          'public/css/maps.css',
          'public/css/askbid.css',

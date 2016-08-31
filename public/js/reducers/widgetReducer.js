@@ -63,7 +63,7 @@ const innitialState = {
       style: {},
       holdType: "FullWidget",
       shown: true,
-      data: WidgetList.widget1
+      data: WidgetList.widget1,
 
 
    },
@@ -73,7 +73,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget2
+      data: WidgetList.widget2,
 
 
    },
@@ -83,7 +83,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget3
+      data: WidgetList.widget3,
 
 
 
@@ -94,7 +94,7 @@ const innitialState = {
       style: {},
       shown: true,
       holdType: "FullWidget",
-      data: WidgetList.widget4
+      data: WidgetList.widget4,
 
    }
 
