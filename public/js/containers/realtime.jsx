@@ -14,8 +14,7 @@ import OpenWebsocket from "data/gowebsocket";
 import CanvasChart from "dashboard/livegraph/canvaschart";
 import LiveStart from "micro/livestart";
 import LoadConnect from "components/loaders/spinload";
-import ForexList from "micro/lists/forexlist";
-import StockList from "micro/lists/socklist";
+import TradeListBlock from "micro/lists/trade_list"
 import ActiveSpreads from "dashboard/options/activespreads";
 import WidgetBlock from "dashboard/widgetblock";
 import SideOptions from "dashboard/sideoptions";
@@ -69,14 +68,7 @@ export default class RealTime extends React.Component {
       this.depositChanged = this.depositChanged.bind(this);
       dbSource.on.liveFeedStarted = (details) => this.liveFeedStarted(details);
       dbSource.onclose = (event) => this.wbClosed(event);
-      this.ulBlock = (indices, that) => {
-         if (indices === "stocks") {
-            return <StockList used={that.props.rt.seriesWatch} startChart={that.addNewChart.bind(that)}/>;
-         }
-         if (indices === "forex") {
-            return <ForexList used={that.props.rt.seriesWatch} startChart={that.addNewChart.bind(that)}/>;
-         }
-      }
+
    }
    wbClosed(event) {
       console.log("Connection Closed");
@@ -385,7 +377,7 @@ export default class RealTime extends React.Component {
                            <li key={"forex"} data-key="forex" className={this.props.rt.selectUl === "forex" ? "selected-li" : ""}>Forex</li>
                         </ul>
                      </div>
-                     {this.ulBlock(this.props.rt.selectUl, this)}
+                     {TradeListBlock(this.props.rt.selectUl, this)}
                   </div>
 
                </div>
