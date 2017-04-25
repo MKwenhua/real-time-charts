@@ -1,26 +1,35 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+const debug = process.env.NODE_ENV !== "production";
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  context: path.join(__dirname, "public"),
   devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/main.js",
+  entry: "./public/js/main.js",
    resolve: {
-    alias: {
-    'react': 'react-lite',
-    'react-dom': 'react-lite'
-    }
-  }, 
+   extensions: ['','.js', '.jsx'],
+   alias: {
+     dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
+     components:  path.resolve( __dirname, 'public/js/components'),
+     svg:  path.resolve( __dirname, 'public/js/components/svg'),
+     canvas:  path.resolve( __dirname, 'public/js/components/canvas'),
+     Canvas2DContext:  path.resolve( __dirname, 'public/js/components/canvas/ctxcomponents/ctxContextSet.js'),
+     container:  path.resolve( __dirname, 'public/js/containers'),
+     helper:  path.resolve( __dirname, 'public/js/helpers'),
+     graph_helpers:  path.resolve( __dirname, 'public/js/helpers/graph_helper'),
+     micro: path.resolve( __dirname, 'public/js/components/micro'),
+     data: path.resolve( __dirname, 'public/js/data'),
+     topnav:  path.resolve( __dirname, 'public/js/containers/topnav')
+   }
+  },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+       test: /\.jsx?$/,
+       exclude: /(node_modules|bower_components)/,
+       loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],
-          plugins: [ 'transform-class-properties', 'transform-decorators-legacy'],
+          plugins: [ 'transform-decorators-legacy'],
         }
       }
     ]
@@ -32,11 +41,15 @@ module.exports = {
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     new webpack.DefinePlugin({
        'process.env': {
          'NODE_ENV': JSON.stringify('production')
          }
     })
+
   ],
+};
+
 };

@@ -13,14 +13,14 @@ redisShare.get('NYSE',(err, reply) => {
 });*/
 module.exports =   {
    getData: function(symb, cb){
-    let theURL = ["http://marketdata.websol.barchart.com/getHistory.json?key=",env.marketDataKEY,"&symbol=" ,symb, "&type=daily&startDate=20150704000000"].join("");
+    let theURL = ["http://marketdata.websol.barchart.com/getHistory.json?key=",process.env.marketDataKEY,"&symbol=" ,symb, "&type=daily&startDate=20150704000000"].join("");
    	resty.get(theURL , function (data, response) {
 			cb(data);
 			
 		});
    },
    getDataCB: function(symb,cb){
-    let theURL = ["http://marketdata.websol.barchart.com/getHistory.json?key=",env.marketDataKEY,"&symbol=" ,symb, "&type=daily&startDate=20150704000000"].join("");
+    let theURL = ["http://marketdata.websol.barchart.com/getHistory.json?key=",process.env.marketDataKEY,"&symbol=" ,symb, "&type=daily&startDate=20150704000000"].join("");
    	resty.get(theURL , function (data, response) {
 			cb(JSON.stringify(data));
 			

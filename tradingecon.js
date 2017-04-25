@@ -3,7 +3,7 @@ const redis = require('redis');
 const request = require('request');
 const cheerio = require('cheerio');
 const redisShare = redis.createClient(17129, process.env.REDIS_ENDPOINT);
-redisShare.auth(process.env.REDIS_PW, (err) => {
+redisShare.auth(process.env.REDIS_LABS_PW, (err) => {
    if (err) {
       console.log(err)
    };
