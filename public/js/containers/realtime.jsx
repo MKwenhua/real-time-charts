@@ -345,7 +345,8 @@ export default class RealTime extends React.Component {
    }
 
    render() {
-      let {optsComponent, onStart, platformView, tradViewClass, chartList} = this.props.rt;
+      let {optsComponent, onStart, platformView, tradViewClass, addButton, totalCharts ,chartList, chartAddOpen,newSet, selectUl ,connected} = this.props.rt;
+      let { currentPos, pastTrades} = this.props.trades
       let tdClass = tradViewClass === "half-view";
       const onlineStatus = this.props.rt.connected ? "Connected" : "Not Connected";
       let blockStart = onStart ? <LiveStart startChart={this.addNewChart.bind(this)}/> : null;
@@ -362,27 +363,27 @@ export default class RealTime extends React.Component {
                      Trade Stuff
                   </span>
                </div>
-               <div className={this.props.rt.addButton ? "add-chart" : "add-chart no-see-no-click"} onClick={this.addChartMenu.bind(this)}>
+               <div className={addButton ? "add-chart" : "add-chart no-see-no-click"} onClick={this.addChartMenu.bind(this)}>
                   <i className="material-icons">add</i>
                </div>
-               <div id="chartAdOptions" className={this.props.rt.chartAddOpen ? "" : "hide-elm"}>
-                  <div className={this.props.rt.totalCharts >= 4 ? "add-chart-warn" : "hide-elm"}>
+               <div id="chartAdOptions" className={chartAddOpen ? "" : "hide-elm"}>
+                  <div className={totalCharts >= 4 ? "add-chart-warn" : "hide-elm"}>
                      <h3>You can only have 4 charts at a time, sorry!</h3>
                   </div>
-                  <div className={this.props.rt.totalCharts < 4 ? "add-chart-cnt" : "hide-elm"}>
+                  <div className={totalCharts < 4 ? "add-chart-cnt" : "hide-elm"}>
                      <div className="column-two type-nav">
                         <strong>Market</strong>
                         <ul onClick={this.switchIndices.bind(this)}>
-                           <li key={"stocks"} data-key="stocks" className={this.props.rt.selectUl === "stocks" ? "selected-li" : ""}>Stocks</li>
-                           <li key={"forex"} data-key="forex" className={this.props.rt.selectUl === "forex" ? "selected-li" : ""}>Forex</li>
+                           <li key={"stocks"} data-key="stocks" className={selectUl === "stocks" ? "selected-li" : ""}>Stocks</li>
+                           <li key={"forex"} data-key="forex" className={selectUl === "forex" ? "selected-li" : ""}>Forex</li>
                         </ul>
                      </div>
-                     {TradeListBlock(this.props.rt.selectUl, this)}
+                     {TradeListBlock(selectUl, this)}
                   </div>
 
                </div>
                <div id="connectedState">
-                  <div className={this.props.rt.connected ? "online-state online" : "online-state offline"}></div>
+                  <div className={connected ? "online-state online" : "online-state offline"}></div>
                   <span>{onlineStatus}</span>
                </div>
             </div>
@@ -398,19 +399,19 @@ export default class RealTime extends React.Component {
 
                {blocked}
 
-               <SideOptions platformView={platformView} optsComponent={optsComponent} tdClass={tdClass} onStart={this.props.rt.onStart} itmView={this.optView.bind(this)}/>
+               <SideOptions platformView={platformView} optsComponent={optsComponent} tdClass={tdClass} onStart={onStart} itmView={this.optView.bind(this)}/>
 
-               <section id="optionsView" className={this.props.rt.onStart ? "hide-elm" : "ok"}>
+               <section id="optionsView" className={onStart ? "hide-elm" : "ok"}>
                   <div className={optsComponent === "spreads" ? "in-view-opts" : "hide-elm"}>
                      <ActiveSpreads setSpreadRef={this.setSpreadRef.bind(this)} callCT={spreadCTX} dataSource={dbSource}/>
                   </div>
                   <div className={optsComponent === "current-bids" ? "in-view-opts" : "hide-elm"}>
-                     <WatchedSpreads PositionTiles={PositionTiles} activePosList={this.props.trades.currentPos}/>
+                     <WatchedSpreads PositionTiles={PositionTiles} activePosList={currentPos}/>
                   </div>
                </section>
-               <section id="tradingplatform" className={this.props.rt.onStart ? "hide-elm" : tradViewClass}>
+               <section id="tradingplatform" className={onStart ? "hide-elm" : tradViewClass}>
                   <div className={platformView === "live graphs" ? "wrap-block" : "hide-elm"}>
-                     {this.props.rt.newSet}
+                     {newSet}
 
                      {allCharts}
 
@@ -419,7 +420,7 @@ export default class RealTime extends React.Component {
                      <WidgetBlock inView={platformView === "trade history"}/>
                   </div>
                   <div className={platformView === "trade list" ? "wrap-block history-list" : "hide-elm"}>
-                     <TransactionList inView={platformView === "trade list"} viewCntrl={viewCntrl} SvgCB={SvgCB} pastTrades={this.props.trades.pastTrades}/>
+                     <TransactionList inView={platformView === "trade list"} viewCntrl={viewCntrl} SvgCB={SvgCB} pastTrades={pastTrades}/>
                   </div>
                   <div className={platformView === "live options" ? "wrap-block history-list" : "hide-elm"}>
                      <LiveTickers cardCtx={cardCtx} inView={platformView === "live options"}/>
