@@ -6,7 +6,7 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./public/js/main.js",
    resolve: {
-   extensions: ['','.js', '.jsx'],
+   extensions: ['.js', '.jsx'],
    alias: {
      dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
      components:  path.resolve( __dirname, 'public/js/components'),
@@ -50,6 +50,4 @@ module.exports = {
     })
 
   ],
-};
-
 };

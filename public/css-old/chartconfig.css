@@ -1,0 +1,80 @@
+.chart-set {
+    background-color: #3A3A4F;
+    color: #CAD5E7;
+    padding: 0;
+    margin: 0;
+}
+.chart-types > span {
+    font-weight: 500;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+    padding: 2px;
+    margin-left: 10px;
+}
+.chart-types > span:hover {
+    color: #90ef7f;
+}
+.set-at {
+    color: #90ef7f;
+    font-weight: 800!important;
+}
+.chart-types {
+    display: inline-block;
+}
+#chartConfig {
+    display: block;
+    background: #fff;
+    color: #565b65;
+}
+#chartConfig i {
+    vertical-align: middle;
+}
+#chartConfig > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.label {
+    font-weight: 400;
+}
+.compare {
+    cursor: pointer;
+}
+.compare > i {
+    font-size: 20px;
+}
+.compare:hover {
+    font-weight: 800!important;
+}
+.compare:hover > i {
+    font-weight: 800!important;
+}
+ul.inline-ul > li {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+select.chart-pick {
+    cursor: pointer;
+    display: inline-block;
+    text-transform: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    padding: 0px 2px;
+    border-color: #ccc;
+    font-size: 14px;
+    color: #30d94c;
+    font-weight: 700!important;
+    border: 1px solid #fff;
+    border-radius: 0;
+}
+select.chart-pick:hover {
+    border-color: #90ef7f;
+    background-color: rgba(128, 179, 236, 0.298039);
+}

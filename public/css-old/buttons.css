@@ -1,0 +1,28 @@
+.big-butt {
+    line-height: 1.428571429;
+    border-radius: 2px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+    width: 50%;
+}
+.big-butt:hover {
+    border-radius: 15px;
+}
+.cool-button {
+    border: 1px solid white;
+    color: white;
+    font-size: 13px;
+    padding: 10px 25px;
+    margin: 0 4px;
+    text-transform: uppercase;
+}
+.cool-button:hover {
+    background-color: white;
+    color: #777;
+}

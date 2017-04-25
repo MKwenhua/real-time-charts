@@ -1,0 +1,110 @@
+select option[disabled] {
+    display: none;
+}
+#chartAdOptions {
+    position: absolute;
+    top: 43px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    background: rgba(24, 37, 46, .95);
+    height: 450px;
+    width: 500px;
+    overflow: hidden;
+    margin-left: -40px;
+    color: white;
+    padding: 10px;
+}
+.column-two {
+    display: inline-block;
+    height: 100%;
+    width: 48%;
+    vertical-align: top;
+    margin: 1% overflow: auto;
+}
+.type-nav {
+    text-align: center;
+    margin-right: 7px;
+}
+.type-nav li {
+    border-bottom: 1px solid grey;
+    font-size: 18px;
+    color: rgba(300, 300, 300, .5);
+    cursor: pointer;
+}
+.type-nav li:hover {
+    border-bottom: 1px solid white;
+    color: white;
+}
+#chartAdOptions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#chartAdOptions li {
+    padding: 6px;
+}
+.selected-li {
+    color: white;
+    background: rgba(300, 300, 300, 0.5);
+    border-bottom: 1px solid white;
+}
+.sel-ind {
+    text-align: center;
+    display: block;
+    width: 100%;
+    padding-bottom: 20px;
+}
+.sel-ind > select {
+    margin-top: 10px;
+}
+.add-chart-butt-div {
+    width: 100%;
+    padding-top: 20px;
+}
+.no-see-no-click {
+    opacity: 0;
+    pointer-events: none;
+}
+.add-chart-bt {
+    line-height: 1.428571429;
+    border-radius: 2px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+    background-color: #30d94c;
+    color: black;
+    width: 100%;
+    margin: 0;
+}
+.add-chart-bt:hover {
+    border-radius: 15px;
+}
+.chart-remove {
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+    color: silver;
+    height: 20px;
+    overflow: hidden;
+    padding: 1px 15px;
+}
+.chart-remove span {
+    vertical-align: top;
+}
+.chart-remove i {
+    font-size: 18px;
+}
+.chart-switch {
+    position: absolute;
+    height: 20px;
+    left: 0;
+    right: 90px;
+    top: 0px;
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    background: #283e4d;
+}

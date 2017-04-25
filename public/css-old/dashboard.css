@@ -1,0 +1,87 @@
+[draggable=true] {
+    -khtml-user-drag: element;
+}
+.chart-blocked {
+    height: 90%;
+}
+.widget-handle {
+    position: absolute;
+    height: 40px;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.fix-fa {
+    margin-bottom: 6px;
+    font-size: 20px!important;
+}
+.wrapper {
+    height: 100%;
+}
+.wrap-block {
+    display: block!important;
+    height: 100%;
+    width: 100%;
+}
+#dashView {
+    background-color: #fff;
+}
+.donut-graph {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+}
+.holds-graph a {
+    display: none!important;
+}
+.widget-box {
+    margin: 0px!important;
+    padding: 6px!important;
+    height: 100%;
+    overflow: hidden;
+}
+.full-widget {
+    border-radius: 4px;
+    opacity: 1;
+    transition: all .2s ease;
+    border: 1px solid #E6E9ED;
+    display: block;
+    height: 100%;
+    padding: 3px;
+    width: 100%;
+}
+.can-drag {
+    cursor: move;
+    /* fallback if grab cursor is unsupported */
+    
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.widget-title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 5px 6px;
+}
+.widget-title h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0px;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.opts-active {
+    /*  color: #00d8ff;
+    color: #f70;
+    color: #30d94c;*/
+    
+    color: white;
+}
+.opts-active-sec {
+    color: #00d8ff;
+}

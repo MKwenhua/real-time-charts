@@ -1,8 +1,8 @@
-const Canvas2DContext = require('./canvasprototype.js');
+import Canvas2DContext from 'Canvas2DContext'
 const clock = () => {
 let inView = true;
 const checkTime = (i) => {
-    if (i < 10) {i = "0" + i}; 
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
 }
 
@@ -17,7 +17,7 @@ const startTime = () => {
     let s = today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
-   
+
 
    let tm = h + ":" + m + ":" + s;
     ctx.clearRect(0, 0, 66, 20)
@@ -35,7 +35,7 @@ const startTime = () => {
    setClock: timer,
     inView: () => {
      inView = true;
-      
+
    },
    getView:  () => {
       return inView;

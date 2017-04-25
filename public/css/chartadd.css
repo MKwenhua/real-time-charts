@@ -7,8 +7,9 @@ select option[disabled] {
     border-radius: 2px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .5);
     background: rgba(24, 37, 46, .95);
-    height: 450px;
+    height: 250px;
     width: 500px;
+    border: 1px solid white;
     overflow: hidden;
     margin-left: -40px;
     color: white;
@@ -61,7 +62,7 @@ select option[disabled] {
     width: 100%;
     padding-top: 20px;
 }
-.no-see-no-click {
+.no-see-no-click{
     opacity: 0;
     pointer-events: none;
 }
@@ -84,7 +85,7 @@ select option[disabled] {
 .add-chart-bt:hover {
     border-radius: 15px;
 }
-.chart-remove {
+.chart-remove{
     display: inline-block;
     float: right;
     cursor: pointer;
@@ -93,7 +94,7 @@ select option[disabled] {
     overflow: hidden;
     padding: 1px 15px;
 }
-.chart-remove span {
+.chart-remove span{
     vertical-align: top;
 }
 .chart-remove i {

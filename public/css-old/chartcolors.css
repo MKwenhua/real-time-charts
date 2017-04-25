@@ -1,0 +1,104 @@
+.pos {
+    color: #30d94c!important;
+}
+.neg {
+    color: red;
+}
+.stock-tag {
+    padding-left: 8px;
+    padding-right: 9px;
+    font-weight: 500;
+}
+.is-up {
+    background-color: rgba(48, 217, 76, 0.8);
+}
+.is-down {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+ul.activeCharts {
+    list-style: none!important;
+    padding: 0!important;
+    margin: 0!important;
+    display: block;
+    width: 100%;
+    text-align: justify;
+    background-color: #fff;
+    border-bottom: 1px solid #999;
+    overflow: hidden;
+    height: 15px;
+}
+.prnct-show {
+    margin-left: 0px!important;
+    margin-right: 8px;
+    font-weight: 300;
+}
+.span-i {
+    height: 15px;
+    overflow: hidden;
+}
+ul.activeCharts i {
+    height: 15px;
+    margin-top: -5px;
+}
+ul.activeCharts span {
+    margin-left: 10px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: top!important;
+}
+ul.activeCharts li {
+    font-size: 13px;
+    font-weight: 300;
+    overflow: hidden;
+    height: 15px;
+    vertical-align: top;
+    display: inline-block;
+}
+ul.activeCharts li:first-child {
+    background-color: rgba(128, 179, 236, 0.298039);
+}
+span.add-symbol-submit:hover {
+    font-weight: 700;
+}
+.add-symbol-submit {
+    border-radius: 5px;
+    padding: 1px 4px;
+    cursor: pointer;
+    background-color: #30d94c;
+    text-align: center;
+    margin-left: 20px;
+    font-size: 10px;
+    padding: 3px 6px;
+}
+select.add-in {
+    display: inline-block;
+    width: 35%;
+    font-size: 11px;
+    width: auto;
+    text-align: left!important;
+    border-radius: 2px;
+    background: #fff;
+}
+#add-symbol span {
+    margin-left: 15px;
+}
+.span-label {
+    font-weight: 600;
+    margin-right: 8px;
+}
+#add-symbol {
+    font-size: 13px;
+    overflow: hidden;
+    display: block;
+    -webkit-transition: all 0.18s ease-out 0s;
+    -moz-transition: all 0.18s ease-out 0s;
+    transition: all 0.18s ease-out 0s;
+    background: rgba(86, 91, 101, 0.4);
+    background: rgba(128, 179, 236, 0.298039);
+}
+#add-symbol.open {
+    height: 20px;
+}
+#add-symbol.close {
+    height: 0px;
+}

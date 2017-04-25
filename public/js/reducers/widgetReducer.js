@@ -9,6 +9,8 @@ const WidgetList = {
          data: null,
          graphType: 'area',
          dynamic: true
+
+
       }
    },
    widget2: {
@@ -24,7 +26,7 @@ const WidgetList = {
       kind: "graphjs",
       symb: "SNE",
       content: {
-         chartid: "SNE_HIST",
+         chartid:  "SNE_HIST",
          data: null,
          graphType: 'column',
          dynamic: true
@@ -37,11 +39,12 @@ const WidgetList = {
       kind: "progress",
       content: {
          title: "東西",
-          data: null
+         data: null
       }
    }
 }
 const innitialState = {
+   WidgetList: WidgetList,
    rowTopStyle: {
       height: "50%"
    },

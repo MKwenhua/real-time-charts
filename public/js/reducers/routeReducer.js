@@ -1,10 +1,11 @@
 import React from "react";
 
 
-import Graph from "../components/graph_temp";
-import RealTime from "../components/realtime";
-import Map from "../components/map";
-import TopNav from "../components/topnav";
+import Graph from "container/graph_temp";
+import RealTime from "container/realtime";
+import Map from "container/map";
+import TopNav from "container/topnav";
+
 window.checkPath = (() => {
 
    const ChangeUrl = (title, url) => {
@@ -28,7 +29,7 @@ window.checkPath = (() => {
 
    };
    return (path) => {
-      //  let routeArray = path.split("/").filter(Boolean); 
+      //  let routeArray = path.split("/").filter(Boolean);
       let pathIS = allPaths.reduce((q, i) => {
          return i === path ? i : q;
       }, "/");
@@ -44,7 +45,12 @@ const routeComponents = {
    "/realtime": (<RealTime  />),
    "/map": (<Map />)
 }
-
+const getTopNav = {
+   "/": (<TopNav theClass="normal" pathName="/" />),
+   "/history": (<TopNav theClass="normal" pathName="/history" />),
+   "/realtime": (<TopNav theClass="rt-alter" pathName="/realtime" />),
+   "/map": (<TopNav theClass="normal" pathName="/map" />)
+}
 let initialPath = window.checkPath(window.location.pathname);
 export default function reducer(state = {
    pathName: window.location.pathname,

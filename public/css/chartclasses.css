@@ -3,7 +3,7 @@
     cursor: pointer;
     text-align: center;
     color: white;
-    padding: 8px;
+    padding: 6px;
     font-weight: 600;
     margin-bottom: 8px;
     border: 1px solid white;
@@ -12,6 +12,10 @@
     display: inline-block;
     height: 30px;
     margin-bottom: 8px;
+}
+div.reduct .trade-butt > img {
+    height: 25px;
+    margin-bottom: 6px;
 }
 div.td-reduce > .trade-butt {
     padding: 4px;
@@ -36,9 +40,9 @@ div.td-reduce > .trade-butt img {
     background: #DC143C;
 }
 .text-wrap-values {
-    background: #455a64;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
-    padding: 2px 5px;
+    padding: 2px 0px;
     text-align: center;
     color: white;
     margin-top: 5px;
@@ -74,11 +78,38 @@ div.td-reduce > .trade-butt img {
     font-size: 30px;
     text-align: center;
     color: #30b911;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    
+    -khtml-user-select: none;
+    /* Konqueror */
+    
+    -moz-user-select: none;
+    /* Firefox */
+    
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    
+    user-select: none;
+}
+.time-v {
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.time-v:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 .nice-colors {
     background-color: #222325;
     background: rgba(0, 0, 0, 0.25);
     background: #1a1a1a !important;
+}
+.plus-minus:hover {
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 }
 #rtTopNavUI {
     position: fixed;
@@ -102,31 +133,31 @@ div.td-reduce > .trade-butt img {
     bottom: 0;
     right: 0;
     top: 40px;
+    background: rgb(40, 62, 77);
     overflow: hidden;
-        -webkit-transition: all 0.15s ease-out 0s;
+    -webkit-transition: all 0.15s ease-out 0s;
     -moz-transition: all 0.15s ease-out 0s;
     transition: all 0.15s ease-out 0s;
 }
-.full-view{
-     left: 50px;
+.full-view {
+    left: 50px;
 }
-.half-view{
-    left:250px;
+.half-view {
+    left: 250px;
 }
-.active-spreads{
+.active-spreads {
     background-color: #000;
-    height:100%;
+    height: 100%;
 }
-#optionsView{
+#optionsView {
     display: block;
     position: fixed;
-    bottom: 0; 
+    bottom: 0;
     overflow: hidden;
     top: 40px;
-    left:50px;
-
-    right:240px;
-    z-index:-2;
+    left: 50px;
+    right: 240px;
+    z-index: -2;
 }
 #sideOptions {
     position: fixed;
@@ -146,6 +177,22 @@ div.td-reduce > .trade-butt img {
     height: 25px;
     padding: 0 4px;
     margin: 0 3px;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    
+    -khtml-user-select: none;
+    /* Konqueror */
+    
+    -moz-user-select: none;
+    /* Firefox */
+    
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    
+    user-select: none;
 }
 .option-buy-sell {
     width: 90px;
@@ -157,6 +204,10 @@ div.td-reduce > .trade-butt img {
     padding-top: 0px;
     border-left: 1px solid rgba(255, 255, 255, .3);
     background: rgba(24, 37, 46, 0.85);
+}
+div.option-buy-sell.reduct {
+    width: 75px;
+    padding: 0 4px 4px;
 }
 #sideOptions div {
     display: block;
@@ -182,7 +233,7 @@ div.td-reduce > .trade-butt img {
 .opts-button {
     color: white;
     cursor: pointer;
-        color: silver;
+    color: silver;
 }
 .add-chart {
     text-align: center;

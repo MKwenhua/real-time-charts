@@ -1,5 +1,5 @@
 
-const Canvas2DContext = require('./canvasprototype.js');
+import Canvas2DContext from 'Canvas2DContext'
 const CurrentPositions = () =>{
 let inView = true;
 const upTriangle = (ctx) => {
@@ -14,7 +14,7 @@ const upTriangle = (ctx) => {
       .fill();
 }
 const downTriangle = (ctx) => {
-   ctx.beginPath()  
+   ctx.beginPath()
       .strokeStyle("#FF2500")
       .fillStyle("#FF2500")
       .moveTo(5, 18)
@@ -24,8 +24,8 @@ const downTriangle = (ctx) => {
       .stroke()
       .fill();
 
-      
-      
+
+
 }
 const percentChnge = (last, current) => {
    let sign = (current > last) ? "+" : "-";
@@ -33,19 +33,19 @@ const percentChnge = (last, current) => {
 }
 function startTimer(duration, ctx, prc, current) {
     let change =  percentChnge(prc, current);
-    let timeLeft =  parseInt(duration / 60, 10) + ":" +  ('0' + parseInt(duration % 60, 10)).slice(-2); 
-  
+    let timeLeft =  parseInt(duration / 60, 10) + ":" +  ('0' + parseInt(duration % 60, 10)).slice(-2);
+
     timeLeft = duration < 0 ? 'Ended' : timeLeft;
-    
+
     ctx.clearRect(0, 0, 100, 30)
         .textAlign("end")
-        .font("15px Arial") 
+        .font("15px Arial")
         .strokeStyle("white")
         .fillStyle("white")
         .fillText(timeLeft, 98 , 20)
         .textAlign("start")
-        .font("12px Arial") 
-        .fillText(change[1], 15 , 20);   
+        .font("12px Arial")
+        .fillText(change[1], 15 , 20);
         change[0] ? upTriangle(ctx) : downTriangle(ctx);
 }
 
@@ -57,16 +57,16 @@ function PostionTile(position, ctxId) {
  this.position = position;
  this.expireTime = position.timestamp.getTime();
   let thisScope = this;
- const setTimer = () => {  
+ const setTimer = () => {
     let nowTime = new Date().getTime();
     if (inView) {
         let current =  this.position.getLatestPoint();
-      
+
         window.requestAnimationFrame(function() {
-            startTimer(((thisScope.expireTime - nowTime )/1000), ctx, thisScope.position.unitPrice, current.data[3]) 
+            startTimer(((thisScope.expireTime - nowTime )/1000), ctx, thisScope.position.unitPrice, current.data[3])
         });
     }
-   
+
     if (thisScope.expireTime > nowTime){
         setTimeout(function(){
             thisScope.setTimer();
@@ -82,7 +82,7 @@ return {
     },
     inView: () => {
      inView = true;
-      
+
    },
    getView:  () => {
       return inView;

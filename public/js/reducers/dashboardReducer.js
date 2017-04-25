@@ -31,6 +31,11 @@ export default function reducer(state=innitialState, action) {
         return action.payload 
          break;
       }
+      case "WATCHED_POSITIONS": {
+
+        return action.payload 
+         break;
+      }
       case "RESET_CHARTS": {
 
         return action.payload 

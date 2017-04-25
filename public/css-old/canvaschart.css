@@ -1,0 +1,78 @@
+#rangeBar {
+    width: 100%;
+    padding: 0;
+    height: 50px;
+    overflow: hidden;
+}
+#rangeBar canvas {} #miniChart a {
+    display: none;
+}
+.chartContainer {
+    /*	min-height: 300px; 
+	width:100%; */
+    
+    vertical-align: top;
+    position: absolute;
+    right: 90px;
+    left: 0;
+    height: 100%;
+}
+.black-back{
+    background-color: black;
+}
+.chartContainer a {
+    display: none!important;
+}
+#moveBox {
+    background-color: rgba(128, 179, 236, .298039);
+    cursor: move;
+    cursor: grab;
+    position: absolute;
+    height: 50px;
+    min-width: 100px;
+    /*	margin-right: 8px;
+	margin-left: 8px;
+	border-left: 4px solid silver;
+	border-right: 4px solid silver;*/
+    
+    resize: horizontal;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.handles {
+    height: 50px;
+    width: 10px;
+    background-color: silver;
+    cursor: ew-resize;
+    display: inline-block;
+}
+.handle-left {
+    float: left;
+}
+.handle-right {
+    float: right;
+}
+.real-time-chart {} .spread-m {
+    color: #fff;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#realTimeTheme {
+    width: 100vw;
+    height: 100vh;
+    background: #3a4e5d !important;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    padding-top: 40px;
+}
+.live-set {
+    background: none!important;
+}
+select.live-sym {
+    font-weight: 500!important;
+    color: #00d8ff!important;
+}
+select.live-sym:hover {
+    border-color: #00d8ff!important;
+}

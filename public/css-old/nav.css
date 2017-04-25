@@ -1,0 +1,22 @@
+#topNav {
+    background: #222;
+    color: #fafafa;
+    margin-bottom: 10px;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#topNav span {
+    margin: 10px;
+    padding: 0 10px;
+    line-height: 50px;
+    cursor: pointer;
+}
+#topNav span:hover {
+    color: #00d8ff;
+}
+.blocked-at {
+    color: #00d8ff;
+    font-weight: 800;
+}

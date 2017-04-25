@@ -1,0 +1,67 @@
+.chart-controller {
+    display: block;
+    padding: 6px;
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.chart-live-cntrl{
+    padding-top: 150px;
+}
+.select-holders {
+    width: 30%;
+    font-size: 16px;
+    display: inline-block;
+}
+select.symbol-pick {
+    width: 100%;
+    cursor: pointer;
+    text-transform: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    padding: 0px 10px;
+    border-color: #ccc;
+    font-size: 16px;
+    font-weight: 300;
+    text-align-last: center;
+    border: 2px solid #fff;
+    border-radius: 0;
+}
+select.symbol-pick:hover {
+    border-color: #90ef7f;
+    background-color: rgba(128, 179, 236, 0.298039);
+}
+#connectedState{
+    position: fixed;
+    top:0;
+    left:240px;
+    right:300px;
+    text-align: center;
+    height: 40px!important;
+}
+#connectedState div{
+    display: inline-block;
+}
+#connectedState span{
+        vertical-align: top;
+    line-height: 40px;
+    color: white;
+    margin-left: 6px; 
+}
+.online{
+    background-color: #30d94c;
+}
+.offline{
+  background-color: silver;
+}
+.online-state{
+    height:20px;
+    width: 20px;
+    border:2px white solid;
+    border-radius: 6px;
+    margin-top:8px;
+}

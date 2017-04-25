@@ -1,0 +1,50 @@
+@-webkit-keyframes pulse {
+  50% {
+    background: #2196F3;
+  }
+}
+@keyframes pulse {
+  50% {
+    background: #2196F3;
+  }
+}
+.load-box{
+  width: 100%;
+  height:100%;
+  padding-top: 20%;
+  text-align: center;
+
+}
+.loading-pulse {
+  position: relative;
+  width: 6px;
+  height: 24px;
+  display: inline-block;
+  background: rgba(33, 150, 243, 0.2);
+  -webkit-animation: pulse 750ms infinite;
+          animation: pulse 750ms infinite;
+  -webkit-animation-delay: 250ms;
+          animation-delay: 250ms;
+}
+.loading-pulse:before, .loading-pulse:after {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  height: 16px;
+  width: 6px;
+  background: rgba(33, 150, 243, 0.2);
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-animation: pulse 750ms infinite;
+          animation: pulse 750ms infinite;
+}
+.loading-pulse:before {
+  left: -12px;
+}
+.loading-pulse:after {
+  left: 12px;
+  -webkit-animation-delay: 500ms;
+          animation-delay: 500ms;
+}
+

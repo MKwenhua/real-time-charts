@@ -1,22 +1,70 @@
 #topNav {
-    background: #222;
-    color: #fafafa;
-    margin-bottom: 10px;
-    height: 50px;
-    text-align: center;
-    font-size: 18px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+   background: #222;
+   color: #fafafa;
+   margin-bottom: 10px;
+   height: 50px;
+   text-align: center;
+   font-size: 18px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+
+#scorePoints {
+   position: fixed;
+   top: 0;
+   right: 0;
+   height: 40px;
+   width: 300px;
+   background: #222;
+   text-align: right;
+   padding-right: 20px;
+}
+
+.total-earnings {
+   font-size: 23px;
+}
+
+#scorePoints span {
+   vertical-align: middle;
+   line-height: 40px;
+}
+
 #topNav span {
-    margin: 10px;
-    padding: 0 10px;
-    line-height: 50px;
-    cursor: pointer;
+   margin: 10px;
+   padding: 0 10px;
+   line-height: 50px;
+   cursor: pointer;
 }
+
 #topNav span:hover {
-    color: #00d8ff;
+   color: #00d8ff;
 }
+
 .blocked-at {
-    color: #00d8ff;
-    font-weight: 800;
+   color: #00d8ff;
+   font-weight: 800;
+}
+
+.top-stats-view {
+   height: 18px;
+   background: rgb(24, 37, 46);
+   font-size: 13px;
+}
+
+#slideLeft {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   display: inline-block;
+}
+
+#u {
+   display: none;
+}
+
+#slideLeft li {
+   display: inline-block;
+   padding: 0px 8px;
+   color: white;
+   cursor: pointer;
+   height: 18px;
 }

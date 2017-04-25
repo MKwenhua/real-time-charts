@@ -1,0 +1,315 @@
+#timeMenu {
+    position: absolute;
+    top: 2px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    background: rgba(24, 37, 46, .95);
+    height: 95%;
+    max-height: 350px;
+    width: 190px;
+    border: 1px solid #fff;
+    overflow: hidden;
+    right: 80px;
+    color: #fff;
+    padding: 10px;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.close-modal {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    font-size: 20px!important;
+}
+.close-modal:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+#Ask {
+    position: absolute;
+    top: 25%;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    background: rgba(24, 37, 46, .95);
+    height: 160px;
+    width: 320px;
+    border: 1px solid #fff;
+    overflow: hidden;
+    right: 180px;
+    color: #fff;
+    padding: 0px 10px;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.trn-symb {
+    color: #00d8ff;
+    font-weight: 600;
+}
+#Bid {
+    position: absolute;
+    top: 25%;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    background: rgba(24, 37, 46, .95);
+    height: 160px;
+    width: 320px;
+    border: 1px solid #fff;
+    overflow: hidden;
+    right: 180px;
+    color: #fff;
+    padding: 0px 10px;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+.pos-type-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 5px;
+    font-weight: 600;
+}
+.trade-description {
+    text-align: center;
+}
+.trn-blk {
+    display: inline-block;
+    margin: 0 6px;
+    vertical-align: top;
+}
+.trn-blk span {
+    font-size: 20px;
+    display: block;
+}
+.trn-blk span:first-child {
+    font-size: 12px;
+    color: #fff!important;
+    font-weight: 400!important;
+}
+.put-t {
+    color: #30b911;
+}
+.call-t {
+    color: #30d94c;
+}
+.ft-rt {
+    float: right;
+    color: #f70;
+    font-weight: 600;
+}
+.set-pos {
+    position: absolute;
+    width: auto!important;
+    right: 10px;
+    left: 10px;
+    bottom: 10px;
+}
+ul.time-pick {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ul.time-pick li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    padding: 2px;
+    color: white;
+}
+ul.time-pick li:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #30d94c;
+}
+ul.time-pick li.active-t {
+    background: rgba(255, 255, 255, 0.1);
+    color: #30d94c;
+    font-weight: 600;
+}
+div.button-click {
+    -webkit-animation: pushIn 0.2s ease-in;
+    -moz-animation: pushIn 0.2s ease-in;
+    -ms-animation: pushIn 0.2s ease-in;
+    -o-animation: pushIn 0.2s ease-in;
+    animation: pushIn 0.2s ease-in;
+}
+div.bounce-in-fast {
+    -webkit-animation: bounceInFade 0.1s ease-in;
+    -moz-animation: bounceInFade 0.1s ease-in;
+    -ms-animation: bounceInFade 0.1s ease-in;
+    -o-animation: bounceInFade 0.1s ease-in;
+    animation: bounceInFade 0.1s ease-in;
+}
+div.button-in {
+    -webkit-animation: pushIn 0.2s ease-in;
+    -moz-animation: pushIn 0.2s ease-in;
+    -ms-animation: pushIn 0.2s ease-in;
+    -o-animation: pushIn 0.2s ease-in;
+    animation: pushIn 0.2s ease-in;
+}
+div.zing-in-fast {
+    -webkit-animation: zingIn 0.3s ease-in;
+    -moz-animation: zingIn 0.3s ease-in;
+    -ms-animation: zingIn 0.3s ease-in;
+    -o-animation: zingIn 0.3s ease-in;
+    animation: zingIn 0.3s ease-in;
+}
+@keyframes pushIn {
+    0% {
+        transform: scale(1.0);
+    }
+    70% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+@keyframes bounceInFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    90% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.0);
+    }
+}
+@keyframes zingIn {
+    0% {
+        opacity: 0;
+        height: 5%;
+        width: 0px;
+    }
+    25% {
+        opacity: 1;
+        height: 5%;
+        width: 190px;
+    }
+    50% {
+        opacity: 1;
+        width: 185px;
+        height: 45%;
+    }
+    60% {
+        height: 55%;
+        opacity: 1;
+        width: 190px;
+    }
+    70% {
+        height: 65%;
+        opacity: 1;
+        width: 200px;
+    }
+    85% {
+        height: 95%;
+        opacity: 1;
+        width: 208px;
+    }
+    95% {
+        height: 100%;
+        opacity: 1;
+        width: 200px;
+    }
+    100% {
+        height: 95%;
+        opacity: 1;
+        width: 190px;
+    }
+}
+@-moz-keyframes zingIn {
+    0% {
+        opacity: 0;
+        height: 5%;
+        width: 0px;
+    }
+    25% {
+        opacity: 1;
+        height: 5%;
+        width: 190px;
+    }
+    50% {
+        opacity: 1;
+        width: 190px;
+        height: 45%;
+    }
+    75% {
+        height: 77%;
+        opacity: 1;
+        width: 205px;
+    }
+    100% {
+        height: 95%;
+        opacity: 1;
+        width: 190px;
+    }
+}
+@-webkit-keyframes zingIn {
+    0% {
+        opacity: 0;
+        height: 5%;
+        width: 0px;
+    }
+    25% {
+        opacity: 1;
+        height: 5%;
+        width: 190px;
+    }
+    50% {
+        opacity: 1;
+        width: 190px;
+        height: 45%;
+    }
+    60% {
+        height: 55%;
+        opacity: 1;
+        width: 190px;
+    }
+    70% {
+        height: 65%;
+        opacity: 1;
+        width: 200px;
+    }
+    85% {
+        height: 95%;
+        opacity: 1;
+        width: 208px;
+    }
+    95% {
+        height: 100%;
+        opacity: 1;
+        width: 200px;
+    }
+    100% {
+        height: 95%;
+        opacity: 1;
+        width: 190px;
+    }
+}
+@-ms-keyframes zingIn {
+    0% {
+        opacity: 0;
+        height: 5%;
+        width: 0px;
+    }
+    25% {
+        opacity: 1;
+        height: 5%;
+        width: 190px;
+    }
+    50% {
+        opacity: 1;
+        width: 190px;
+        height: 45%;
+    }
+    75% {
+        height: 77%;
+        opacity: 1;
+        width: 205px;
+    }
+    100% {
+        height: 95%;
+        opacity: 1;
+        width: 190px;
+    }
+}

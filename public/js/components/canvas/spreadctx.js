@@ -1,6 +1,5 @@
-import { randomFinancial } from 'd3fc-random-data';
-const Canvas2DContext = require('./canvasprototype.js');
-
+import { randomFinancial  } from 'd3fc-random-data';
+import Canvas2DContext from 'Canvas2DContext'
 const seeds = [{
    symb: "AUD/JPY",
    prc: 79.013
@@ -97,15 +96,15 @@ const percentChange = (last, current) => {
    if (current > last) {
       return ["#30b911", "+" + String(((current - last) / last) * 100).slice(0, 4) + "%"];
    } else {
-      return ["#DC143C", "-" + String(((last - current) / last) * 100).slice(0, 4) + "%"]
+      return ["#DC143C", "-"+ String(((last - current) / last) * 100).slice(0, 4) + "%"]
    }
 }
 const spreadCTXinnit = () => {
    let c = document.getElementById("activeSpreads");
    let ctx = Canvas2DContext(c);
    const Tickers = {
-      activeSymbols: [],
-      hasRendered: false
+   	activeSymbols: [],
+   	hasRendered: false
    };
    let inView = false;
    let ctxHeight = 400;
@@ -119,30 +118,30 @@ const spreadCTXinnit = () => {
       let textPos = atPos + 15;
       let colorNpercent = percentChange(last, current);
 
-      ctx.clearRect(0, atPos, 200, 20)
-         .font("13px Arial")
-         .fillStyle("black")
-         .fillRect(0, atPos, 200, 20)
-         .fillStyle("silver")
-         .fillRect(0, atPos + 19, 200, 1)
-         .textAlign("start")
-         .fillStyle("#00d8ff")
-         .fillText(symb, 2, textPos)
-         .textAlign("end")
-         .fillStyle(colorNpercent[0])
-         .fillText(colorNpercent[1], 198, textPos)
-         .fillStyle("white")
-         .font("12px Arial")
-         .fillText(String(bid), 148, textPos - 1)
-         .textAlign("start")
-         .fillText(String(ask), 70, textPos - 1);
+   ctx.clearRect(0, atPos, 200, 20)
+      .font("13px Arial")
+      .fillStyle("black")
+      .fillRect(0, atPos, 200, 20)
+      .fillStyle("silver")
+      .fillRect(0, atPos + 19, 200, 1)
+      .textAlign("start")
+      .fillStyle("#00d8ff")
+      .fillText(symb, 2, textPos)
+      .textAlign("end")
+      .fillStyle(colorNpercent[0])
+      .fillText(colorNpercent[1], 198, textPos)
+      .fillStyle("white")
+      .font("12px Arial")
+      .fillText(String(bid), 148, textPos - 1)
+      .textAlign("start")
+      .fillText(String(ask), 70, textPos - 1);
    }
    Tickers.renderLive = () => {
-      Tickers.activeSymbols.forEach((symItm) => {
-         setTimeout(function() {
-            Tickers[symItm.s].callRound();
-         }, symItm.d);
-      });
+   		Tickers.activeSymbols.forEach((symItm) => {
+   			setTimeout(function() {
+            	Tickers[symItm.s].callRound();
+         	}, symItm.d);
+   		});
    }
 
    Tickers.renderSpread = () => {
@@ -184,13 +183,13 @@ const spreadCTXinnit = () => {
       };
 
       tickSymb.logData = (pr) => {
+         //let self = this;
          let symbol = symb;
          let thisIndex = tickSymb.tickIndex;
          tickSymb.generator = randomFinancial()
             .startDate(new Date())
             .startPrice(pr)
          tickSymb.stream = tickSymb.generator.stream();
-         console.log('tickSymb', tickSymb);
          let p1s = tickSymb.stream.next();
          let p2s = tickSymb.stream.next();
          let lastpoint = {
@@ -214,6 +213,8 @@ const spreadCTXinnit = () => {
          tickSymb.currentPoint = startpoint;
          tickSymb.lastPoint = lastpoint;
          currentTicks[tickSymb.tickIndex] = startpoint;
+         //self.data.push(point);
+
          tickSymb.callRound = function() {
             if (inView) {
                let p1 = tickSymb.stream.next();
@@ -231,12 +232,13 @@ const spreadCTXinnit = () => {
                tickSymb.lastPoint = tickSymb.currentPoint;
                tickSymb.currentPoint = point;
                Tickers.renderUnit(tickSymb.atPos, tickSymb.currentPoint);
-               setTimeout(function() {
-                  tickSymb.callRound();
-               }, 2000);
+	            setTimeout(function() {
+	               tickSymb.callRound();
+	            }, 2000);
             }
 
          }
+
 
 
 
@@ -247,10 +249,9 @@ const spreadCTXinnit = () => {
 
       tickSymb.logData.bind(tickSymb);
       Tickers[symb] = tickSymb;
-      Tickers.activeSymbols.push({
-         s: symb,
-         d: renderDelay
-      });
+      Tickers.activeSymbols.push({s: symb, d: renderDelay });
+      //tickSymb.data.push(tickSymb.stream.next());
+
       tickSymb.logData(price);
 
 
@@ -272,7 +273,7 @@ const spreadCTXinnit = () => {
    spreadInterface.inView = () => {
       inView = true;
       window.requestAnimationFrame(function() {
-         Tickers.hasRendered ? Tickers.renderLive() : Tickers.renderSpread();
+        Tickers.hasRendered ?  Tickers.renderLive() : Tickers.renderSpread();
       });
 
    }
@@ -288,3 +289,8 @@ const spreadCTXinnit = () => {
    return spreadInterface;
 
 }
+
+
+
+
+module.exports = spreadCTXinnit;

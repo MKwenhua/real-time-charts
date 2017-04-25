@@ -1,3 +1,4 @@
+
 const pastTrades = [{
       position: "GOOG",
       volume: 120,
@@ -14,7 +15,7 @@ const pastTrades = [{
       priceend: 38.80
    }, {
       position: "APPL",
-      volume: 8212,
+      volume: 10,
       date: new Date().toDateString(),
       short: false,
       pricestart: 121,
@@ -42,89 +43,27 @@ const pastTrades = [{
       pricestart: 82.21,
       priceend: 81.94
    }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
       position: "AMZN",
       volume: 200,
       date: new Date().toDateString(),
       short: false,
       pricestart: 751.77,
       priceend: 750.77
-   }, {
-      position: "AAPL",
-      volume: 330,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 120.13,
-      priceend: 119.97
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
-   }, {
-      position: "APPL",
-      volume: 8212,
-      date: new Date().toDateString(),
-      short: false,
-      pricestart: 121,
-      priceend: 88
    }
 
 ];
 
+ 
 export default function reducer(state = {
    pastTrades: pastTrades,
    currentPos: [],
+  
+   todayTradeCount: 0,
+   weeklyTradeCount: 0,
+   netPosTrades: 0,
+   totalVolume: 0,
+   netNegTrades: 0,
+   totalRev: 0,
    todayTotalNet: 0.0,
    moneyAvaliable: 0.0,
    fetching: false,
@@ -167,10 +106,12 @@ export default function reducer(state = {
       case "ADD_TRADE":
          {
             return {
-               ...state,
+               ...state, 
                deposit: action.payload.deposit,
-               currentPos: action.payload.currentPos,
-            }
+               weeklyTradeCount: action.payload.weeklyTradeCount,
+               todayTradeCount: action.payload.todayTradeCount,
+               currentPos: action.payload.currentPos
+             }
             break;
          }
       case "TRADE_COMPLETE":
@@ -182,6 +123,7 @@ export default function reducer(state = {
                   currentPos: action.payload.currentPos,
                   pastTrades: action.payload.pastTrades,
                   todayTotalNet: action.payload.todayTotalNet,
+                  totalRev: action.payload.totalRev
                });
          }
       case "ADD_MONEY":
