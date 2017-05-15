@@ -1,40 +1,5 @@
 import React from "react";
-
-const forexSymbolPairs = [
-   "AUD/JPY",
-   "AUD/USD",
-   "CAD/CHF",
-   "CAD/JPY",
-   "CHF/JPY",
-   "EUR/AUD",
-   "EUR/CAD",
-   "EUR/GBP",
-   "EUR/JPY",
-   "EUR/NOK",
-   "EUR/SEK",
-   "EUR/USD",
-   "GBP/CHF",
-   "GBP/JPY",
-   "GBP/USD",
-   "NZD/JPY",
-   "NZD/USD",
-   "USD/BRL",
-   "USD/CAD",
-   "USD/CHF",
-   "USD/CNY",
-   "USD/CZK",
-   "USD/HKD",
-   "USD/INR",
-   "USD/JPY",
-   "USD/KRW",
-   "USD/MXN",
-   "USD/NOK",
-   "USD/PLN",
-   "USD/RUB",
-   "USD/SEK",
-   "USD/SGD",
-   "USD/ZAR"
-];
+import ForexSymbolPairs from 'data/forex_symbol_pairs';
 
 export default class ForexList extends React.Component {
    constructor(props) {
@@ -54,14 +19,12 @@ export default class ForexList extends React.Component {
    };
 
    render() {
-
-      let used = this.props.used.length === 0 ? ["NOPE", "WHAT"] : this.props.used;
-      let inUse = new RegExp("(" + used.join("|") + ")");
-      const list = forexSymbolPairs.map((itm) => {
-         if (inUse.test(itm)) {
+      let { useed } = this.props
+      const list = ForexSymbolPairs.map((symbol) => {
+         if (useed[symbol]) {
             return null;
          } else {
-            return <option key={itm} value={itm}>{itm}</option>;
+            return <option key={symbol} value={symbol}>{symbol}</option>;
          }
       });
       return (

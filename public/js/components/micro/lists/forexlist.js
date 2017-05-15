@@ -1,5 +1,5 @@
 import React from "react";
-import forexSymbolPairs from 'data/forex_symbol_pairs';
+import ForexSymbolPairs from 'data/forex_symbol_pairs';
 
 export default class ForexList extends React.Component {
    constructor(props) {
@@ -22,7 +22,7 @@ export default class ForexList extends React.Component {
 
       let used = this.props.used.length === 0 ? ["NOPE", "WHAT"] : this.props.used;
       let inUse = new RegExp("(" + used.join("|") + ")");
-      const list = forexSymbolPairs.map((itm) => {
+      const list = ForexSymbolPairs.map((itm) => {
          if (inUse.test(itm)) {
             return null;
          } else {

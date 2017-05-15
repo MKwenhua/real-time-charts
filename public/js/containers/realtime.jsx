@@ -286,7 +286,7 @@ export default class RealTime extends React.Component {
    }
    liveFeedStarted(symbFeed) {
       let seriesWatch = this.props.rt.seriesWatch;
-      seriesWatch.push(symbFeed);
+      seriesWatch[symbFeed] = true;
       this.props.dispatch({
          type: "FEED_START",
          payload: {

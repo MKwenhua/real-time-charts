@@ -35,7 +35,7 @@ export default class CanvasChart extends React.Component {
          chartType: this.ctxChart ? this.ctxChart.getChartType() : "candlestick",
          mainSymbol: this.props.mainSym,
          callPut: null,
-         seriesWatch: []
+         seriesWatch: {}
       };
       this.liveUpdate = this.liveUpdate.bind(this);
       this.hideUL = this.hideUL.bind(this);

@@ -1,4 +1,4 @@
-const React = require('react'); 
+const React = require('react');
 
 const innitialState = {
         onStart: true,
@@ -13,32 +13,32 @@ const innitialState = {
         platformView: "live graphs",
         tradViewClass: "full-view",
         connected: false,
-        seriesWatch: [] 
+        seriesWatch: {}
 }
-    
+
 
 export default function reducer(state=innitialState, action) {
 
     switch (action.type) {
       case "ADD_CHART": {
 
-        return  action.payload 
+        return  action.payload
         break;
-        
+
       }
       case "CLOSE_CHART": {
 
-        return action.payload 
+        return action.payload
          break;
       }
       case "WATCHED_POSITIONS": {
 
-        return action.payload 
+        return action.payload
          break;
       }
       case "RESET_CHARTS": {
 
-        return action.payload 
+        return action.payload
          break;
       }
       case "FEED_START": {
@@ -68,7 +68,7 @@ export default function reducer(state=innitialState, action) {
         return {...state, connected: true}
           break;
       }
-      
+
     }
 
     return state

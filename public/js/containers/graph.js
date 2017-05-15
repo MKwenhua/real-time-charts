@@ -7,7 +7,7 @@ const ReactHighstock = require('./react-highcharts/dist/ReactHighstock.src.js');
 import DATASOURCE from "service/datasource";
 const graphConfigs = require("./graphs/graphconfigs.js");
 const dataFormat = require("./graphs/data_transform.js");
-const exchangeOpts = require('./data/symbols.js');
+import exchangeOptions from 'pure_functions/lists/stocks';
 
 
 const metricDefaults = {
@@ -239,7 +239,7 @@ render() {
 						         className="symbol-pick"
 						         value={this.state.symbol}
 						         onChange={this.symbolChange.bind(this)} >
-						  {exchangeOpts[this.state.exchange]}
+						  {exchangeOptions[this.state.exchange]}
 						 </select>
             </div>
             <div className="select-holders">
@@ -282,7 +282,7 @@ render() {
             		<select ref="addSymbol"
 						         className="add-in">
 
-						  		{exchangeOpts[this.state.exchangeAd]}
+						  		{exchangeOptions[this.state.exchangeAd]}
 						 	</select>
 						 	<span className="span-label">exchange:</span>
 						 	 <select ref="changeEXAd"

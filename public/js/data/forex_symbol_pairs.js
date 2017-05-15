@@ -1,4 +1,4 @@
-const forexSymbolPairs = [
+const ForexSymbolPairs = [
    "AUD/JPY",
    "AUD/USD",
    "CAD/CHF",
@@ -34,4 +34,4 @@ const forexSymbolPairs = [
    "USD/ZAR"
 ];
 
-export default forexSymbolPairs;
+export default ForexSymbolPairs;
