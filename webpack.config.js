@@ -8,13 +8,16 @@ module.exports = {
    resolve: {
    extensions: ['.js', '.jsx'],
    alias: {
-     dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
-     components:  path.resolve( __dirname, 'public/js/components'),
-     svg:  path.resolve( __dirname, 'public/js/components/svg'),
      canvas:  path.resolve( __dirname, 'public/js/components/canvas'),
      Canvas2DContext:  path.resolve( __dirname, 'public/js/components/canvas/ctxcomponents/ctxContextSet.js'),
+     components:  path.resolve( __dirname, 'public/js/components'),
      container:  path.resolve( __dirname, 'public/js/containers'),
      helper:  path.resolve( __dirname, 'public/js/helpers'),
+     service: path.resolve( __dirname, 'public/js/servicess'),
+     dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
+
+     svg:  path.resolve( __dirname, 'public/js/components/svg'),
+
      graph_helpers:  path.resolve( __dirname, 'public/js/helpers/graph_helper'),
      micro: path.resolve( __dirname, 'public/js/components/micro'),
      data: path.resolve( __dirname, 'public/js/data'),
