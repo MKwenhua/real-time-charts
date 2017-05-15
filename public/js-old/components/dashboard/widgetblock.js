@@ -6,7 +6,7 @@ import DATASOURCE from "../data/datasource";
 
 @connect((store) => {
   return { widgets: store.widgets}
-}) 
+})
 
 export default class WidgetBlock extends React.Component {
    constructor(props) {
@@ -119,30 +119,30 @@ export default class WidgetBlock extends React.Component {
    }
    render() {
       const {rowTopStyle, rowBtmStyle, widget1, widget2, widget3, widget4} = this.props.widgets;
-      return (<div className="container-fluid wrapper"> 
+      return (<div className="container-fluid wrapper">
               <div className="row" style={rowTopStyle}>
-                <div 
+                <div
                 className={widget1.shown ? widget1.clType : "hide-elm"}
                 data-w="widget1"
                 onDrop={this.dropHandle.bind(this, "widget1")}
                 onDragOver={this.dragEnter.bind(this)} >
-              
+
                  <FullWidget inView={this.props.inView}  ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget1.data} wd="widget1" candrag="true"/>
                 </div>
                 <div className={widget2.shown ? widget2.clType : "hide-elm"}
                 data-w="widget2"
                 onDrop={this.dropHandle.bind(this, "widget2")}
                 onDragOver={this.dragEnter.bind(this)} >
-              
+
                 <FullWidget inView={this.props.inView}  ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget2.data} wd="widget2" candrag="true"/>
                 </div>
-              </div>   
+              </div>
               <div className="row" style={rowBtmStyle}>
                 <div className={widget3.shown ? widget3.clType : "hide-elm"}
                 data-w="widget3"
-                onDrop={this.dropHandle.bind(this, "widget3")} 
+                onDrop={this.dropHandle.bind(this, "widget3")}
                 onDragOver={this.dragEnter.bind(this)} >
-              
+
                 <FullWidget inView={this.props.inView}  ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget3.data} wd="widget3" candrag="true"/>
                 </div>
                 <div className={ widget4.shown ? widget4.clType : "hide-elm"}
@@ -151,7 +151,7 @@ export default class WidgetBlock extends React.Component {
                 onDragOver={this.dragEnter.bind(this)} >
                 <FullWidget inView={this.props.inView}  ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget4.data} wd="widget4" candrag="true"/>
                 </div>
-              </div> 
+              </div>
         </div>)
    }
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import FullWidget from "./widgets/fullwidget";
-import DATASOURCE from "data/datasource";
+import DATASOURCE from "service/datasource";
 
 @connect((store) => {
    return {widgets: store.widgets}

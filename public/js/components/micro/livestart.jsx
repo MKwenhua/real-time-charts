@@ -1,5 +1,5 @@
 import React from "react";
-import exchangeOptions from 'data/stocks';
+import exchangeOptions from 'pure_functions/lists/stocks';
 
 export default class LiveStart extends React.Component {
    constructor(props) {

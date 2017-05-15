@@ -4,7 +4,7 @@ import LoadBars from './loaders/loadbars';
 import SymbolTag from './micro/symbolTag';
 import ChartTypeSpan from './micro/chartTypeSpan';
 const ReactHighstock = require('./react-highcharts/dist/ReactHighstock.src.js');
-import DATASOURCE from "./data/datasource";
+import DATASOURCE from "service/datasource";
 const graphConfigs = require("./graphs/graphconfigs.js");
 const dataFormat = require("./graphs/data_transform.js");
 const exchangeOpts = require('./data/symbols.js');
@@ -58,8 +58,8 @@ export default class Graph extends React.Component {
 	  this.exchangeChange = this.exchangeChange.bind(this);
 	  this.exchangeChangeAdd = this.exchangeChangeAdd.bind(this);
 	  this.symbolChange = this.symbolChange.bind(this);
-	 	this.dbSource.socket.on('marketData',  (details) => this.gotData( details )); 
-	 	this.dbSource.socket.on('dataLookup',  (details) => this.gotDataM( details ));  
+	 	this.dbSource.socket.on('marketData',  (details) => this.gotData( details ));
+	 	this.dbSource.socket.on('dataLookup',  (details) => this.gotDataM( details ));
  	}
  	reDraw (gType, metric) {
  		let met = metric ? metric : this.state.metric;
@@ -69,9 +69,9 @@ export default class Graph extends React.Component {
 			return	dataTransform(dta);
 		});
 		let config = graphConfigs[gType]( mkData.sym, stats);
-	  
+
 		this.setState({
-			blocked: <ReactHighstock config={config} /> , 
+			blocked: <ReactHighstock config={config} /> ,
 		 	graphType: gType,
 		 	metric: met
 		 });
@@ -80,16 +80,16 @@ export default class Graph extends React.Component {
  		if(this.state.metric !== 'PRICE' && met !== 'PRICE') {
  			let met = met ? met : this.state.metric;
  			this.reDraw(gType, met);
- 		}else{ 
+ 		}else{
  			let seriesOpts = this.state.activeSymbols.map((dta) => {
-			  let lineData = this.state.sets[dta].data.map((itm) => { 
+			  let lineData = this.state.sets[dta].data.map((itm) => {
 			   		return [new Date(itm.timestamp).getTime(), itm.close];
-			   });  
+			   });
 				return	gType === 'step' ? {name: dta , step:true, data:  lineData } :  {name: dta , type: gType , data:  lineData };
 			});
 			let config = graphConfigs.multiconfig(this.state.symbol, seriesOpts);
 			this.setState({
-				blocked: <ReactHighstock config={config} /> , 
+				blocked: <ReactHighstock config={config} /> ,
 			 	graphType: gType,
 			 	metric: 'PRICE'
 			});
@@ -107,7 +107,7 @@ export default class Graph extends React.Component {
 
 
       this.state.activeSymbols.length === 1 ? this.reDraw(gType) : this.reDrawM(gType);
- 	
+
  	}
  	getDataCall (symb) {
  	if (this.dbSource.connected) {
@@ -128,13 +128,13 @@ export default class Graph extends React.Component {
   }
   exchangeChangeAdd (e) {
   	let ex =   e.target.value;
-  	
+
   	this.setState({exchangeAd: ex});
 
   }
   exchangeChange (e) {
   	let ex =   e.target.value;
-  	
+
   	this.setState({exchange: ex, exchangeAd:ex});
 
   }
@@ -148,15 +148,15 @@ export default class Graph extends React.Component {
   		this.setState({symbol: symb});
   			this.getDataCall(symb);
   	}
-  
+
   }
   symbolAdd () {
   	let symb = this.refs.addSymbol.value;
   	if (!this.state.sets[symb]) {
   		let activez = this.state.activeSymbols;
 	  	let active = filterDublicates(this.state.symbol,symb,activez.slice(0, 6) );
-	  
-	  	
+
+
 	  	this.setState({activeSymbols: active, addSymb: false});
 	  	this.getDataCallMulti(symb);
 	  }
@@ -172,7 +172,7 @@ export default class Graph extends React.Component {
     }
 
   }
-	gotData (details) { 
+	gotData (details) {
 		console.log('got data', details);
 		let graphType = this.state.graphType;
 		let dataTransform = dataFormat[graphType]()
@@ -190,12 +190,12 @@ export default class Graph extends React.Component {
 			return oo;
 		},{});
 		this.setState({
-			blocked: <ReactHighstock config={config} /> , 
+			blocked: <ReactHighstock config={config} /> ,
 		 	activeSymbols: newActive,
 		 	sets: setsCopy
 		  });
 	}
-	gotDataM (details) { 
+	gotDataM (details) {
 		console.log('got dataM', details);
 	  let last =  details.results[details.results.length - 1];
     let sets =  this.state.sets;
@@ -204,7 +204,7 @@ export default class Graph extends React.Component {
     sets[newSymb] = {sym: newSymb, data:  details.results , isUp: isUp, num: last.close, open:last.open };
     let activeSyms =  filterDublicates(this.state.symbol,newSymb,this.state.activeSymbols.slice(0, 6) );
 		let seriesOpts = activeSyms.map((dta) => {
-			   let lineData = sets[dta].data.map((itm) => { 
+			   let lineData = sets[dta].data.map((itm) => {
 			   		return [new Date(itm.timestamp).getTime(), itm.close];
 			   });
 			return	{name: dta , data:  lineData };
@@ -215,7 +215,7 @@ export default class Graph extends React.Component {
 				return oo;
 		},{});
 		this.setState({
-			blocked: <ReactHighstock config={config} /> , 
+			blocked: <ReactHighstock config={config} /> ,
 		 	metric: 'PRICE',
 		 	activeSymbols: activeSyms,
 		 	graphType: 'line',
@@ -224,13 +224,13 @@ export default class Graph extends React.Component {
 	}
 render() {
 	  let setsOb = this.state.sets;
-		const activeSets = this.state.activeSymbols.map((symb) => {  
+		const activeSets = this.state.activeSymbols.map((symb) => {
 						return <SymbolTag key={symb + '_tag_w'} sm={setsOb[symb]} />;
 		});
 		const cShow = this.state.metric === 'OHLC' || this.state.metric === 'PRICE';
 		const spans = <ChartTypeSpan gType={this.state.graphType} metric={this.state.metric} />;
 
-		
+
     return (<div className="container">
             <div className="chart-controller">
             <div className="select-holders">
@@ -273,7 +273,7 @@ render() {
             <li className="hide-elm">
 	            <i className="material-icons">&#xE8B8;</i>
 	            <span>Settings</span>
-	           
+
             </li>
             </ul>
             </div>
@@ -281,7 +281,7 @@ render() {
             	<span className="span-label">symbol:</span>
             		<select ref="addSymbol"
 						         className="add-in">
-						       
+
 						  		{exchangeOpts[this.state.exchangeAd]}
 						 	</select>
 						 	<span className="span-label">exchange:</span>
@@ -297,9 +297,9 @@ render() {
 							</span>
             </div>
             <div onClick={this.graphType.bind(this)} className={cShow ? "chart-controller chart-set" : "chart-controller chart-set hide-elm" } >
-            
+
              {spans}
-            </div>	
+            </div>
                <ul id="activeCharts" className="activeCharts">
             {activeSets}
             </ul>

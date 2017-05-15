@@ -1,5 +1,5 @@
 import React from 'react';
-import DATASOURCE from "data/datasource";
+import DATASOURCE from "service/datasource";
 import Countries  from "data/countries";
 import Indicators from "data/indicators";
 

@@ -51,7 +51,7 @@ const DATASOURCE  = {
       xhrGet(route, cb);
    },
    getMarketDataXHR: (symbol, cb) => {
-      ley route = 'marketdata/' + symbol.toUpperCase();
+      let route = 'marketdata/' + symbol.toUpperCase();
       xhrGet(route, cb);
    }
 }
