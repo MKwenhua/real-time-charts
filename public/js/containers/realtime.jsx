@@ -10,7 +10,7 @@ const totalAmountCtx = require('canvas/depositamt.js');
 const viewCntrl = require('helper/viewCntrl.js');
 import statSVGs from 'components/svg/statSVG';
 import DATASOURCE from "service/datasource";
-import OpenWebsocket from "data/gowebsocket";
+import OpenWebsocket from "service/websocket";
 import CanvasChart from "dashboard/livegraph/canvaschart";
 import LiveStart from "micro/livestart";
 import LoadConnect from "components/loaders/spinload";
