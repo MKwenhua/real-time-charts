@@ -1,4 +1,4 @@
-import {randomFinancial} from 'd3fc-random-data';
+import { randomFinancial } from 'd3fc-random-data';
 
 const Tickers = {}
 const closeGet = (theSymb, prc) => {
@@ -14,7 +14,6 @@ const closeGet = (theSymb, prc) => {
 
 }
 
-//let data = [];
 const GENTICKS = {
    newTicker: (symb, price) => {
       let tickSymb = {
@@ -38,13 +37,5 @@ const GENTICKS = {
       tickSymb.startTicks()
    }
 }
-
-// data.length -> 1
-
-//data = data.concat(stream.take(20));
-// data.length -> 3
-
-//data = data.concat(stream.until(d => d.date > new Date(2016, 0, 10)));
-// data.length -> 10
 
 module.exports = GENTICKS;

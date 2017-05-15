@@ -155,14 +155,10 @@ const nyseSymbs = [
 ].sort();
 
 const nasdaqOpts = nasSymbs.map((symbs, ii) => {
-
    return <option key={symbs} value={symbs}>{symbs}</option>;
-
 });
 const nyseOpts = nyseSymbs.map((symbs, ii) => {
-
    return <option key={symbs} value={symbs}>{symbs}</option>;
-
 });
 
 const exchangeOptions = {

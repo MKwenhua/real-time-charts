@@ -157,7 +157,6 @@ const nyse = [
 const exchangeSymbs = (usedItms) => {
    const nasdaqOptions = stockSymbs.map((symbs, ii) => {
       if (usedItms.test(symbs)) {
-         // return  <option key={symbs} disabled="true" value={symbs} >{symbs}</option>;
          return null;
       } else {
          return <option key={symbs} value={symbs}>{symbs}</option>;
@@ -165,7 +164,6 @@ const exchangeSymbs = (usedItms) => {
    });
    const nyseOptions = nyse.map((symbs, ii) => {
       if (usedItms.test(symbs)) {
-         //  return  <option key={symbs} disabled="true" value={symbs} >{symbs}</option>;
          return null;
       } else {
          return <option key={symbs} value={symbs}>{symbs}</option>;

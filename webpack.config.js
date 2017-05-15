@@ -14,6 +14,7 @@ module.exports = {
      container:  path.resolve( __dirname, 'public/js/containers'),
      helper:  path.resolve( __dirname, 'public/js/helpers'),
      service: path.resolve( __dirname, 'public/js/servicess'),
+     pure_functions: path.resolve( __dirname, 'public/js/pure_functions'),
      dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
 
      svg:  path.resolve( __dirname, 'public/js/components/svg'),

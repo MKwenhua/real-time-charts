@@ -5,11 +5,9 @@ const OpenWebsocket = () => {
    const SOCKET = new WebSocket(theSocketUrl);
    SOCKET.on = {};
    SOCKET.watchedFeeds = {}
-   SOCKET.dispatchEvent = ((SOCKET) => {
-      return (name, callback) => {
+   SOCKET.dispatchEvent = (name, callback) => {
          SOCKET.on[name] = callback;
-      }
-   })(SOCKET);
+   }
 
    SOCKET.onmessage = function (event) {
 
