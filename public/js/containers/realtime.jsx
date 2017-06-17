@@ -177,6 +177,9 @@ export default class RealTime extends React.Component {
       dbSource.onclose = (event) => this.wbClosed(event);
 
    }
+   sayThing=() => {
+      console.log('dayThing', this)
+   }
    wbClosed(event) {
       console.log("Connection Closed");
       this.props.dispatch({
@@ -345,6 +348,7 @@ export default class RealTime extends React.Component {
 
    render() {
       const {dispatch} = this.props;
+      this.sayThing()
       let {optsComponent, onStart, platformView, tradViewClass, seriesWatch, addButton, totalCharts ,chartList, chartAddOpen,newSet, selectUl ,connected} = this.props.rt;
       let { currentPos, pastTrades} = this.props.trades
       let tdClass = tradViewClass === "half-view";

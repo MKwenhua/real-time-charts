@@ -1,6 +1,6 @@
 import React from "react";
-import ForexList from "micro/lists/forexlist";
-import StockList from "micro/lists/socklist";
+import ForexList from "data/lists/forexlist";
+import StockList from "data/lists/socklist";
 
 const TradeListBlock = (indices, seriesWatch, addNewChart) => {
   if (indices === "stocks") {

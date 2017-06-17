@@ -13,8 +13,8 @@ import OpenWebsocket from "./data/gowebsocket";
 import CanvasChart from "./dashboard/livegraph/canvaschart";
 import LiveStart from "./micro/livestart";
 import LoadConnect from "./loaders/spinload";
-import ForexList from "./micro/lists/forexlist";
-import StockList from "./micro/lists/socklist";
+import ForexList from "data/lists/forexlist";
+import StockList from "data/lists/socklist";
 import ActiveSpreads from "./dashboard/partialview/activespreads";
 import WidgetBlock from "./dashboard/widgetblock";
 import SideOptions from "./dashboard/sideoptions";
@@ -38,15 +38,15 @@ const chartContainers = (charts) => {
 };
 @connect((store) => {
   return {rt: store.rt,trades: store.trades, trn: store.transactions}
-}) 
+})
 export default class RealTime extends React.Component {
-    constructor(props) { 
+    constructor(props) {
       super(props)
       this.dbSource = OpenWebsocket();
       this.spreadRef = null;
       this.SvgCB = statSVGs();
       this.cardCtx = CardCtx();
-     
+
       console.log('this.props in constructor', this.props);
       this.liveFeedStarted = this.liveFeedStarted.bind(this);
       this.optView = this.optView.bind(this);
@@ -70,7 +70,7 @@ export default class RealTime extends React.Component {
         if (indices === "forex") {
          return <ForexList used={that.props.rt.seriesWatch} startChart={that.addNewChart.bind(that)}/>;
         }
-      }   
+      }
     }
     wbClosed (event) {
       console.log("Connection Closed");
@@ -78,7 +78,7 @@ export default class RealTime extends React.Component {
           type: "CONNECTION_LOST",
           payload: {connected: false}
       });
-        
+
     }
     depositChanged (amt) {
       let {deposit} = this.props.trades;
@@ -88,12 +88,12 @@ export default class RealTime extends React.Component {
           type: "DEPOSIT_CHANGE",
           payload: newAmount
       });
-        
+
     }
     addChartMenu() {
       this.props.dispatch({
           type: "TOGGLE_CHART_MENU",
-          payload:   !this.props.rt.chartAddOpen 
+          payload:   !this.props.rt.chartAddOpen
       })
     }
    closeCrt(chrtSym) {
@@ -115,7 +115,7 @@ export default class RealTime extends React.Component {
       if (e.target.classList.contains('selected-li')) return 'yo';
 
       let ulType = e.target.dataset.key;
- 
+
       if (ulType === "stocks") {
         this.props.dispatch({
           type: "SWITCH_INDICES",
@@ -133,7 +133,7 @@ export default class RealTime extends React.Component {
     setSpreadRef (spreadCntrl) {
      this.spreadRef = spreadCntrl;
     }
-    
+
     optView (type) {
       let  currentClass =  "half-view";
       let dashview = this.props.rt.platformView;
@@ -144,12 +144,12 @@ export default class RealTime extends React.Component {
           currentClass === "half-view" ? this.spreadRef.inView() : this.spreadRef.outView();
           PositionTiles.outView();
           break;
-        case "current-bids": 
+        case "current-bids":
           currentClass = this.props.rt.tradViewClass === "full-view" ? "half-view" : "full-view";
           currentClass === "half-view" ?  PositionTiles.inView() : PositionTiles.outView();
           this.spreadRef.outView();
           break;
-        case "past-pos": 
+        case "past-pos":
           dashview = "trade list";
           currentClass = "full-view";
           CtxChart.outOfView();
@@ -157,11 +157,11 @@ export default class RealTime extends React.Component {
           this.SvgCB.inViewBool = true;
           this.SvgCB.inView();
           this.cardCtx.outView();
-          this.spreadRef.outView(); 
+          this.spreadRef.outView();
           break;
-        case "charts": 
+        case "charts":
           currentClass =  "full-view";
-          this.spreadRef.outView(); 
+          this.spreadRef.outView();
           this.cardCtx.outView();
           Clock.inView();
           PositionTiles.outView();
@@ -177,7 +177,7 @@ export default class RealTime extends React.Component {
           PositionTiles.outView();
           this.cardCtx.inView();
           this.SvgCB.inViewBool = false;
-          this.spreadRef.outView(); 
+          this.spreadRef.outView();
           break;
         }
         case  "overview":
@@ -187,19 +187,19 @@ export default class RealTime extends React.Component {
           Clock.outView();
           PositionTiles.outView();
           this.cardCtx.outView();
-          this.spreadRef.outView(); 
+          this.spreadRef.outView();
           break;
 
       }
        this.props.dispatch({
           type: "OPTS_VIEW",
           payload: {
-            tradViewClass: currentClass, 
+            tradViewClass: currentClass,
             optsComponent: type,
             platformView: dashview
         }
       });
-    
+
     }
     liveFeedStarted(symbFeed) {
       let seriesWatch = this.props.rt.seriesWatch;
@@ -211,7 +211,7 @@ export default class RealTime extends React.Component {
         addButton: true
       }
       })
-  
+
     }
     addNewChart(symb, index) {
         let stateOB = Object.assign({}, this.props.rt);
@@ -227,15 +227,15 @@ export default class RealTime extends React.Component {
         let newCtx = {
            symb: symb,
            keyy: keyy,
-           component: <CanvasChart 
-            newPos={this.newPos.bind(this)} 
-            depChg={this.depositChanged.bind(this)}  
+           component: <CanvasChart
+            newPos={this.newPos.bind(this)}
+            depChg={this.depositChanged.bind(this)}
             ctx={CtxChart.passCTXconstructor()}
-            clock={Clock} 
-            positions={stateOB.chartPositions[symb]} 
-            clCtx={this.closeCrt.bind(this)} 
-            dataSource={this.dbSource} 
-            mainSym={symb} 
+            clock={Clock}
+            positions={stateOB.chartPositions[symb]}
+            clCtx={this.closeCrt.bind(this)}
+            dataSource={this.dbSource}
+            mainSym={symb}
             whenMounted={this.canvasPlaced.bind(this)} />
         };
         stateOB.chartList.push(newCtx);
@@ -252,10 +252,10 @@ export default class RealTime extends React.Component {
         })
      }
 
-    
+
     canvasPlaced() {
       //this.ctxChart =  CtxChart();
- 
+
     };
     tradeExpired (pos) {
       let {pastTrades, deposit, currentPos, todayTotalNet} = this.props.trades;
@@ -268,7 +268,7 @@ export default class RealTime extends React.Component {
           volume: pos.qty,
           date: new Date().toDateString(),
           short: pos.type === "PUT",
-          pricestart: (Math.round(pos.unitPrice * 100) / 100), 
+          pricestart: (Math.round(pos.unitPrice * 100) / 100),
           priceend: (Math.round(currentPoint.data[3] * 100) / 100),
           profit: diff
       }].concat(pastTrades);
@@ -316,8 +316,8 @@ export default class RealTime extends React.Component {
           payload: true
         });
       };
-    
-      window.addEventListener("online", function(e){  
+
+      window.addEventListener("online", function(e){
         self.props.dispatch({
           type: "CONNECTED",
           payload:  true
@@ -335,7 +335,7 @@ export default class RealTime extends React.Component {
           this.resetCharts();
         }
     }
-    resetCharts () { 
+    resetCharts () {
       let { seriesWatch, chartPositions, charts } = this.props.rt;
       let stateOB = Object.assign({},this.props.rt);
      Object.keys(charts).forEach((symb, i) => {
@@ -355,13 +355,13 @@ export default class RealTime extends React.Component {
           payload: true
         });
 
-     }  
-     
+     }
+
     }
     componentWillUnmount() {
      // this.dbSource.close();
     }
-  
+
   render() {
     let {optsComponent,onStart, platformView, tradViewClass, chartList}  = this.props.rt;
     let tdClass = tradViewClass === "half-view";
@@ -396,8 +396,8 @@ export default class RealTime extends React.Component {
                   </div>
                   {this.ulBlock(this.props.rt.selectUl, this)}
                   </div>
-                  
-                 
+
+
                </div>
                  <div id="connectedState">
                   <div className={this.props.rt.connected ? "online-state online" : "online-state offline"}></div>
@@ -405,25 +405,25 @@ export default class RealTime extends React.Component {
                  </div>
             </div>
             <div id="scorePoints" className={(platformView !== "trade history"  && !onStart ) ? "" : "hide-elm"}>
-                    
+
                         <span className="count span-green total-earnings"><canvas id="totalAccount" height={40} width={100}></canvas></span>
                         <span className="deposit-span">DEPOSIT</span>
-                      
+
                     </div>
             <section id="realTimeTheme">
-             
+
                 {blocked}
-                
+
              <SideOptions platformView={platformView} optsComponent={optsComponent} tdClass={tdClass} onStart={this.props.rt.onStart} itmView={this.optView.bind(this)} />
-             
+
               <section id="optionsView"  className={this.props.rt.onStart ? "hide-elm"  : "ok"}>
                 <div className={optsComponent === "spreads" ? "in-view-opts" : "hide-elm"}>
                    <ActiveSpreads setSpreadRef={this.setSpreadRef.bind(this)}  callCT={spreadCTX} dataSource={this.dbSource} />
                 </div>
                  <div className={optsComponent === "current-bids" ? "in-view-opts" : "hide-elm"}>
                  <WatchedSpreads PositionTiles={PositionTiles} activePosList={this.props.trades.currentPos} />
-                </div>     
-              </section>  
+                </div>
+              </section>
               <section id="tradingplatform" className={this.props.rt.onStart ? "hide-elm"  :  tradViewClass}>
                  <div className={platformView === "live graphs" ? "wrap-block" : "hide-elm"}>
                    {this.props.rt.newSet}
@@ -444,6 +444,6 @@ export default class RealTime extends React.Component {
             </section>
             </div>
             )
-  
+
   }
 };

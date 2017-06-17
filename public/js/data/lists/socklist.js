@@ -1,5 +1,5 @@
 import React from "react";
-const exchangeSymbs = require('data/gosymbols.js');
+import exchangeSymbols from 'data/gosymbols';
 
 export default class StockList extends React.Component {
    constructor(props) {
@@ -18,9 +18,8 @@ export default class StockList extends React.Component {
       this.props.startChart(this.refs.feedSymbol.value, "stocks")
    };
    render() {
-      let used = this.props.used.length === 0 ? ["NOPE", "WHAT"] : this.props.used;
-      let inUse = new RegExp("(" + used.join("|") + ")");
-      let exchangeOpts = exchangeSymbs(inUse);
+      let { used } = this.props
+      let exchangeOptions = exchangeSymbols(used);
       return (
          <div className="column-two">
             <div className="sel-ind">
@@ -33,7 +32,7 @@ export default class StockList extends React.Component {
             <div className="sel-ind">
                <strong>Symbol</strong>
                <select ref="feedSymbol" className="symbol-pick live-sym">
-                  {exchangeOpts[this.state.exchange]}
+                  {exchangeOptions[this.state.exchange]}
                </select>
             </div>
 

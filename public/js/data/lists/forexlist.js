@@ -19,9 +19,9 @@ export default class ForexList extends React.Component {
    };
 
    render() {
-      let { useed } = this.props
+      let { used } = this.props
       const list = ForexSymbolPairs.map((symbol) => {
-         if (useed[symbol]) {
+         if (used[symbol]) {
             return null;
          } else {
             return <option key={symbol} value={symbol}>{symbol}</option>;
