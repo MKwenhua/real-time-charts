@@ -16,7 +16,6 @@ export default class WatchedSpreads extends React.PureComponent {
       const posList = activePosList.length ? currentBlocks(activePosList, PositionTiles) : <div className="no-positions">No Active Positions</div>;
       return (
          <div className="active-spreads watched-spreads">
-
             {posList}
          </div>
       )

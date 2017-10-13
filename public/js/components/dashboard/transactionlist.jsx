@@ -14,7 +14,7 @@ export default class TransactionList extends React.Component {
       }
       this.postionClick = this.postionClick.bind(this);
    };
-   postionClick(pos, ind) {
+   postionClick = (pos, ind) =>  {
       this.setState({active: ind})
    }
 
@@ -24,7 +24,7 @@ export default class TransactionList extends React.Component {
       let activeNum = this.state.active ? this.state.active : 0;
       const pastTradeList = this.props.pastTrades.map((itm, i) => {
          let hy = i === 0 ? firstClass : false;
-         return <InfoLi clicked={this.postionClick.bind(this)} key={i + '_trade'} addStyle={hy} active={activeNum === i} index={i} animate={this.state.animate} pos={itm}/>
+         return <InfoLi clicked={this.postionClick} key={i + '_trade'} addStyle={hy} active={activeNum === i} index={i} animate={this.state.animate} pos={itm}/>
       });
       return (
          <div className="container-fluid wrapper">

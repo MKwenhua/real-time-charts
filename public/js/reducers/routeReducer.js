@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import Graph from 'container/graph_temp';
 import RealTime from 'container/realtime';
 import Map from 'container/map';
@@ -9,7 +8,8 @@ import TopNav from 'container/topnav';
 window.checkPath = (() => {
 
    const ChangeUrl = (title, url) => {
-      if (typeof(history.pushState) === 'undefined') return;
+      if (typeof(history.pushState) === 'undefined')
+         return;
 
       let obj = {
          Title: title,
@@ -24,10 +24,7 @@ window.checkPath = (() => {
       '/realtime': 'Real Time',
       '/map': 'Map Stuff'
    }
-   const pathReducer = (path) => {
-
-
-   };
+   const pathReducer = (path) => {};
    return (path) => {
       //  let routeArray = path.split('/').filter(Boolean);
       let pathIS = allPaths.reduce((q, i) => {
@@ -38,24 +35,23 @@ window.checkPath = (() => {
    }
 })();
 
-
 const routeComponents = {
-   '/': (<Graph  />),
-   '/history': (<Graph  />),
-   '/realtime': (<RealTime  />),
-   '/map': (<Map />)
+   '/': (<Graph/>),
+   '/history': (<Graph/>),
+   '/realtime': (<RealTime/>),
+   '/map': (<Map/>)
 }
 const getTopNav = {
-   '/': (<TopNav theClass='normal' pathName='/' />),
-   '/history': (<TopNav theClass='normal' pathName='/history' />),
-   '/realtime': (<TopNav theClass='rt-alter' pathName='/realtime' />),
-   '/map': (<TopNav theClass='normal' pathName='/map' />)
+   '/': (<TopNav theClass='normal' pathName='/'/>),
+   '/history': (<TopNav theClass='normal' pathName='/history'/>),
+   '/realtime': (<TopNav theClass='rt-alter' pathName='/realtime'/>),
+   '/map': (<TopNav theClass='normal' pathName='/map'/>)
 }
 let initialPath = window.checkPath(window.location.pathname);
 export default function reducer(state = {
    pathName: window.location.pathname,
    blocked: routeComponents[initialPath],
-   topNav: <TopNav theClass={initialPath === '/realtime' ? 'rt-alter' : ''} pathName={initialPath} />,
+   topNav: <TopNav theClass={initialPath === '/realtime' ? 'rt-alter' : ''} pathName={initialPath}/>,
    routeComponents: routeComponents
 }, action) {
 
@@ -63,7 +59,8 @@ export default function reducer(state = {
       case 'NEW_PATH':
          {
 
-            return {...state,
+            return {
+               ...state,
                pathName: action.payload.pathname,
                blocked: action.payload.blocked,
                topNav: action.payload.topNav
@@ -71,7 +68,6 @@ export default function reducer(state = {
             break;
 
          }
-
 
    }
 

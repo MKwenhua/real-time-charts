@@ -6,14 +6,11 @@ export default class TickCard extends React.Component {
       this.state = {
          actionClass: "trade-card-holder normal-class"
       }
-      this.dragStart = this.dragStart.bind(this);
-      this.dragEnd = this.dragEnd.bind(this);
-
    }
-   dragStart() {
+   dragStart = () => {
       this.setState({actionClass: "trade-card-holder reduced-class"});
    }
-   dragEnd() {
+   dragEnd = () => {
       this.setState({actionClass: "trade-card-holder normal-class"});
    }
    render() {

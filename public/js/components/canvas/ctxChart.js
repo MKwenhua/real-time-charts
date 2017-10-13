@@ -327,7 +327,6 @@ function CtxController() {
       return CtxChrt;
    }
 }
-CtxController.bind(this);
 const CtxChart = new CtxController();
 
 module.exports = CtxChart;

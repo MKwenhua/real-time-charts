@@ -47,18 +47,8 @@ export default class CallPut extends React.Component {
          pos: null,
          timeList: null
       }
-
-      this.setPosTime = this.setPosTime.bind(this);
-      this.menuSet = this.menuSet.bind(this);
-      this.posSet = this.posSet.bind(this);
-      this.toggleMenuBid = this.toggleMenuBid.bind(this);
-      this.toggleMenuAsk = this.toggleMenuAsk.bind(this);
-      this.timeMenuOpen = this.timeMenuOpen.bind(this);
-      this.btnPtnpush = this.btnPtnpush.bind(this);
-      this.closeModal = this.closeModal.bind(this);
-      this.plusMinus = this.plusMinus.bind(this);
    }
-   toggleMenuBid() {
+   toggleMenuBid = () => {
       let pos = this.state.pos ? this.state.pos : {
          qty: 1,
          time: this.state.tmSet,
@@ -73,7 +63,7 @@ export default class CallPut extends React.Component {
       pos.unitPrice = pos.point.data[2];
       this.setState({bidOpen: true, askOpen: false, timeMenuOpen: false, pos: pos});
    }
-   toggleMenuAsk() {
+   toggleMenuAsk = () => {
       let pos = this.state.pos ? this.state.pos : {
          qty: 1,
          time: this.state.tmSet,
@@ -88,7 +78,7 @@ export default class CallPut extends React.Component {
       pos.unitPrice = pos.point.data[1];
       this.setState({askOpen: true, bidOpen: false, timeMenuOpen: false, pos: pos});
    }
-   setPosTime(tm) {
+   setPosTime = (tm) => {
       let pos = this.state.pos ? Object.assign({}, this.state.pos) : {
          qty: 1,
          time: this.state.tmSet,
@@ -102,13 +92,13 @@ export default class CallPut extends React.Component {
       pos.point = this.props.ctxChart.getLatestPoint();
       pos.symb = this.state.symb;
       this.setState({
-         timeList: <TimeIntervals ind={tm} timeSet={this.setPosTime.bind(this)}/>,
+         timeList: <TimeIntervals ind={tm} timeSet={this.setPosTime}/>,
          tmSet: tm,
          pos: pos
       });
 
    }
-   posSet(bidOrAsk) {
+   posSet = (bidOrAsk) => {
       let {pos, posNum} = Object.assign({}, this.state);
       let d = new Date();
       pos.expires = d.getHours() + ':' + ('0' + (d.getMinutes() + pos.time)).slice(-2);
@@ -121,26 +111,26 @@ export default class CallPut extends React.Component {
       this.setState({askOpen: false, bidOpen: false, posNum: posNum, pos: null});
 
    }
-   closeModal() {
+   closeModal = () => {
       this.setState({askOpen: false, bidOpen: false, bidBtnClass: "", putBtnClass: ""});
    }
-   menuSet() {
+   menuSet = () => {
       this.setState({timeMenuOpen: false});
    }
-   timeMenuOpen() {
+   timeMenuOpen = () => {
       this.setState({
          timeMenuOpen: !this.state.timeMenuOpen,
-         timeList: <TimeIntervals ind={this.state.tmSet} timeSet={this.setPosTime.bind(this)}/>
+         timeList: <TimeIntervals ind={this.state.tmSet} timeSet={this.setPosTime}/>
       });
    }
-   plusMinus(num) {
+   plusMinus = (num) => () => {
       let qnty = (this.state.qnty + num) > 0 ? this.state.qnty + num : 1;
       let pos = this.state.pos ? Object.assign({}, this.state.pos, {qty: qnty}) : null;
 
       this.setState({qnty: qnty, pos: pos});
    }
 
-   btnPtnpush(bool) {
+   btnPtnpush = (bool) => () => {
       if (bool) {
          let btn = this.state.bidBtnClass === "button-click" ? "button-in" : "button-click";
          this.setState({bidBtnClass: btn, putBtnClass: ""});
@@ -167,44 +157,44 @@ export default class CallPut extends React.Component {
             <div id="timeMenu" className={this.state.timeMenuOpen ? "zing-in-fast" : "hide-elm"}>
                <strong>Position Expiration</strong>
                {this.state.timeList}
-               <div className="cool-button  add-chart-bt set-pos" onClick={this.menuSet.bind(this)}>Set Time</div>
+               <div className="cool-button  add-chart-bt set-pos" onClick={this.menuSet}>Set Time</div>
 
             </div>
             <div id="Bid" className={this.state.bidOpen ? "bounce-in-fast" : "hide-elm"}>
                <p className="pos-type-header call-t">Call Position
                </p>
-               <i className="material-icons  close-modal" onClick={this.closeModal.bind(this)}>clear</i>
+               <i className="material-icons  close-modal" onClick={this.closeModal}>clear</i>
                {bidOverview}
-               <div className="cool-button  add-chart-bt set-pos" onClick={this.posSet.bind(this, "CALL")}>Place Order</div>
+               <div className="cool-button  add-chart-bt set-pos" onClick={this.posSet("CALL")}>Place Order</div>
             </div>
             <div id="Ask" className={this.state.askOpen ? "bounce-in-fast" : "hide-elm"}>
                <p className="pos-type-header put-t">Put Position</p>
-               <i className="material-icons close-modal" onClick={this.closeModal.bind(this)}>clear</i>
+               <i className="material-icons close-modal" onClick={this.closeModal}>clear</i>
                {askOverview}
 
-               <div className="cool-button  add-chart-bt set-pos" onClick={this.posSet.bind(this, "PUT")}>Place Order</div>
+               <div className="cool-button  add-chart-bt set-pos" onClick={this.posSet("PUT")}>Place Order</div>
             </div>
-            <p className="text-wrap-values time-ticker time-v" onClick={this.timeMenuOpen.bind(this)}>
+            <p className="text-wrap-values time-ticker time-v" onClick={this.timeMenuOpen}>
                <canvas id={this.props.timerId} height={18} width={66}></canvas>
             </p>
             <p className="text-wrap-values time-ticker">
                <strong>{this.state.qnty}</strong>
             </p>
-            <div className="text-wrap-values plus-minus sub-v" onClick={this.plusMinus.bind(this, -1)}>
+            <div className="text-wrap-values plus-minus sub-v" onClick={this.plusMinus(-1)}>
                <i className="material-icons">remove</i>
             </div>
-            <div className="text-wrap-values plus-minus add-v" onClick={this.plusMinus.bind(this, 1)}>
+            <div className="text-wrap-values plus-minus add-v" onClick={this.plusMinus(1)}>
                <i className="material-icons">add</i>
             </div>
             <p className="profit">
                71%
             </p>
 
-            <div className={"trade-butt put-butt " + bidBtnClass} onMouseDown={this.btnPtnpush.bind(this, true)} onMouseUp={this.toggleMenuBid.bind(this)}>
+            <div className={"trade-butt put-butt " + bidBtnClass} onMouseDown={this.btnPtnpush(true)} onMouseUp={this.toggleMenuBid}>
                <img src="/icons/gain.png"/>
                <strong>Call</strong>
             </div>
-            <div className={"trade-butt call-butt " + putBtnClass} onMouseDown={this.btnPtnpush.bind(this, false)} onMouseUp={this.toggleMenuAsk.bind(this)}>
+            <div className={"trade-butt call-butt " + putBtnClass} onMouseDown={this.btnPtnpush(false)} onMouseUp={this.toggleMenuAsk}>
                <img src="/icons/loss.png"/>
                <strong>Put</strong>
             </div>

@@ -53,18 +53,8 @@ export default class LiveTickers extends React.Component {
          draggedCard: null
 
       }
-      this.handleDragEv = this.handleDragEv.bind(this);
-      this.whenDrop = this.whenDrop.bind(this);
-      this.dragO = this.dragO.bind(this);
-      this.dragL = this.dragL.bind(this);
-      this.sideEnter = this.sideEnter.bind(this);
-      this.sideLeave = this.sideLeave.bind(this);
-      this.sideDrop = this.sideDrop.bind(this);
-      this.dragEnter = this.dragEnter.bind(this);
-      this.dropHandle = this.dropHandle.bind(this);
-      this.postionClick = this.postionClick.bind(this);
    };
-   postionClick(ind) {
+   postionClick = (ind) => {
       let {leftCard, hoveredCard, updateViewed, cardlist} = this.state;
       if (hoveredCard !== leftCard && hoveredCard !== null && updateViewed !== null) {
          this.whenDrop(hoveredCard);
@@ -85,38 +75,37 @@ export default class LiveTickers extends React.Component {
          viewedTicker: cardSymbol
       })
    }
-   handleDragEv(index) {
-      //
+   handleDragEv = (index) => {
       this.setState({draggedCard: index, applyOutAni: null})
 
    };
-   dragO(index) {
+   dragO = (index) => {
       this.setState({hoveredCard: index})
 
    };
-   sideEnter(e) {
+   sideEnter = (e) => {
       console.log('sideEntered');
       e.preventDefault();
       e.stopPropagation();
       let {cardlist, draggedCard} = this.state;
       this.setState({updateViewed: cardlist[draggedCard]});
    }
-   sideLeave(e) {
+   sideLeave = (e) => {
       console.log('sideLeft');
       e.preventDefault();
       e.stopPropagation();
       this.setState({updateViewed: null});
    }
-   dragL(index) {
+   dragL = (index) => {
       //
       this.setState({leftCard: index})
 
    };
-   onDragOver(e) {
+   onDragOver = (e) => {
       e.preventDefault();
 
    }
-   sideDrop() {
+   sideDrop = () => {
       let cardlist = this.state.cardlist;
       let cardSymbol = this.state.updateViewed;
 
@@ -130,7 +119,7 @@ export default class LiveTickers extends React.Component {
       })
 
    }
-   dropHandle() {
+   dropHandle = () => {
       let {cardlist, updateViewed} = this.state;
       let draggedSymb = cardlist[this.state.draggedCard];
       let cardlst = cardlist.reduce((obb, itm, i) => {
@@ -154,12 +143,12 @@ export default class LiveTickers extends React.Component {
       })
 
    }
-   dragEnter(e) {
+   dragEnter = (e) => {
       e.preventDefault();
       e.stopPropagation();
 
    };
-   whenDrop(index) {
+   whenDrop = (index) => {
       let draggedSymb = this.state.cardlist[this.state.draggedCard];
       let cardlist = this.state.cardlist.reduce((obb, itm, i) => {
          if (index === i) {
@@ -174,7 +163,7 @@ export default class LiveTickers extends React.Component {
 
       this.setState({cardlist: cardlist, hoveredCard: null, applyOutAni: index, leftCard: null, draggedCard: null})
    }
-   dragLeave(e) {
+   dragLeave = (e) => {
       e.preventDefault();
       e.stopPropagation();
 
@@ -184,7 +173,6 @@ export default class LiveTickers extends React.Component {
       this.props.cardCtx.chartView.priceSeed = ll[0].prc;
       this.props.cardCtx.chartView.render();
    }
-   componentWillMount() {}
    render() {
 
       let {draggedCard, applyOutAni} = this.state;
@@ -194,24 +182,22 @@ export default class LiveTickers extends React.Component {
             ani = i === draggedCard ? 'scaleSmall  ease-out 0.4s 1 forwards' : 'growBig  ease-out 0.3s 1 forwards';
          }
 
-         return <TickCard key={i + '_ww'} active={this.state.active === i} applyOut={applyOutAni === i} cardCtx={this.props.cardCtx} ani={ani} cardId={`card_${itm.symb}`} mU={this.postionClick.bind(this)} dL={this.dragL.bind(this)} dO={this.dragO.bind(this)} dH={this.whenDrop.bind(this)} dS={this.handleDragEv.bind(this)} index={i} symbol={itm}/>;
+         return <TickCard key={i + '_ww'} active={this.state.active === i} applyOut={applyOutAni === i} cardCtx={this.props.cardCtx} ani={ani} cardId={`card_${itm.symb}`} mU={this.postionClick} dL={this.dragL} dO={this.dragO} dH={this.whenDrop} dS={this.handleDragEv} index={i} symbol={itm}/>;
 
       });
       return (
          <div className="container-fluid wrapper">
-
             <section id="cardContain">
                {tickCards}
                <div className="trade-card-holder normal-class">
-                  <div id="AddTicker" onDragOver={this.dragEnter.bind(this)} onDrop={this.dropHandle.bind(this)}>
+                  <div id="AddTicker" onDragOver={this.dragEnter} onDrop={this.dropHandle}>
                      <i className="fa fa-plus big-fa" aria-hidden="true"></i>
                   </div>
                </div>
             </section>
-            <section className="side-look-at" onDragEnter={this.sideEnter.bind(this)} onDrop={this.dropHandle.bind(this)} onDragLeave={this.sideLeave.bind(this)}>
+            <section className="side-look-at" onDragEnter={this.sideEnter} onDrop={this.dropHandle} onDragLeave={this.sideLeave}>
                <TickerView symbol={this.state.viewedTicker}/>
             </section>
-
             <section id="bottomLookUp"></section>
          </div>
       )

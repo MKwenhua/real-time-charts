@@ -38,53 +38,36 @@ const chartContainers = (charts) => {
    });
 
 };
-function canvasPlaced(tradePostions) {
-  return (newSymb) => {
-   tradePostions = Object.assign({}, tradePostions, newSymb);
-  }
-};
-function addNewChart(props , tradePostions, dispatch) {
-   return (symb, index) => {
-   let stateOB = Object.assign({}, props.rt);
-   let {chartList, chartsActive} = stateOB;
-   let keyy = symb + '_canvas';
+// function addNewChart(props , tradePostions, dispatch) {
+//    return (symb, index) => {
+//    let stateOB = Object.assign({}, props.rt);
+//    let {chartList, chartsActive} = stateOB;
+//    let keyy = symb + '_canvas';
+//
+//    stateOB.chartPositions[symb] = {
+//       trades: [],
+//       position: {},
+//       total: 0.0,
+//       current: null
+//    };
+//    let newCtx = {
+//       symb: symb,
+//       keyy: keyy,
+//       component: <CanvasChart newPos={newPosition(props.trades, tradePostions, setTradeExpired(props.trades, tradePostions ,dispatch) ,dispatch )} depChg={depositChanged(props.trades, dispatch)} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={stateOB.chartPositions[symb]} clCtx={closeCrt(props, tradePostions,dispatch)} dataSource={dbSource} mainSym={symb} whenMounted={canvasPlaced(tradePostions)}/>
+//    };
+//    stateOB.chartList.push(newCtx);
+//    if (props.rt.totalCharts === 0) {
+//       stateOB['onStart'] = false;
+//    }
+//    stateOB.totalCharts = stateOB.chartList.length;
+//    stateOB['addButton'] = true;
+//    stateOB['newSet'] = null;
+//    stateOB['chartAddOpen'] = false;
+//    dispatch({type: "ADD_CHART", payload: stateOB})
+//  }
+// }
 
-   stateOB.chartPositions[symb] = {
-      trades: [],
-      position: {},
-      total: 0.0,
-      current: null
-   };
-   let newCtx = {
-      symb: symb,
-      keyy: keyy,
-      component: <CanvasChart newPos={newPosition(props.trades, tradePostions, setTradeExpired(props.trades, tradePostions ,dispatch) ,dispatch )} depChg={depositChanged(props.trades, dispatch)} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={stateOB.chartPositions[symb]} clCtx={closeCrt(props, tradePostions,dispatch)} dataSource={dbSource} mainSym={symb} whenMounted={canvasPlaced(tradePostions)}/>
-   };
-   stateOB.chartList.push(newCtx);
-   if (props.rt.totalCharts === 0) {
-      stateOB['onStart'] = false;
-   }
-   stateOB.totalCharts = stateOB.chartList.length;
-   stateOB['addButton'] = true;
-   stateOB['newSet'] = null;
-   stateOB['chartAddOpen'] = false;
-   dispatch({type: "ADD_CHART", payload: stateOB})
- }
-}
-function closeCrt(props, tradePostions,dispatch) {
-  return (chrtSym) => {
-   let {chartList, totalCharts} = props.rt;
-   let stateSwitch = Object.assign({}, props.rt);
-   let newChartTotal = totalCharts - 1;
-   stateSwitch.chartList = chartList.filter((itm, i) => itm.symb !== chrtSym);
-   stateSwitch['totalCharts'] = newChartTotal;
-   stateSwitch['newSet'] = newChartTotal ? null : <LiveStart startChart={addNewChart(props , tradePostions, dispatch)}/>;
-   stateSwitch['platformView'] = "live graphs";
-   dispatch({type: "CLOSE_CHART", payload: stateSwitch})
- }
-}
-function setTradeExpired(trades, tradePostions ,dispatch) {
-  return (pos) => {
+const setTradeExpired = (trades, tradePostions ,dispatch) => (pos) => {
    let {pastTrades, deposit, currentPos, totalRev, todayTotalNet} = trades;
    let nwPnt = pos.getLatestPoint();
    let diff = (nwPnt.data[3] - pos.unitPrice) * pos.qty;
@@ -117,10 +100,11 @@ function setTradeExpired(trades, tradePostions ,dispatch) {
          totalRev: totalRev + diff
       }
    });
- }
 }
-function newPosition(trades, tradePostions,tradeExpired ,dispatch ) {
-  return (pos) => {
+
+const newPosition = ({tradePostions, props}) => (pos) => {
+    const {trades, dispatch} = props
+    const tradeExpired = setTradeExpired(trades, tradePostions ,dispatch)
     let {deposit, currentPos, weeklyTradeCount, todayTradeCount} = trades;
     let newCurrentPos = [pos].concat(currentPos);
     let newAmount = deposit - Math.round(pos.unitPrice * pos.qty);
@@ -141,16 +125,14 @@ function newPosition(trades, tradePostions,tradeExpired ,dispatch ) {
      setTimeout(() => {
         tradeExpired(pos);
      }, timeOut);
- }
+
 }
 
-function depositChanged(trades, dispatch) {
-  return (amt) => {
+const depositChanged = ({trades, dispatch}) => (amt) => {
    let {deposit} = trades;
    let newAmount = deposit - Math.round(amt);
    window.showDiff(deposit, newAmount);
    dispatch({type: "DEPOSIT_CHANGE", payload: newAmount});
- }
 }
 const dbSource = OpenWebsocket();
 const SvgCB = statSVGs();
@@ -190,6 +172,37 @@ export default class RealTime extends React.Component {
       });
 
    }
+   canvasPlaced=(newSymb) => {
+     this.tradePostions = Object.assign({}, this.tradePostions, newSymb);
+   }
+   addNewChart=(symb, index) => {
+      const {props, tradePostions, canvasPlaced} = this
+      const {dispatch, trades} = props
+      let stateOB = Object.assign({}, props.rt);
+      let {chartList, chartsActive} = stateOB;
+      let keyy = symb + '_canvas';
+
+      stateOB.chartPositions[symb] = {
+         trades: [],
+         position: {},
+         total: 0.0,
+         current: null
+      };
+      let newCtx = {
+         symb: symb,
+         keyy: keyy,
+         component: <CanvasChart newPos={newPosition(this)} depChg={depositChanged(props)} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={stateOB.chartPositions[symb]} clCtx={this.closeChart} dataSource={dbSource} mainSym={symb} whenMounted={this.canvasPlaced}/>
+      };
+      stateOB.chartList.push(newCtx);
+      if (props.rt.totalCharts === 0) {
+         stateOB['onStart'] = false;
+      }
+      stateOB.totalCharts = stateOB.chartList.length;
+      stateOB['addButton'] = true;
+      stateOB['newSet'] = null;
+      stateOB['chartAddOpen'] = false;
+      dispatch({type: "ADD_CHART", payload: stateOB})
+    }
 
    addChartMenu() {
       this.props.dispatch({
@@ -331,7 +344,7 @@ export default class RealTime extends React.Component {
       Object.keys(charts).forEach((symb, i) => {
          let slot = stateOB.charts[symb];
          let keyy = symb + '_key';
-         stateOB[slot] = <CanvasChart key={keyy} newPos={this.newPos.bind(this)} depChg={this.depositChanged.bind(this)} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={chartPositions[symb]} clCtx={this.closeCrt.bind(this)} dataSource={dbSource} mainSym={symb} whenMounted={this.canvasPlaced.bind(this)}/>;
+         stateOB[slot] = <CanvasChart key={keyy} newPos={this.newPos.bind(this)} depChg={this.depositChanged.bind(this)} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={chartPositions[symb]} clCtx={this.closeChart} dataSource={dbSource} mainSym={symb} whenMounted={this.canvasPlaced }/>;
       });
       this.props.dispatch({type: "RESET_CHARTS", payload: stateOB})
    }
@@ -342,19 +355,67 @@ export default class RealTime extends React.Component {
       }
 
    }
+   newPosition=({ props, tradePostions}) => (pos) => {
+       const { trades, dispatch } = props
+       let {deposit, currentPos, weeklyTradeCount, todayTradeCount} = trades;
+       let newCurrentPos = [pos].concat(currentPos);
+       let newAmount = deposit - Math.round(pos.unitPrice * pos.qty);
+       window.showDiff(deposit, newAmount);
+       tradePostions[pos.symb].open[pos.posId] = pos;
+       let posCTXcntrl = tradePostions[pos.symb].ctxChart;
+       posCTXcntrl.addNewPos(pos);
+       dispatch({
+          type: "ADD_TRADE",
+          payload: {
+             currentPos: newCurrentPos,
+             weeklyTradeCount: weeklyTradeCount + 1,
+             todayTradeCount: todayTradeCount + 1,
+             deposit: newAmount
+          }
+       });
+        let timeOut = 60000 * pos.time;
+        setTimeout(() => {
+           tradeExpired(pos);
+        }, timeOut);
+    }
+   depositChanged=()=>(amt) => {
+     let {deposit} = this.props.trades;
+     let newAmount = deposit - Math.round(amt);
+     window.showDiff(deposit, newAmount);
+     this.props.dispatch({
+         type: "DEPOSIT_CHANGE",
+         payload: newAmount
+     });
+
+   }
+   closeChart=(chrtSym) => {
+      let {chartList, totalCharts } = this.props.rt;
+      let stateSwitch = Object.assign({}, this.props.rt);
+      let newChartTotal = totalCharts - 1;
+      stateSwitch.chartList = chartList.filter((itm, i) => itm.symb !== chrtSym);
+      stateSwitch['totalCharts'] = newChartTotal;
+      stateSwitch['newSet'] = newChartTotal ? null : <LiveStart startChart={this.addNewChart} />;
+      stateSwitch['platformView'] = "live graphs";
+      this.props.dispatch({
+         type: "CLOSE_CHART",
+         payload: stateSwitch
+      })
+
+
+   }
    componentWillUnmount() {
       // this.dbSource.close();
    }
 
    render() {
+       const { props, tradePostions, addNewChart } = this
       const {dispatch} = this.props;
       this.sayThing()
       let {optsComponent, onStart, platformView, tradViewClass, seriesWatch, addButton, totalCharts ,chartList, chartAddOpen,newSet, selectUl ,connected} = this.props.rt;
       let { currentPos, pastTrades} = this.props.trades
       let tdClass = tradViewClass === "half-view";
       const onlineStatus = connected ? "Connected" : "Not Connected";
-      const addNewChartClosure = addNewChart(this.props , this.tradePostions, dispatch);
-      let blockStart = onStart ? <LiveStart startChart={addNewChartClosure}/> : null;
+      let blockStart = onStart ? <LiveStart startChart={addNewChart}/> : null;
       let blocked = connected ? blockStart : <LoadConnect/>;
       let allCharts = chartList.length ? chartContainers(chartList) : null;
       return (
@@ -383,7 +444,7 @@ export default class RealTime extends React.Component {
                            <li key="forex" data-key="forex" className={selectUl === "forex" ? "selected-li" : ""}>Forex</li>
                         </ul>
                      </div>
-                     {TradeListBlock(selectUl, seriesWatch, addNewChartClosure)}
+                     {TradeListBlock(selectUl, seriesWatch, addNewChart)}
                   </div>
 
                </div>

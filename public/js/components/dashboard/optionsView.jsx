@@ -8,9 +8,8 @@ import {connect} from "react-redux";
 export default class OptionsView extends React.PureComponent {
    constructor(props) {
       super(props);
-      this.optView = this.optView.bind(this);
    }
-   optView(type) {
+   optView = (type) => {
       this.props.itmView(type);
    }
    render() {

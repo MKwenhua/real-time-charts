@@ -1,5 +1,4 @@
 import React from "react";
-//const ReactDOM = require('react-dom');
 import LoadBars from './loaders/loadbars';
 import SymbolTag from './micro/symbolTag';
 import ChartTypeSpan from './micro/chartTypeSpan';

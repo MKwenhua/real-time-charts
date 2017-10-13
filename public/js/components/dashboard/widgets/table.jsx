@@ -1,10 +1,8 @@
 import React from "react";
+
 export default class Table extends React.PureComponent {
-
    render() {
-
       return (
-
          <table className="table table-striped  table-md table-inverse">
             <thead>
                <tr>
@@ -106,7 +104,6 @@ export default class Table extends React.PureComponent {
                </tr>
             </tbody>
          </table>
-
-      );
+      )
    }
 };

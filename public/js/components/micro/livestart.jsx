@@ -7,14 +7,11 @@ export default class LiveStart extends React.Component {
       this.state = {
          exchange: 'NASDAQ'
       }
-      this.exchangeChange = this.exchangeChange.bind(this);
    };
-   exchangeChange(e) {
-      let ex = e.target.value;
-
-      this.setState({exchange: ex});
+   exchangeChange = (e) => {
+      this.setState({exchange: e.target.value});
    }
-   handleStart() {
+   handleStart = () => {
       this.props.startChart(this.refs.feedSymbol.value)
    };
    render() {
@@ -30,14 +27,14 @@ export default class LiveStart extends React.Component {
                </div>
                <div className="select-holders spread-m">
                   <strong>Exchange:</strong>
-                  <select ref="changeName" className="symbol-pick live-sym" value={this.state.exchange} onChange={this.exchangeChange.bind(this)}>
+                  <select ref="changeName" className="symbol-pick live-sym" value={this.state.exchange} onChange={this.exchangeChange}>
                      <option key='NASDAQ-2' value="NASDAQ">NASDAQ</option>
                      <option key='NYSE-2' value="NYSE">NYSE</option>
                   </select>
                </div>
             </div>
             <div className="row text-center">
-               <div onClick={this.handleStart.bind(this)} className="big-butt cool-button">Start LiveFeed!</div>
+               <div onClick={this.handleStart} className="big-butt cool-button">Start LiveFeed!</div>
             </div>
          </div>
       )

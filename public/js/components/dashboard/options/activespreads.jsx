@@ -16,10 +16,7 @@ export default class ActiveSpreads extends React.Component {
       this.CTXspread.seedSpread();
       this.props.setSpreadRef(this.CTXspread);
    }
-   componentWillMount() {}
-   componentWillUnmount() {}
    render() {
-
       return (
          <div className="active-spreads">
             <ul className="spread-labels">

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CallPut from './buysell';
+
 const chartOpts = (type) => {
    switch (type) {
       case "candlestick":
@@ -19,12 +20,19 @@ const chartOpts = (type) => {
          return <span data-tp="area">Area<img data-tp="area" height="18" src="/icons/area.png"/></span>;
    }
 }
+
+const setCallPut = (canvasChartContext) => {
+  if(canvasChartContext.bidReady === false) return null
+  let { ctx, mainSym, whenMounted, newPos, clock } = canvasChartContext.props
+
+   return  <CallPut mainSym={mainSym} newPos={newPos} depositChanged={canvasChartContext.depositChanged.bind(canvasChartContext)} ctxChart={canvasChartContext.ctxChart} timerId={mainSym + '_clock'} clockCtx={clock}/>
+}
 export default class CanvasChart extends React.Component {
    constructor(props) {
       super(props);
       this.dbSource = this.props.dataSource;
       this.dataPoints = [];
-
+      this.callPut = null;
       this.feedWatch = this.props.mainSym;
       this.ctxChart = null;
       this.state = {
@@ -34,7 +42,7 @@ export default class CanvasChart extends React.Component {
          optsOpen: false,
          chartType: this.ctxChart ? this.ctxChart.getChartType() : "candlestick",
          mainSymbol: this.props.mainSym,
-         callPut: null,
+         bidReady: false,
          seriesWatch: {}
       };
       this.liveUpdate = this.liveUpdate.bind(this);
@@ -42,7 +50,6 @@ export default class CanvasChart extends React.Component {
       this.toggleSets = this.toggleSets.bind(this);
       this.closeChart = this.closeChart.bind(this);
       this.toggleModal = this.toggleModal.bind(this);
-      this.newPos = this.newPos.bind(this);
       this.depositChanged = this.depositChanged.bind(this);
       this.chartTypeSel = this.chartTypeSel.bind(this);
       this.dbSource.dispatchEvent(this.feedWatch, (details) => this.liveUpdate(details));
@@ -62,9 +69,6 @@ export default class CanvasChart extends React.Component {
    depositChanged(num) {
       this.props.depChg(num);
    }
-   newPos(pos) {
-      this.props.newPos(pos);
-   }
    hideUL() {
       this.setState({optsOpen: false});
    }
@@ -81,15 +85,17 @@ export default class CanvasChart extends React.Component {
       }
    }
    componentDidMount() {
-      this.ctxChart = this.props.ctx(this.props.mainSym);
-      let symbChart = {};
-      symbChart[this.props.mainSym] = {
-         ctxChart: this.ctxChart,
-         open: {}
-      };
-      this.props.whenMounted(symbChart);
-      this.dbSource.send(this.props.mainSym);
-      this.setState({callPut: <CallPut mainSym={this.props.mainSym} newPos={this.newPos.bind(this)} depositChanged={this.depositChanged.bind(this)} ctxChart={this.ctxChart} timerId={this.props.mainSym + '_clock'} clockCtx={this.props.clock}/>});
+     const { whenMounted,  mainSym, ctx } = this.props
+     this.ctxChart = ctx(mainSym);
+     const symbChart = {};
+     symbChart[mainSym] = {
+        ctxChart: this.ctxChart,
+        open: {}
+     };
+     whenMounted(symbChart);
+     this.dbSource.send(mainSym);
+     this.setState({ bidReady: true })
+      //this.setState({callPut: <CallPut mainSym={mainSym} newPos={newPos} depositChanged={this.depositChanged.bind(this)} ctxChart={this.ctxChart} timerId={mainSym + '_clock'} clockCtx={clock}/>});
    }
    componentWillUnmount() {
       //removeSeries
@@ -108,6 +114,7 @@ export default class CanvasChart extends React.Component {
             {chartOpts(itm)}
          </li>;
       });
+      const callPut = setCallPut(this)
       return (
 
          <div className="real-time-chart">
@@ -133,7 +140,7 @@ export default class CanvasChart extends React.Component {
                </div>
             </div>
 
-            {this.state.callPut}
+            {callPut}
             <div className={this.state.modalOpen ? "warn-modal fade-in-fast" : "hide-elm"}>
                <div className="heading-block">
                   <i className="material-icons">warning</i>

@@ -1,7 +1,7 @@
 import React from 'react';
 import TimeIntervals from 'micro/timeintervals';
 
-const positionOverView = (pos, ind) => {
+const positionOverView = ({pos}, ind) => {
    if (pos === null) return null;
    let { time, qty, point, symb } = pos
    let d = new Date();
@@ -49,7 +49,7 @@ export default class CallPut extends React.Component {
 
    }
    toggleMenuBid=() => {
-      let pos = this.state.pos !== null ? this.state.pos : {
+      let pos = this.state.pos !== null ? Object.assign({},this.state.pos) : {
          qty: 1,
          time: this.state.timeSet,
          point: {
@@ -63,8 +63,10 @@ export default class CallPut extends React.Component {
       pos.unitPrice = pos.point.data[3];
       this.setState({bidOpen: true, askOpen: false, timeMenuOpen: false, pos: pos});
    }
+
    toggleMenuAsk=() => {
-      let pos = this.state.pos !== null ? this.state.pos : {
+     console.log('toggleMenuAsk this' , this)
+      let pos = this.state.pos !== null ? Object.assign({},this.state.pos) : {
          qty: 1,
          time: this.state.timeSet,
          point: {
@@ -93,13 +95,14 @@ export default class CallPut extends React.Component {
 
       newPos.point = ctxChart.getLatestPoint();
       this.setState({
-         timeList: <TimeIntervals ind={tm} timeSet={this.setPosTime}/>,
+         timeList: <TimeIntervals ind={tm} timeSet={this.setPosTime.bind(this)}/>,
          timeSet: tm,
          pos: newPos
       });
 
    }
    posSet=(bidOrAsk) => () => {
+     console.log('posSet this', this)
       let {pos, posNum} = Object.assign({}, this.state);
       let d = new Date();
       pos.expires = d.getHours() + ':' + ('0' + (d.getMinutes() + pos.time)).slice(-2);
@@ -113,17 +116,23 @@ export default class CallPut extends React.Component {
       this.setState({askOpen: false, bidOpen: false, posNum: posNum, pos: null});
 
    }
-   closeModal=() => this.setState({askOpen: false, bidOpen: false, bidBtnClass: '', putBtnClass: ''})
-   menuSet=() => this.setState({timeMenuOpen: false})
+
+   closeModal=() => {
+     this.setState({askOpen: false, bidOpen: false, bidBtnClass: '', putBtnClass: ''})
+   }
+   menuSet=() => {
+     this.setState({timeMenuOpen: false})
+   }
 
    timeMenuOpen=() => {
      const { timeMenuOpen,  timeSet } = this.state
       this.setState({
          timeMenuOpen: !timeMenuOpen,
-         timeList: <TimeIntervals ind={timeSet} timeSet={this.setPosTime }/>
+         timeList: <TimeIntervals ind={timeSet} timeSet={this.setPosTime.bind(this) }/>
       });
    }
    plusMinus=(num) => () => {
+     console.log('plusMinus this' , this)
       let quantity = (this.state.quantity + num) > 0 ? this.state.quantity + num : 1;
       let pos = this.state.pos !== null ? Object.assign({}, this.state.pos, {qty: quantity}) : null;
 
@@ -131,7 +140,7 @@ export default class CallPut extends React.Component {
    }
 
    btnPtnpush=(bool) => () => {
-      if (bool) {
+      if (bool === true) {
          let btn = this.state.bidBtnClass === 'button-click' ? 'button-in' : 'button-click';
          this.setState({bidBtnClass: btn, putBtnClass: ''});
       } else {
@@ -139,19 +148,22 @@ export default class CallPut extends React.Component {
          this.setState({putBtnClass: btn, bidBtnClass: ''});
       }
    }
+
    componentDidMount() {
 
       this.clock = this.props.clockCtx.setClock(this.props.timerId);
       this.clock();
    }
+
    componentWillUnmount() {
 
       this.clock = null;
    }
+
    render() {
       let {putBtnClass, bidBtnClass} = this.state;
-      let askOverview = positionOverView(this.state.pos, 1);
-      let bidOverview = positionOverView(this.state.pos, 2);
+      let askOverview = positionOverView(this.state, 1);
+      let bidOverview = positionOverView(this.state, 2);
       return (
          <div className='option-buy-sell reduct'>
             <div id='timeMenu' className={this.state.timeMenuOpen ? 'zing-in-fast' : 'hide-elm'}>

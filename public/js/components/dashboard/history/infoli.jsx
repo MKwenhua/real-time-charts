@@ -21,9 +21,8 @@ const returnLiClass = (animate, active) => {
 export default class InfoLi extends React.Component {
    constructor(props) {
      super(props)
-      this.whenClicked = this.whenClicked.bind(this);
    };
-   whenClicked() {
+   whenClicked = () => {
       this.props.clicked(this.props.pos, this.props.index);
    }
    componentWillMount() {}
@@ -38,7 +37,7 @@ export default class InfoLi extends React.Component {
       return (
          <li className={liClass} style={{
             animation: ani
-         }} onDragEnd={this.whenClicked.bind(this)} onMouseUp={this.whenClicked.bind(this)} draggable="true">
+         }} onDragEnd={this.whenClicked} onMouseUp={this.whenClicked} draggable="true">
 
             <div className="li-span-block dt-span">
                {dta}

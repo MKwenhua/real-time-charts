@@ -12,13 +12,8 @@ export default class Map extends React.Component {
          country: 'China',
          dataBlob: null
       }
-      this.gotData = this.gotData.bind(this);
-      this.getDataCall = this.getDataCall.bind(this);
-      this.continentChange = this.continentChange.bind(this);
-      this.countryChange = this.countryChange.bind(this);
-      this.getIndicator = this.getIndicator.bind(this);
    }
-   gotData(data) {
+   gotData = (data) => {
       console.log('got indicators', data);
       let theData = {};
       theData.sec1 = data[0][0];
@@ -32,21 +27,21 @@ export default class Map extends React.Component {
       this.setState({dataBlob: dta});
 
    }
-   getDataCall(country) {
+   getDataCall = (country) => {
       this.dbSource.getIndicatorXHR(country, this.gotData);
    }
-   countryChange(e) {
+   countryChange = (e) => {
       let ex = e.target.value;
 
       this.setState({country: ex});
    }
-   continentChange(e) {
+   continentChange = (e) => {
       let ex = e.target.value;
 
       this.setState({continent: ex, country: Countries[ex][0]
       });
    }
-   getIndicator() {
+   getIndicator = () => {
       let cntry = this.refs.countrySelect.value;
       this.getDataCall(cntry);
    }
@@ -57,9 +52,7 @@ export default class Map extends React.Component {
    render() {
       let {continent, country, dataBlob} = this.state;
       let countryOpts = Countries[continent].map((cntry, ii) => {
-
          return <option key={cntry + '_' + ii} value={cntry}>{cntry}</option>;
-
       });
       return (
          <div id="mapContainer" className="container">
@@ -67,7 +60,7 @@ export default class Map extends React.Component {
             <div className="row col-center-sele">
                <div className="select-col-maps">
                   <strong>Continent:</strong>
-                  <select ref="regionSelect" className="symbol-pick live-sym" value={continent} onChange={this.continentChange.bind(this)}>
+                  <select ref="regionSelect" className="symbol-pick live-sym" value={continent} onChange={this.continentChange}>
                      <option key='AFRICA-KEY' value="AFRICA">AFRICA</option>
                      <option key='AMERICA-KEY' value="AMERICA">AMERICA</option>
                      <option key='ASIA-KEY' value="ASIA">ASIA</option>
@@ -77,13 +70,13 @@ export default class Map extends React.Component {
                </div>
                <div className="select-col-maps">
                   <strong>Country:</strong>
-                  <select ref="countrySelect" value={country} className="symbol-pick live-sym" onChange={this.countryChange.bind(this)}>
+                  <select ref="countrySelect" value={country} className="symbol-pick live-sym" onChange={this.countryChange}>
                      {countryOpts}
                   </select>
                </div>
             </div>
             <div className="row text-center">
-               <div onClick={this.getIndicator.bind(this)} className="big-butt get-indicators-butt">Get Indicators</div>
+               <div onClick={this.getIndicator} className="big-butt get-indicators-butt">Get Indicators</div>
             </div>
             <pre className="row jsonblob">
 					{dataBlob}

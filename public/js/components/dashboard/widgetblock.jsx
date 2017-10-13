@@ -12,21 +12,15 @@ export default class WidgetBlock extends React.Component {
       super(props);
       this.dbSource = DATASOURCE;
 
-      this.getMessage = this.getMessage.bind(this);
-      this.dropHandle = this.dropHandle.bind(this);
-      this.handleDragEv = this.handleDragEv.bind(this);
-      this.dragEnter = this.dragEnter.bind(this);
-      this.dragLeave = this.dragLeave.bind(this);
-      this.gotData = this.gotData.bind(this);
    };
-   updateWidget(dta) {}
-   getMessage(mess, wid) {
+   updateWidget = (dta) => {}
+   getMessage = (mess, wid) => {
       let newWait = {};
       newWait[mess] = wid;
       this.props.dispatch({type: "GOT_MESSAGE", payload: newWait})
       this.dbSource.getMarketDataXHR(mess, this.gotData);
    }
-   dropHandle(widgetNum) {
+   dropHandle = (widgetNum) => () => {
       let {WidgetList} = this.props.widgets;
       let droppedWid = this.props.widgets.draggedWidget;
       console.log('targetWid', WidgetList[widgetNum]);
@@ -46,26 +40,26 @@ export default class WidgetBlock extends React.Component {
       this.props.dispatch({type: "WIDGET_DROP", payload: stateOB});
 
    };
-   handleDragEv(widget, data) {
+   handleDragEv = (widget, data) => {
 
       this.props.dispatch({type: "WIDGET_DRAGGED", payload: widget});
 
    };
-   onDragOver(e) {
+   onDragOver = (e) => {
       e.preventDefault();
 
    }
-   dragEnter(e) {
+   dragEnter = (e) => {
       e.preventDefault();
       e.stopPropagation();
 
    };
-   dragLeave(e) {
+   dragLeave = (e) => {
       e.preventDefault();
       e.stopPropagation();
 
    };
-   gotData(details) {
+   gotData = (details) => {
       let {WidgetList} = this.props.widgets;
       let needsUpdate = this.props.widgets.needsUpdate;
       console.log('needsUpdate', needsUpdate);
@@ -101,22 +95,22 @@ export default class WidgetBlock extends React.Component {
       return (
          <div className="container-fluid wrapper">
             <div className="row" style={rowTopStyle}>
-               <div className={widget1.shown ? widget1.clType : "hide-elm"} data-w="widget1" onDrop={this.dropHandle.bind(this, "widget1")} onDragOver={this.dragEnter.bind(this)}>
+               <div className={widget1.shown ? widget1.clType : "hide-elm"} data-w="widget1" onDrop={this.dropHandle("widget1")} onDragOver={this.dragEnter}>
 
-                  <FullWidget inView={this.props.inView} ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget1.data} wd="widget1" candrag="true"/>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget1.data} wd="widget1" candrag="true"/>
                </div>
-               <div className={widget2.shown ? widget2.clType : "hide-elm"} data-w="widget2" onDrop={this.dropHandle.bind(this, "widget2")} onDragOver={this.dragEnter.bind(this)}>
+               <div className={widget2.shown ? widget2.clType : "hide-elm"} data-w="widget2" onDrop={this.dropHandle("widget2")} onDragOver={this.dragEnter}>
 
-                  <FullWidget inView={this.props.inView} ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget2.data} wd="widget2" candrag="true"/>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget2.data} wd="widget2" candrag="true"/>
                </div>
             </div>
             <div className="row" style={rowBtmStyle}>
-               <div className={widget3.shown ? widget3.clType : "hide-elm"} data-w="widget3" onDrop={this.dropHandle.bind(this, "widget3")} onDragOver={this.dragEnter.bind(this)}>
+               <div className={widget3.shown ? widget3.clType : "hide-elm"} data-w="widget3" onDrop={this.dropHandle("widget3")} onDragOver={this.dragEnter}>
 
-                  <FullWidget inView={this.props.inView} ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget3.data} wd="widget3" candrag="true"/>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget3.data} wd="widget3" candrag="true"/>
                </div>
-               <div className={widget4.shown ? widget4.clType : "hide-elm"} data-w="widget4" onDrop={this.dropHandle.bind(this, "widget4")} onDragOver={this.dragEnter.bind(this)}>
-                  <FullWidget inView={this.props.inView} ms={this.getMessage.bind(this)} whenDrag={this.handleDragEv.bind(this)} data={widget4.data} wd="widget4" candrag="true"/>
+               <div className={widget4.shown ? widget4.clType : "hide-elm"} data-w="widget4" onDrop={this.dropHandle("widget4")} onDragOver={this.dragEnter}>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget4.data} wd="widget4" candrag="true"/>
                </div>
             </div>
          </div>

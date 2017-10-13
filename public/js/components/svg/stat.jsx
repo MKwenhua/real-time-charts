@@ -17,7 +17,6 @@ export default class Stat extends React.PureComponent {
       this.svg = theSVG;
       SvgCB.setRef(svgId, Object.assign({}, config, {domElem: theSVG}));
    }
-   componentWillMount() {}
    render() {
       let {classType, number, svgId, fillColor} = this.props;
       return (
