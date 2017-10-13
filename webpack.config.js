@@ -17,9 +17,7 @@ module.exports = {
      service: path.resolve( __dirname, 'public/js/services'),
      pure_functions: path.resolve( __dirname, 'public/js/pure_functions'),
      dashboard: path.resolve( __dirname, 'public/js/components/dashboard'),
-
      svg:  path.resolve( __dirname, 'public/js/components/svg'),
-
      graph_helpers:  path.resolve( __dirname, 'public/js/helpers/graph_helper'),
      micro: path.resolve( __dirname, 'public/js/components/micro'),
      data: path.resolve( __dirname, 'public/js/data'),

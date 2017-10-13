@@ -1,11 +1,11 @@
 {
-    "indent_size": 3,
+    "indent_size": 2,
     "indent_char": " ",
     "indent_level": 0,
     "indent_with_tabs": false,
     "preserve_newlines": true,
     "preserve_ternary_lines": true,
-    "max_preserve_newlines": 2,
+    "max_preserve_newlines": 1,
     "jslint_happy": false,
     "space_after_anon_function": true,
     "brace_style": "collapse-preserve-inline",

@@ -1,9 +1,7 @@
-
-
 const viewCntrl = {
-	renderCharts: () => {
-		console.log('renderCharts');
-	}
+  renderCharts: () => {
+    console.log('renderCharts');
+  }
 }
 
 module.exports = viewCntrl;
