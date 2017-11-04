@@ -3,7 +3,7 @@ import React from 'react';
 export default class TickCard extends React.PureComponent {
   constructor(props) {
     super(props);
-    his.cardCTX = null;
+    this.cardCTX = null;
   }
   dragStart = () => {
     this.props.dS(this.props.index);
