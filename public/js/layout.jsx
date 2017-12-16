@@ -1,9 +1,9 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import Graph from 'container/graph_temp';
-import RealTime from 'container/realtime';
-import Map from 'container/map';
-import TopNav from 'topnav';
+import React from "react";
+import {connect} from "react-redux";
+import Graph from "container/graph_temp";
+import RealTime from "container/realtime";
+import Map from "container/map";
+import TopNav from "topnav";
 const _applyListener = function (type) {
    var histFunc = history[type];
    return function () {
@@ -27,9 +27,9 @@ export default class Layout extends React.Component {
          console.log(e);
          let newPath = e.state.Url;
          let comp = this.props.routes.routeComponents[newPath];
-         let topNav = <TopNav theClass={newPath === '/realtime' ? 'rt-alter' : ''} pathName={newPath}/>;
+         let topNav = <TopNav theClass={newPath === '/realtime' ? "rt-alter" : ""} pathName={newPath}/>;
          this.props.dispatch({
-            type: 'NEW_PATH',
+            type: "NEW_PATH",
             payload: {
                pathName: newPath,
                blocked: comp,
@@ -44,9 +44,9 @@ export default class Layout extends React.Component {
             console.log('State Changed!', e);
             let newPath = e.arguments[0].Url;
             let comp = thisScope.props.routes.routeComponents[newPath];
-            let topNav = <TopNav theClass={newPath === '/realtime' ? 'rt-alter' : ''} pathName={newPath}/>;
+            let topNav = <TopNav theClass={newPath === '/realtime' ? "rt-alter" : ""} pathName={newPath}/>;
             thisScope.props.dispatch({
-               type: 'NEW_PATH',
+               type: "NEW_PATH",
                payload: {
                   pathName: newPath,
                   blocked: comp,
@@ -59,10 +59,10 @@ export default class Layout extends React.Component {
       window.addEventListener('pushState', eventHandler);
 
    }
-   newSet = (newPath) => {
+   newSet(newPath) {
       let comp = thisScope.props.routes.routeComponents[newPath];
       this.props.dispatch({
-         type: 'NEW_PATH',
+         type: "NEW_PATH",
          payload: {
             pathName: newPath,
             blocked: comp
