@@ -51,14 +51,14 @@
     "node-rest-client": "^2.0.1",
     "node-twitter-api": "^1.7.4",
     "passport": "^0.3.2",
-    "react": "^15.5.4",
+    "react": "16.2.0",
     "react-addons": "^0.9.1-deprecated",
     "react-datetime": "^2.4.0",
-    "react-dom": "^15.5.4",
-    "react-highcharts": "^11.5.0",
+    "react-dom": "16.2.0",
+    "react-highcharts": "15.0.0",
     "react-highstock": "^1.0.2",
-    "react-redux": "^4.4.8",
-    "redux": "^3.6.0",
+    "react-redux": "5.0.6",
+    "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
     "redux-promise-middleware": "^3.3.2",
     "redux-thunk": "^2.1.0",
@@ -82,7 +82,6 @@
     "enzyme": "^2.4.1",
     "expect": "^1.20.2",
     "mocha": "^3.0.2",
-    "react-addons-test-utils": "^15.3.1",
-    "react-lite": "^0.15.17"
+    "react-addons-test-utils": "^15.3.1"
   }
 }

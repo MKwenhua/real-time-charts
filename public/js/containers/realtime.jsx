@@ -12,6 +12,7 @@ import statSVGs from 'components/svg/statSVG';
 import DATASOURCE from "data/datasource";
 import OpenWebsocket from "data/gowebsocket";
 import CanvasChart from "dashboard/livegraph/canvaschart";
+import ChartContainer from "dashboard/chart_container";
 import LiveStart from "micro/livestart";
 import LoadConnect from "components/loaders/spinload";
 import ForexList from "micro/lists/forexlist";
@@ -22,23 +23,6 @@ import SideOptions from "dashboard/sideoptions";
 import TransactionList from "dashboard/transactionlist";
 import LiveTickers from "dashboard/livetickers";
 import WatchedSpreads from "dashboard/options/watchedspreads";
-
-const chartContainers = (charts) => {
-   let chartsLen = charts.length;
-   return charts.map((itm, i) => {
-      let clName = (chartsLen === 4) ? "chart-box-50 td-reduce col-sm-6 fade-in-fast" : "chart-box-100 col-sm-12 fade-in-fast";
-      if (chartsLen === 2) {
-         clName = "chart-box-50 col-sm-12 fade-in-fast"
-      }
-      if (chartsLen === 3) {
-         clName = i === 2 ? "chart-box-50 col-sm-12 fade-in-fast" : "chart-box-50 td-reduce col-sm-6 fade-in-fast";
-      }
-      return <div key={itm.keyy} className={clName}>
-         {itm.component}
-      </div>;
-   });
-
-};
 
 @connect((store) => {
    return {rt: store.rt, trades: store.trades, trn: store.transactions}
@@ -52,8 +36,6 @@ export default class RealTime extends React.PureComponent {
       this.spreadRef = null;
       this.SvgCB = statSVGs();
       this.cardCtx = CardCtx();
-
-      console.log('this.props in constructor', this.props);
 
       this.dbSource.on.liveFeedStarted = (details) => this.liveFeedStarted(details);
       this.dbSource.onclose = (event) => this.wbClosed(event);
@@ -88,7 +70,7 @@ export default class RealTime extends React.PureComponent {
       let newChartTotal = totalCharts - 1;
       stateSwitch.chartList = chartList.filter((itm, i) => itm.symb !== chrtSym);
       stateSwitch['totalCharts'] = newChartTotal;
-      stateSwitch['newSet'] = newChartTotal ? null : <LiveStart startChart={this.addNewChart }/>;
+      //stateSwitch['newSet'] = newChartTotal ? null : <LiveStart startChart={this.addNewChart }/>;
       stateSwitch['platformView'] = "live graphs";
       this.props.dispatch({type: "CLOSE_CHART", payload: stateSwitch})
 
@@ -197,31 +179,36 @@ export default class RealTime extends React.PureComponent {
 
    }
    addNewChart = (symb, index) => {
-      let stateOB = Object.assign({}, this.props.rt);
-      let {chartList, chartsActive} = stateOB;
-      let keyy = symb + '_canvas';
+      const {chartList, totalCharts} = this.props.rt;
+      const keyy = symb + '_canvas';
 
-      stateOB.chartPositions[symb] = {
-         trades: [],
-         position: {},
-         total: 0.0,
-         current: null
-      };
-      let newCtx = {
-         symb: symb,
-         keyy: keyy,
-         component: <CanvasChart newPos={this.newPos } depChg={this.depositChanged } ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={stateOB.chartPositions[symb]} clCtx={this.closeCrt } dataSource={this.dbSource} mainSym={symb} whenMounted={this.canvasPlaced }/>
-      };
-      stateOB.chartList.push(newCtx);
-      if (this.props.rt.totalCharts === 0) {
-         stateOB['onStart'] = false;
+      const stateUpdates = {
+        chartPositions: {
+          [symb]: {
+            trades: [],
+            position: {},
+            total: 0.0,
+            current: null
+          }
+        },
+        chartList: chartList.concat({
+          symb: symb,
+          keyy: keyy
+        }),
+        totalCharts: totalCharts + 1,
+        onStart: false,
+        addButton: true,
+        newSet: null,
+        chartAddOpen: false
       }
-      stateOB.totalCharts = stateOB.chartList.length;
-      stateOB['addButton'] = true;
-      stateOB['newSet'] = null;
-      stateOB['chartAddOpen'] = false;
-      this.props.dispatch({type: "ADD_CHART", payload: stateOB})
+
+      this.props.dispatch({type: "ADD_CHART", payload: stateUpdates})
    }
+   renderCanvasCharts = () => this.props.rt.chartList.map((chart, i, chartList) => (
+     <ChartContainer key={chart.keyy} chartQnty={chartList.length} index={i}>
+       <CanvasChart newPos={this.newPos } depChg={this.depositChanged } ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={this.props.rt.chartPositions[chart.symb]} clCtx={this.closeCrt } dataSource={this.dbSource} mainSym={chart.symb} whenMounted={this.canvasPlaced }/>
+    </ChartContainer>
+   ))
 
    canvasPlaced = (newSymb) => {
 
@@ -332,18 +319,14 @@ export default class RealTime extends React.PureComponent {
       }
 
    }
-   componentWillUnmount() {
-      // this.dbSource.close();
-   }
 
    render() {
       let {optsComponent, onStart, platformView, tradViewClass, chartList} = this.props.rt;
       let tdClass = tradViewClass === "half-view";
       const onlineStatus = this.props.rt.connected ? "Connected" : "Not Connected";
       let blockStart = onStart ? <LiveStart startChart={this.addNewChart }/> : null;
-      let blocked = this.props.rt.connected ? blockStart : <LoadConnect/>;
-      let allCharts = chartList.length ? chartContainers(chartList) : null;
-      //console.log('in render this.props', this.props);
+      const blocked = this.props.rt.connected ? blockStart : <LoadConnect/>;
+      //let allCharts = chartList.length ? chartContainers(chartList) : null;
       return (
          <div>
             <div id="rtTopNavUI">
@@ -410,9 +393,12 @@ export default class RealTime extends React.PureComponent {
                </section>
                <section id="tradingplatform" className={this.props.rt.onStart ? "hide-elm" : tradViewClass}>
                   <div className={platformView === "live graphs" ? "wrap-block" : "hide-elm"}>
-                     {this.props.rt.newSet}
+                     {/* {this.props.rt.newSet} */}
+                     { this.props.rt.totalCharts === 0 &&
+                       <LiveStart startChart={this.addNewChart }/>
+                     }
 
-                     {allCharts}
+                     {this.renderCanvasCharts()}
 
                   </div>
                   <div id="dashView" className={platformView === "trade history" ? "wrap-block" : "hide-elm"}>

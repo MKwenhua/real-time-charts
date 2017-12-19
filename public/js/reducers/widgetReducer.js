@@ -93,22 +93,17 @@ const innitialState = {
 }
 
 export default function reducer(state = innitialState, action) {
-
   switch (action.type) {
-
-    case "WIDGET_DROP":
-      {
+    case "WIDGET_DROP": {
         return action.payload
       }
-    case "WIDGET_DRAGGED":
-      {
+    case "WIDGET_DRAGGED": {
         return {
           ...state,
           draggedWidget: action.payload
         }
       }
-    case "GOT_MESSAGE":
-      {
+    case "GOT_MESSAGE": {
         return {
           ...state,
           needsUpdate: {
@@ -118,8 +113,7 @@ export default function reducer(state = innitialState, action) {
         }
         break;
       }
-    case "GOT_DATA":
-      {
+    case "GOT_DATA": {
         return {
           ...state,
           ...action.payload

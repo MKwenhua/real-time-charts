@@ -8,8 +8,7 @@ import TopNav from 'container/topnav';
 window.checkPath = (() => {
 
   const ChangeUrl = (title, url) => {
-    if (typeof(history.pushState) === 'undefined')
-      return;
+    if (typeof(history.pushState) === 'undefined') return;
 
     let obj = {
       Title: title,
@@ -58,7 +57,6 @@ export default function reducer(state = {
   switch (action.type) {
     case 'NEW_PATH':
       {
-
         return {
           ...state,
           pathName: action.payload.pathname,

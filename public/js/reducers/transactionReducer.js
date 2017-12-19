@@ -3,8 +3,7 @@ export default function reducer(state = {
 }, action) {
 
   switch (action.type) {
-    case "DEPOSIT_CHANGE2":
-      {
+    case "DEPOSIT_CHANGE2": {
         return {
           ...state,
           deposit: action.payload
