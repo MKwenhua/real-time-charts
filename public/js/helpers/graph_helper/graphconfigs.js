@@ -312,8 +312,8 @@ const multiConfig = (symbol, seriesOptions) => {
       series: seriesOptions
    }
 }
-module.exports = {
 
+const graphConfigs = {
    candlestick: candlestickConfig,
    spline: splineConfig,
    column: columnConfig,
@@ -324,5 +324,6 @@ module.exports = {
    stackColumnConfig: stackColumnConfig,
    multiconfig: multiConfig,
    columnrange: columnRangeConfig
-
 }
+
+export default graphConfigs;

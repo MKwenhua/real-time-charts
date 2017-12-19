@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import MathFuncs from 'helper/mathfuncs';
 const calcX = (number) => {
    return 11 + (-11 * MathFuncs.getDigitLen(number));
@@ -21,9 +21,9 @@ export default class Stat extends React.PureComponent {
    render() {
       let {classType, number, svgId, fillColor} = this.props;
       return (
-         <div className="count count-47">
-            <svg id={svgId} className="svg-container" height="40" width="22">
-               <text className={classType} x="11" y="35" fill={fillColor}></text>
+         <div className='count count-47'>
+            <svg id={svgId} className='svg-container' height='40' width='22'>
+               <text className={classType} x='11' y='35' fill={fillColor}></text>
             </svg>
          </div>
       )

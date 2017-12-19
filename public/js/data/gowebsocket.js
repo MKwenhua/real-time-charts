@@ -1,4 +1,5 @@
 const urlBase = false ? '127.0.0.1:8000/ws' : 'damp-beyond-64138.herokuapp.com/ws';
+
 const OpenWebsocket = () => {
   const theSocketUrl = window.location.protocol !== 'https:' ? 'ws://' + urlBase : 'wss://' + urlBase;
 
@@ -9,8 +10,8 @@ const OpenWebsocket = () => {
     SOCKET.on[name] = callback;
   }
 
-  SOCKET.onmessage = function (event) {
-    let theData = JSON.parse(event.data);
+  SOCKET.onmessage = (event) => {
+    const theData = JSON.parse(event.data);
     if (!SOCKET.watchedFeeds[theData.symb]) {
       SOCKET.watchedFeeds[theData.symb] = true;
       SOCKET.on.liveFeedStarted(theData.symb);
@@ -20,4 +21,4 @@ const OpenWebsocket = () => {
   return SOCKET;
 }
 
-module.exports = OpenWebsocket;
+export default OpenWebsocket;

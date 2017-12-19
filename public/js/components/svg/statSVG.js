@@ -1,5 +1,18 @@
 import MathFuncs from 'helper/mathfuncs';
 
+// class SvgCallBacks {
+//   constructor() {
+//     this.inViewBool = false;
+//     this.shouldAnimate = true;
+//     this.svg1 = null;
+//     this.svg2 = null;
+//     this.svg3 = null;
+//     this.svg4 = null;
+//     this.svg5 = null;
+//   }
+// }
+
+
 const statSVGs = () => {
    const calcX = (number, buffer = 11) => {
       return buffer + (-11 * MathFuncs.getDigitLen(number));

@@ -1,54 +1,42 @@
-import React from "react";
+import React from 'react';
 
 const ReactHighstock = require('react-highcharts/ReactHighstock')
 
-const graphConfigs = require("graph_helpers/graphconfigs.js");
-const dataFormat = require("graph_helpers/data_transform.js");
+import graphConfigs from 'graph_helpers/graphconfigs.js';
+import dataFormat from 'graph_helpers/data_transform.js';
 
+export default class ChartWidget extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.dataGen = null;
+  };
 
-export default class ChartWidget extends React.Component {
-
-    constructor(props) {
-
-      super(props);
-
-      this.dataGen = null;
-      this.state = {
-
-      }
-
-
-   };
-
-   componentDidMount () {
-    if(this.props.data.content.data === null){
-    	this.props.cb(this.props.data.symb);
+  componentDidMount() {
+    if (this.props.data.content.data === null) {
+      this.props.cb(this.props.data.symb);
     }
 
+  }
+  nullData = () => (
+    <div className='load-box'>
+      <div className='loading-pulse'></div>
+    </div>
+  )
 
-   }
   render() {
-  	if (this.props.data.content.data === null) {
-  		return (
-        <div className="load-box">
-        <div className="loading-pulse"></div>
-        </div>);
-  	}
-  //	console.log('inrender', this.props)
-      let graphType = this.props.data.content.graphType;
-      let dataTransform = dataFormat[graphType]()
-      let data =  this.props.data.content.data.map((dta) => {
-            return  dataTransform(dta);
-        });
-       let config = graphConfigs[graphType]( this.props.data.content.data[0].symbol, data);
+    if (this.props.data.content.data === null) {
+      return this.nullData()
+    }
+     const graphType = this.props.data.content.graphType;
+     const dataTransform = dataFormat[graphType]()
+     const contentData = this.props.data.content.data.map( data => dataTransform(data));
+     const config = graphConfigs[graphType](this.props.data.content.data[0].symbol, contentData);
 
-
-      return (<div className="chart-blocked">
-     <ReactHighstock config={config} />
-      <div className="widget-handle"> </div>
-     </div>
-
-      )
-
-	}
+    return (
+      <div className='chart-blocked'>
+        <ReactHighstock config={config}/>
+        <div className='widget-handle'></div>
+      </div>
+    )
+  }
 };

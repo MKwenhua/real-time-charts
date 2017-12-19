@@ -1,18 +1,14 @@
 import React from "react";
-const makeGraph = require('canvas/ctxgraphs.js');
+import makeGraph from 'canvas/ctxgraphs.js';
 
 export default class MiniGraph extends React.PureComponent {
-
-   componentDidMount() {
-      let stuff = makeGraph(this.props.ctxId, this.props.data, "stuff")
-      stuff.renderChart()
-   }
-
-   render() {
-
-      return (
-         <div id={this.props.ctxId} className="holds-graph donut-graph"></div>
-      )
-
-   }
+  componentDidMount() {
+    const chart = makeGraph(this.props.ctxId, this.props.data, this.props.data.title)
+    chart.renderChart()
+  }
+  render() {
+    return (
+      <div id={this.props.ctxId} className="holds-graph donut-graph"></div>
+    )
+  }
 };

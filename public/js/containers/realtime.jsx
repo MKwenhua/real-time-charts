@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import LoadBars from 'components/loaders/loadbars';
-const CtxChart = require('canvas/ctxChart.js');
-const spreadCTX = require('canvas/spreadCTX.js');
-const CardCtx = require('canvas/cardctx.js');
+import CtxChart from 'canvas/ctxChart';
+import spreadCTX from 'canvas/spreadCTX';
+import CardCtx from 'canvas/cardctx';
 const Clock = require('canvas/clock.js');
-const PositionTiles = require('canvas/positionTile.js');
-const totalAmountCtx = require('canvas/depositamt.js');
-const viewCntrl = require('helper/viewCntrl.js');
+import PositionTiles from 'canvas/positionTile';
+import totalAmountCtx from 'canvas/depositamt';
+import GraphController from 'helper/graph_controller';
 import statSVGs from 'components/svg/statSVG';
 import DATASOURCE from "data/datasource";
 import OpenWebsocket from "data/gowebsocket";
@@ -39,10 +39,12 @@ const chartContainers = (charts) => {
    });
 
 };
+
 @connect((store) => {
    return {rt: store.rt, trades: store.trades, trn: store.transactions}
 })
-export default class RealTime extends React.Component {
+
+export default class RealTime extends React.PureComponent {
    constructor(props) {
       super(props)
       this.tradePostions = {};
@@ -55,14 +57,6 @@ export default class RealTime extends React.Component {
 
       this.dbSource.on.liveFeedStarted = (details) => this.liveFeedStarted(details);
       this.dbSource.onclose = (event) => this.wbClosed(event);
-      this.ulBlock = (indices, that) => {
-         if (indices === "stocks") {
-            return <StockList used={that.props.rt.seriesWatch} startChart={that.addNewChart.bind(that)}/>;
-         }
-         if (indices === "forex") {
-            return <ForexList used={that.props.rt.seriesWatch} startChart={that.addNewChart.bind(that)}/>;
-         }
-      }
    }
    wbClosed = (event) => {
       console.log("Connection Closed");
@@ -125,13 +119,11 @@ export default class RealTime extends React.Component {
       switch (type) {
          case "spreads":
             this.spreadRef.setting(type);
-            //currentClass = this.props.rt.tradViewClass === "full-view" ? "half-view" : "full-view";
             currentClass = this.props.rt.optsComponent === "current-bids" ? "half-view" : (this.props.rt.tradViewClass === "full-view" ? "half-view" : "full-view");
             currentClass === "half-view" ? this.spreadRef.inView() : this.spreadRef.outView();
             PositionTiles.outView();
             break;
          case "current-bids" :
-            // currentClass = tradViewClass === "full-view" ? "half-view" : "full-view";
             currentClass = this.props.rt.optsComponent === "spreads" ? "half-view" : (this.props.rt.tradViewClass === "full-view" ? "half-view" : "full-view");
             currentClass === "half-view" ? PositionTiles.inView() : PositionTiles.outView();
             this.spreadRef.outView();
@@ -146,7 +138,7 @@ export default class RealTime extends React.Component {
             Clock.outView();
             this.cardCtx.outView();
             this.spreadRef.outView();
-            viewCntrl.renderCharts();
+            GraphController.renderCharts();
             this.SvgCB.inViewBool = true;
             this.SvgCB.inView();
 
@@ -378,7 +370,14 @@ export default class RealTime extends React.Component {
                            <li key={"forex"} data-key="forex" className={this.props.rt.selectUl === "forex" ? "selected-li" : ""}>Forex</li>
                         </ul>
                      </div>
-                     {this.ulBlock(this.props.rt.selectUl, this)}
+                     {
+                       this.props.rt.selectUl === 'stocks' &&
+                        <StockList used={this.props.rt.seriesWatch} startChart={this.addNewChart}/>
+                     }
+                     {
+                       this.props.rt.selectUl === 'forex' &&
+                        <ForexList used={this.props.rt.seriesWatch} startChart={this.addNewChart}/>
+                     }
                   </div>
 
                </div>
@@ -420,7 +419,7 @@ export default class RealTime extends React.Component {
                      <WidgetBlock inView={platformView === "trade history"}/>
                   </div>
                   <div className={platformView === "trade list" ? "wrap-block history-list" : "hide-elm"}>
-                     <TransactionList inView={platformView === "trade list"} viewCntrl={viewCntrl} SvgCB={this.SvgCB} pastTrades={this.props.trades.pastTrades}/>
+                     <TransactionList inView={platformView === "trade list"} GraphController={GraphController} SvgCB={this.SvgCB} pastTrades={this.props.trades.pastTrades}/>
                   </div>
                   <div className={platformView === "live options" ? "wrap-block history-list" : "hide-elm"}>
                      <LiveTickers cardCtx={this.cardCtx} inView={platformView === "live options"}/>

@@ -1,10 +1,8 @@
 
 const MathFuncs = {
-   getDigitLen: (num) => {
-   	 return  Math.log(Math.abs(num)) * Math.LOG10E + 1 | 0;
-   },
+   getDigitLen: (num) => (Math.log(Math.abs(num)) * Math.LOG10E + 1 | 0),
    niceFloats: (num) => {
-   	  let res = num / 1000;
+   	  const res = num / 1000;
    	  if (res < 10){
    	  	return num.toFixed(2);
    	  }

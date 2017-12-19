@@ -31,8 +31,8 @@ module.exports = {
        exclude: /(node_modules|bower_components)/,
        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015', 'stage-0'],
-          plugins: [ 'transform-decorators-legacy'],
+          presets: ['react', 'es2015', 'stage-2'],
+          plugins: [ 'transform-decorators-legacy', "transform-object-rest-spread"],
         }
       }
     ]
