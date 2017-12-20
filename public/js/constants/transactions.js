@@ -1,0 +1,5 @@
+const DEPOSIT_CHANGE = 'DEPOSIT_CHANGE'
+
+export {
+  DEPOSIT_CHANGE
+}

@@ -8,14 +8,14 @@
     display: none;
 }
 .chartContainer {
-    /*	min-height: 300px; 
-	width:100%; */
-    
     vertical-align: top;
     position: absolute;
     right: 90px;
     left: 0;
     height: 100%;
+}
+div.chartContainer.reduct{
+     right: 75px;
 }
 .black-back{
     background-color: black;
@@ -30,11 +30,6 @@
     position: absolute;
     height: 50px;
     min-width: 100px;
-    /*	margin-right: 8px;
-	margin-left: 8px;
-	border-left: 4px solid silver;
-	border-right: 4px solid silver;*/
-    
     resize: horizontal;
     cursor: -moz-grab;
     cursor: -webkit-grab;

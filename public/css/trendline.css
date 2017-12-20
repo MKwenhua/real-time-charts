@@ -1,12 +1,13 @@
 .trendline-ctx {
-    position: absolute;
-    right: 0;
-    top: 0;
-    position: absolute;
-    right: 75px!important;
-    width: 200px;
-    left: auto!important;
+   position: absolute;
+   right: 0;
+   top: 0;
+   position: absolute;
+   right: 75px!important;
+   width: 200px;
+   left: auto!important;
 }
+
 .floatRights {
-    float: right;
+   float: right;
 }

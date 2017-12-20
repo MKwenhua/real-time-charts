@@ -8228,7 +8228,10 @@
                     color = dataPoints[i].y[0] <= dataPoints[i].y[3] ? dataSeries.risingColor : "#ff0000";
                     /***My CODE**/
 					
-			        var rectBorder = this.rectBset ? this.rectBsetColor : "#000000";
+			      //  var rectBorder = this.rectBset ? dataSeries._colorSet[0] :   "#000000";
+			       var rectBorder = this.rectBset ?  color :   "#000000";
+			       //var rectBorder = this.rectBset ?  "#fff" :   "#000000";
+			       //var rectBorder = this.rectBset ?  "#00d8ff" :   "#000000";
 			        /***My CODE**/
                     
 					//var borderThickness = Math.max(2, ((barWidth * .1) / 2 << 0) * 2); // Set only even numbers for border
@@ -8333,7 +8336,11 @@
 				}
 			}
 		}
-
+this.renderCallPuts(ctx, plotArea.width, function(price){
+					 	return plotUnit.axisY.convertValueToPixel(price);
+		});
+		this.renderTrendLine(ctx,this.lastX, this.lastY,plotArea.width, dataPoints[dataPoints.length - 1].y[3] );
+					
 		ctx.restore();
 
 		if (isCanvasSupported)
@@ -8343,11 +8350,7 @@
 		var animationInfo = {
 			source: ctx, dest: this.plotArea.ctx, animationCallback: AnimationHelper.fadeInAnimation, easingFunction: AnimationHelper.easing.easeInQuad, animationBase: 0
 		};
-		this.renderCallPuts(ctx, plotArea.width, function(price){
-					 	return plotUnit.axisY.convertValueToPixel(price);
-		});
-		this.renderTrendLine(ctx,this.lastX, this.lastY,plotArea.width, dataPoints[dataPoints.length - 1].y[3] );
-					
+		
 				
 		return animationInfo;
 	}
@@ -16338,6 +16341,7 @@
 			this.setTrendLineCB = function(cb, cb2) {
 				 _chart.renderTrendLine = cb;
 				 _chart.renderCallPuts = cb2;
+			
 			}
 
 			this.chartRef = _chart;

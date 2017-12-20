@@ -33,7 +33,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, .5);
     background: rgba(24, 37, 46, .95);
     height: 160px;
-    width: 320px;
+    width: 335px;
     border: 1px solid #fff;
     overflow: hidden;
     right: 180px;
@@ -53,7 +53,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, .5);
     background: rgba(24, 37, 46, .95);
     height: 160px;
-    width: 320px;
+    width: 335px;
     border: 1px solid #fff;
     overflow: hidden;
     right: 180px;
@@ -85,7 +85,7 @@
     font-weight: 400!important;
 }
 .put-t {
-    color: #30b911;
+    color: #DC143C;
 }
 .call-t {
     color: #30d94c;
