@@ -5,7 +5,7 @@ import {
   WIDGET_DRAGGED,
   GOT_MESSAGE,
   GOT_DATA
-}  from 'constants/wigets'
+}  from 'constants/widgets'
 
 const WidgetList = {
   widget1: {

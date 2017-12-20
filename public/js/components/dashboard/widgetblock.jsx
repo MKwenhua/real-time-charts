@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import FullWidget from './widgets/fullwidget';
-import DATASOURCE from 'data/datasource';import {
+import DATASOURCE from 'data/datasource';
+import {
   WIDGET_DROP,
   WIDGET_DRAGGED,
   GOT_MESSAGE,
   GOT_DATA
-}  from 'constants/wigets'
+}  from 'constants/widgets'
 
 
 

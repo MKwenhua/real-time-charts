@@ -72,7 +72,7 @@ export default function reducer(state = innitialState, action) {
           platformView: action.payload.platformView
         }
       }
-    case SWITCH_INDICE: {
+    case SWITCH_INDICES: {
         return {
           ...state,
           selectUl: action.payload

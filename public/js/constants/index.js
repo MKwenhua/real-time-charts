@@ -21,14 +21,14 @@ import {
   ADD_TRADE,
   TRADE_COMPLETE,
   ADD_MONEY
-}  from 'constants/trades'
+} from 'constants/trades'
 
 import {
   WIDGET_DROP,
   WIDGET_DRAGGED,
   GOT_MESSAGE,
   GOT_DATA
-}  from 'constants/wigets'
+}  from 'constants/widgets'
 
 export {
   ADD_CHART,
