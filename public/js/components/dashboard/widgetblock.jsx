@@ -1,7 +1,14 @@
-import React from "react";
-import {connect} from "react-redux";
-import FullWidget from "./widgets/fullwidget";
-import DATASOURCE from "data/datasource";
+import React from 'react';
+import {connect} from 'react-redux';
+import FullWidget from './widgets/fullwidget';
+import DATASOURCE from 'data/datasource';import {
+  WIDGET_DROP,
+  WIDGET_DRAGGED,
+  GOT_MESSAGE,
+  GOT_DATA
+}  from 'constants/wigets'
+
+
 
 function select(store) {
   // How Diffrent Redux stores get mapped to props
@@ -17,7 +24,7 @@ class WidgetBlock extends React.PureComponent {
    getMessage = (mess, wid) => {
       let newWait = {};
       newWait[mess] = wid;
-      this.props.dispatch({type: "GOT_MESSAGE", payload: newWait})
+      this.props.dispatch({type: GOT_MESSAGE, payload: newWait})
       this.dbSource.getMarketDataXHR(mess, this.gotData);
    }
    dropHandle = (widgetNum) => () => {
@@ -33,12 +40,12 @@ class WidgetBlock extends React.PureComponent {
       stateCopy[draggedWidget] = this.props.widgets[widgetNum];
       stateCopy[widgetNum] = this.props.widgets[draggedWidget];
 
-      this.props.dispatch({type: "WIDGET_DROP", payload: stateCopy});
+      this.props.dispatch({type: WIDGET_DROP, payload: stateCopy});
 
    };
    handleDragEv = (widget, data) => {
 
-      this.props.dispatch({type: "WIDGET_DRAGGED", payload: widget});
+      this.props.dispatch({type: WIDGET_DRAGGED, payload: widget});
 
    };
    onDragOver(e){
@@ -71,7 +78,7 @@ class WidgetBlock extends React.PureComponent {
         }, {})
       }
 
-      this.props.dispatch({type: "GOT_DATA", payload: stateUpdates});
+      this.props.dispatch({type: GOT_DATA, payload: stateUpdates});
 
    }
    render() {
@@ -84,21 +91,21 @@ class WidgetBlock extends React.PureComponent {
          widget4
       } = this.props.widgets;
       return (
-         <div className="container-fluid wrapper">
-            <div className="row" style={rowTopStyle}>
-               <div className={widget1.shown ? widget1.clType : "hide-elm"} data-w="widget1" onDrop={this.dropHandle("widget1")} onDragOver={this.dragEnter}>
-                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget1.data} wd="widget1" candrag={true}/>
+         <div className='container-fluid wrapper'>
+            <div className='row' style={rowTopStyle}>
+               <div className={widget1.shown ? widget1.clType : 'hide-elm'} data-w='widget1' onDrop={this.dropHandle('widget1')} onDragOver={this.dragEnter}>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget1.data} wd='widget1' candrag={true}/>
                </div>
-               <div className={widget2.shown ? widget2.clType : "hide-elm"} data-w="widget2" onDrop={this.dropHandle("widget2")} onDragOver={this.dragEnter}>
-                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget2.data} wd="widget2" candrag={true}/>
+               <div className={widget2.shown ? widget2.clType : 'hide-elm'} data-w='widget2' onDrop={this.dropHandle('widget2')} onDragOver={this.dragEnter}>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget2.data} wd='widget2' candrag={true}/>
                </div>
             </div>
-            <div className="row" style={rowBtmStyle}>
-               <div className={widget3.shown ? widget3.clType : "hide-elm"} data-w="widget3" onDrop={this.dropHandle("widget3")} onDragOver={this.dragEnter}>
-                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget3.data} wd="widget3" candrag={true}/>
+            <div className='row' style={rowBtmStyle}>
+               <div className={widget3.shown ? widget3.clType : 'hide-elm'} data-w='widget3' onDrop={this.dropHandle('widget3')} onDragOver={this.dragEnter}>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget3.data} wd='widget3' candrag={true}/>
                </div>
-               <div className={widget4.shown ? widget4.clType : "hide-elm"} data-w="widget4" onDrop={this.dropHandle("widget4")} onDragOver={this.dragEnter}>
-                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget4.data} wd="widget4" candrag={true}/>
+               <div className={widget4.shown ? widget4.clType : 'hide-elm'} data-w='widget4' onDrop={this.dropHandle('widget4')} onDragOver={this.dragEnter}>
+                  <FullWidget inView={this.props.inView} ms={this.getMessage} whenDrag={this.handleDragEv} data={widget4.data} wd='widget4' candrag={true}/>
                </div>
             </div>
          </div>

@@ -2,8 +2,8 @@ import React from 'react';
 
 const ReactHighstock = require('react-highcharts/ReactHighstock')
 
-import graphConfigs from 'graph_helpers/graphconfigs.js';
-import dataFormat from 'graph_helpers/data_transform.js';
+import graphConfigs from 'graph_helpers/graphconfigs';
+import dataFormat from 'graph_helpers/data_transform';
 
 export default class ChartWidget extends React.PureComponent {
   constructor(props) {

@@ -24,6 +24,18 @@ import TransactionList from 'dashboard/transactionlist';
 import LiveTickers from 'dashboard/livetickers';
 import WatchedSpreads from 'dashboard/options/watchedspreads';
 
+import {
+    ADD_CHART,
+    CLOSE_CHART,
+    CHART_STATE_UPDATE,
+    FEED_START,
+    OPTS_VIEW,
+    SWITCH_INDICES,
+    TOGGLE_CHART_MENU,
+    CONNECTION_LOST,
+    CONNECTED
+} from 'constants/dashboard'
+
 function select(store) {
   // How Diffrent Redux stores get mapped to props
   return {rt: store.rt, trades: store.trades, trn: store.transactions}
@@ -44,7 +56,7 @@ class RealTime extends React.PureComponent {
   wbClosed = (event) => {
     console.log('Connection Closed');
     this.props.dispatch({
-      type: 'CONNECTION_LOST',
+      type: CONNECTION_LOST,
       payload: {
         connected: false
       }
@@ -60,7 +72,7 @@ class RealTime extends React.PureComponent {
   }
   addChartMenu = () => {
     this.props.dispatch({
-      type: 'TOGGLE_CHART_MENU',
+      type: TOGGLE_CHART_MENU,
       payload: !this.props.rt.chartAddOpen
     })
   }
@@ -73,11 +85,11 @@ class RealTime extends React.PureComponent {
       platformView: 'live graphs'
 
     }
-    this.props.dispatch({type: 'CLOSE_CHART', payload: stateUpdates})
+    this.props.dispatch({type: CLOSE_CHART, payload: stateUpdates})
   }
   switchIndices = (indexType, alreadySelected) => () => {
     if (alreadySelected !== true) {
-      this.props.dispatch({type: 'SWITCH_INDICES', payload: indexType});
+      this.props.dispatch({type: SWITCH_INDICES, payload: indexType});
     }
   }
   setSpreadRef = (spreadCntrl) => this.spreadRef = spreadCntrl;
@@ -148,7 +160,7 @@ class RealTime extends React.PureComponent {
     this.setDashboardLayout('half-view', type, dashview);
   }
   setDashboardLayout = (tradViewClass, optsComponent, platformView) => this.props.dispatch({
-    type: 'OPTS_VIEW',
+    type: OPTS_VIEW,
     payload: {
       tradViewClass,
       optsComponent,
@@ -159,7 +171,7 @@ class RealTime extends React.PureComponent {
     let seriesWatch = this.props.rt.seriesWatch;
     seriesWatch.push(symbFeed);
     this.props.dispatch({
-      type: 'FEED_START',
+      type: FEED_START,
       payload: {
         seriesWatch: seriesWatch,
         addButton: true
@@ -168,16 +180,30 @@ class RealTime extends React.PureComponent {
 
   }
   addNewChart = (symb, index) => {
-    const {chartList, totalCharts} = this.props.rt;
+    const {chartList, totalCharts, chartPositions, chartStates } = this.props.rt;
     const keyy = symb + '_canvas';
 
     const stateUpdates = {
       chartPositions: {
+        ...chartPositions,
         [symb]: {
           trades: [],
           position: {},
           total: 0.0,
           current: null
+        }
+      },
+      chartStates: {
+        ...chartStates,
+        [symb]: {
+          modalOpen: false,
+          dataLength: 500,
+          onStart: true,
+          optsOpen: false,
+          chartType: 'candlestick',
+          mainSymbol: symb,
+          callPut: null,
+          seriesWatch: []
         }
       },
       chartList: chartList.concat({symb: symb, keyy: keyy}),
@@ -188,11 +214,11 @@ class RealTime extends React.PureComponent {
       chartAddOpen: false
     }
 
-    this.props.dispatch({type: 'ADD_CHART', payload: stateUpdates})
+    this.props.dispatch({type: ADD_CHART, payload: stateUpdates})
   }
   renderCanvasCharts = () => this.props.rt.chartList.map((chart, i, chartList) => (
     <ChartContainer key={chart.keyy} chartQnty={chartList.length} index={i}>
-      <CanvasChart newPos={this.newPos} depChg={this.depositChanged} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={this.props.rt.chartPositions[chart.symb]} clCtx={this.closeCrt} dataSource={this.dbSource} mainSym={chart.symb} whenMounted={this.canvasPlaced}/>
+      <CanvasChart newPos={this.newPos} depChg={this.depositChanged} ctx={CtxChart.passCTXconstructor()} clock={Clock} positions={this.props.rt.chartPositions[chart.symb]} dispatch={this.props.dispatch} state={this.props.rt.chartStates[chart.symb]} clCtx={this.closeCrt} dataSource={this.dbSource} mainSym={chart.symb} whenMounted={this.canvasPlaced}/>
     </ChartContainer>
   ))
 
@@ -256,15 +282,15 @@ class RealTime extends React.PureComponent {
   canvasOut = () => this.ctxChart.shutdown();
 
   componentDidMount = () => {
-    this.dbSource.onopen = (event) => this.props.dispatch({type: 'CONNECTED'});
-    window.addEventListener('online', (e) => this.props.dispatch({type: 'CONNECTED'}), false);
-    window.addEventListener('offline', (e) => this.props.dispatch({type: 'CONNECTION_LOST'}), false);
+    this.dbSource.onopen = (event) => this.props.dispatch({type: CONNECTED});
+    window.addEventListener('online', (e) => this.props.dispatch({type: CONNECTED}), false);
+    window.addEventListener('offline', (e) => this.props.dispatch({type: CONNECTION_LOST}), false);
     totalAmountCtx(this.props.trades.deposit);
   }
 
   componentWillMount() {
     if (this.dbSource.readyState === 'OPEN') {
-      this.props.dispatch({type: 'CONNECTED'});
+      this.props.dispatch({type: CONNECTED});
     }
   }
 
@@ -281,7 +307,7 @@ class RealTime extends React.PureComponent {
       selectUl
     } = this.props.rt;
     let tdClass = tradViewClass === 'half-view';
-    const onlineStatus = connected ? 'Connected' : 'Not Connected';
+    const onlineStatus = connected ? 'CONNECTED' : 'Not Connected';
     let blockStart = onStart ? <LiveStart startChart={this.addNewChart}/> : null;
     const blocked = this.props.rt.connected ? blockStart : <LoadConnect/>;
     return (

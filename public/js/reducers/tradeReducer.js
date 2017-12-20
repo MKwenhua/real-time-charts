@@ -1,3 +1,13 @@
+import {
+  FETCH_TRADES,
+  FETCH_TRADES_REJECTED,
+  FETCH_TRADES_FULFILLED,
+  DEPOSIT_CHANGE,
+  ADD_TRADE,
+  TRADE_COMPLETE,
+  ADD_MONEY
+}  from 'constants/trades'
+
 const pastTrades = [
   {
     position: 'GOOG',
@@ -70,20 +80,20 @@ export default function reducer(state = {
 }, action) {
 
   switch (action.type) {
-    case 'FETCH_TRADES': {
+    case FETCH_TRADES: {
         return {
           ...state,
           fetching: true
         }
       }
-    case 'FETCH_TRADES_REJECTED': {
+    case FETCH_TRADES_REJECTED: {
         return {
           ...state,
           fetching: false,
           error: action.payload
         }
       }
-    case 'FETCH_TRADES_FULFILLED': {
+    case FETCH_TRADES_FULFILLED: {
         return {
           ...state,
           fetching: false,
@@ -91,28 +101,28 @@ export default function reducer(state = {
           pastTrades: action.payload
         }
       }
-    case 'DEPOSIT_CHANGE': {
+    case DEPOSIT_CHANGE: {
         return {
           ...state,
           deposit: action.payload
         }
 
       }
-    case 'ADD_TRADE': {
+    case ADD_TRADE: {
         return {
           ...state,
           ...action.payload
 
         }
       }
-    case 'TRADE_COMPLETE': {
+    case TRADE_COMPLETE: {
 
         return {
           ...state,
           ...action.payload
         }
       }
-    case 'ADD_MONEY':
+    case ADD_MONEY:
       {
         return {
           ...state,

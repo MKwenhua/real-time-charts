@@ -4,6 +4,7 @@ import Graph from 'container/graph_temp';
 import RealTime from 'container/realtime';
 import Map from 'container/map';
 import TopNav from 'container/topnav';
+import {NEW_PATH} from 'constants/routes'
 
 window.checkPath = (() => {
 
@@ -55,7 +56,7 @@ export default function reducer(state = {
 }, action) {
 
   switch (action.type) {
-    case 'NEW_PATH':
+    case NEW_PATH:
       {
         return {
           ...state,

@@ -16,10 +16,6 @@ const _applyListener = function (type) {
   };
 };
 
-// @connect((store) => {
-//    return {routes: store.routes}
-// })
-
 function select(store) {
   // How Diffrent Redux stores get mapped to props
   return {routes: store.routes}
