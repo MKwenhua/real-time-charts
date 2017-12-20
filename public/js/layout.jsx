@@ -17,7 +17,7 @@ const _applyListener = function (type) {
 };
 
 function select(store) {
-  // How Diffrent Redux stores get mapped to props
+  // How Different Redux stores get mapped to props
   return {routes: store.routes}
 }
 class Layout extends React.Component {

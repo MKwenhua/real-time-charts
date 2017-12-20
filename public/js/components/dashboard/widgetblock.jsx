@@ -12,7 +12,7 @@ import {
 
 
 function select(store) {
-  // How Diffrent Redux stores get mapped to props
+  // How Different Redux stores get mapped to props
   return {widgets: store.widgets}
 }
 
