@@ -50,6 +50,7 @@
     "react-dom": "16.2.0",
     "react-highcharts": "15.0.0",
     "react-highstock": "^1.0.2",
+    "redis": "^2.8.0",
     "react-redux": "5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^2.10.2",
