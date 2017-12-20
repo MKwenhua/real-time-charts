@@ -1,0 +1,22 @@
+const Countries = {AMERICA:["Antigua And Barbuda","Argentina","Aruba","Bahamas","Barbados","Belize","Bermuda","Bolivia",
+"Brazil","Canada","Cayman Islands","Chile","Colombia", "Costa Rica","Cuba","Dominica","Dominican Republic",
+"Ecuador","El Salvador","Grenada","Guatemala","Guyana","Haiti","Honduras","Jamaica","Mexico","Nicaragua",
+"Panama","Paraguay","Peru","Puerto Rico","Suriname","Trinidad And Tobago","United States","Uruguay","Venezuela"],
+EUROPE:["Albania","Andorra","Austria","Belarus","Belgium","Bosnia And Herzegovina","Bulgaria","Croatia","Cyprus",
+"Czech Republic","Denmark","Estonia","Euro Area","European Union","Finland","France","Germany","Greece","Hungary",
+"Iceland","Ireland","Isle Of Man","Italy","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia",
+"Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","Serbia",
+"Slovakia","Slovenia","Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"],
+AFRICA:["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central African Republic",
+"Chad","Comoros","Congo","Djibouti","Egypt","Equatorial Guinea","Eritrea","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea Bissau","Ivory Coast",
+"Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Mauritius",
+"Morocco","Mozambique","Namibia","Niger","Nigeria","Republic Of The Congo","Rwanda","Sao Tome And Principe","Senegal",
+"Seychelles","Sierra Leone","Somalia","South Africa","South Sudan","Sudan","Swaziland","Tanzania","Togo","Tunisia","Uganda",
+"Zambia","Zimbabwe"],
+ASIA:["Afghanistan","Armenia","Azerbaijan","Bahrain","Bangladesh","Bhutan","Brunei","Cambodia","China","East Timor","Georgia","India","Indonesia","Iran","Iraq","Israel","Japan","Jordan","Kazakhstan","Kuwait","Kyrgyzstan","Laos","Lebanon","Malaysia","Maldives","Mongolia","Myanmar",
+"Nepal","North Korea","Oman","Palestine","Pakistan","Philippines","Qatar","Saudi Arabia","Singapore",
+"South Korea","Sri Lanka","Syria","Taiwan","Tajikistan","Thailand","Turkmenistan","United Arab Emirates",
+"Uzbekistan","Vietnam","Yemen"],"AUSTRALIA":["Australia","Fiji","Kiribati","New Caledonia","New Zealand",
+"Papua New Guinea","Samoa","Solomon Islands","Tonga","Vanuatu"]};
+
+export default Countries;

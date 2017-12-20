@@ -6,7 +6,7 @@
     font-size: 12px;
     margin: 0px 20px;
 }
-.in-view-opts{
+.in-view-opts {
     height: 100%;
 }
 .current-type {
@@ -24,13 +24,13 @@
 .current-type span {
     display: inline-block;
 }
-.add-chart-warn{
-        display: block!important;
+.add-chart-warn {
+    display: block!important;
     text-align: center;
     color: #f70;
-    padding-top:50px;
+    padding-top: 50px;
 }
-.add-chart-cnt{
+.add-chart-cnt {
     display: block!important;
 }
 i.small-i {
@@ -75,6 +75,5 @@ ul.chart-select-ul img {
 }
 .chartContainer {
     margin-top: 20px;
-    z-index: -1;
     padding-bottom: 20px;
 }

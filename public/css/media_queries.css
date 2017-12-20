@@ -1,4 +1,4 @@
-.full-widget {
+.full-widget{
     overflow: hidden;
 }
 .chart-switch {
@@ -14,6 +14,7 @@ div.reduct .plus-minus {
 div.reduct > .sub-v {
     margin-right: 8px;
 }
+
 @media (max-width: 700px) {
     .svg-count {
         font-size: 30px;
@@ -23,15 +24,15 @@ div.reduct > .sub-v {
         font-size: 6px;
         width: 20%;
     }
-    #chart1view,
-    #chart2view {
+    #chart1view, #chart2view {
         height: 180px;
     }
     #cardContain {
-        padding-right: 0px;
+     padding-right: 0px; 
     }
+
     .side-look-at {
-        display: none;
+       display: none;
     }
 }
 @media (max-height: 700px) {
@@ -45,6 +46,7 @@ div.reduct > .sub-v {
     .profit {
         font-size: 25px;
     }
+   
 }
 @media (max-width: 950px) {} @media (max-width: 750px) {
     .stat-tile > div.count {
@@ -56,8 +58,8 @@ div.reduct > .sub-v {
     span.top_span {
         font-size: 10px;
     }
-    .svg-container {
-        margin-left: 50px;
+    .svg-container{
+       margin-left: 50px; 
     }
     .span-two {
         margin-right: 5px;

@@ -42,3 +42,6 @@ body {
     display: inline-block;
     text-align: left;
 }
+#hasCsrf{
+	display: none;
+}

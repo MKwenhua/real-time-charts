@@ -42,6 +42,14 @@
     background-color: #18252e;
     text-align: left;
     position: relative;
+    overflow: hidden;
+}
+.vol-span{
+    float: right;
+}
+.big-kahuna{
+    color: #f70;
+    float: left;
 }
 .li-info-box:hover {
     border-color: #00d8ff;
@@ -130,6 +138,9 @@
 .span-label-blue {
     color: #00d8ff;
 }
+.span-label-white {
+    color: #fff;
+}
 .span-red {
     color: #DC143C;
     fill: #DC143C!important;
@@ -158,7 +169,7 @@
 .svg-count {
     font-size: 40px;
     line-height: 47px;
-    fill: #73879C;
+   /* fill: #73879C; */
     font-weight: 600;
 }
 .ctx-charts-class a {
