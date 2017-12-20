@@ -14,7 +14,6 @@ const closeGet = (theSymb, prc) => {
 
 }
 
-//let data = [];
 const GENTICKS = {
    newTicker: (symb, price) => {
       let tickSymb = {

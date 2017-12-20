@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var fs = require("fs");
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var cleanCSS = require('gulp-clean-css');
-var sourcemaps = require('gulp-sourcemaps');
-var sync = require('run-sequence');
-var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
-var stripCssComments = require('gulp-strip-css-comments');
+const gulp = require('gulp');
+const fs = require("fs");
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const cleanCSS = require('gulp-clean-css');
+const sourcemaps = require('gulp-sourcemaps');
+const sync = require('run-sequence');
+const gutil = require('gulp-util');
+const uglify = require('gulp-uglify');
+const stripCssComments = require('gulp-strip-css-comments');
 
 gulp.task('scripts', function () {
    return gulp.src(['public/js/components/canvas/canvasJS.js', 'public/build/bundle.min.js']).pipe(concat('app.min.js')).pipe(gulp.dest('public/dist'));

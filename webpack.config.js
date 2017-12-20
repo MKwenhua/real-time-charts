@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
-  entry: "./public/js/main.js",
+  entry:  "./public/js/main.js",
    resolve: {
    extensions: ['.js', '.jsx'],
    alias: {
@@ -32,7 +32,7 @@ module.exports = {
        loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-2'],
-          plugins: [ 'transform-decorators-legacy', "transform-object-rest-spread"],
+          plugins: [ "transform-object-rest-spread"],
         }
       }
     ]
