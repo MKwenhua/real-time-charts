@@ -23,7 +23,10 @@ export default function reducer(state = innitialState, action) {
         }
       }
     case 'CLOSE_CHART': {
-        return action.payload
+        return {
+          ...state,
+          ...action.payload
+        }
       }
     case 'WATCHED_POSITIONS': {
         return action.payload

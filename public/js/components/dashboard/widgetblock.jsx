@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import FullWidget from "./widgets/fullwidget";
 import DATASOURCE from "data/datasource";
 
-@connect((store) => {
-   return {widgets: store.widgets}
-})
+function select(store) {
+  // How Diffrent Redux stores get mapped to props
+  return {widgets: store.widgets}
+}
 
-export default class WidgetBlock extends React.PureComponent {
+class WidgetBlock extends React.PureComponent {
    constructor(props) {
       super(props);
       this.dbSource = DATASOURCE;
@@ -104,3 +105,5 @@ export default class WidgetBlock extends React.PureComponent {
       )
    }
 };
+
+export default connect(select)(WidgetBlock);

@@ -1,41 +1,40 @@
-import React from "react";
-//import StatTiles from "./history/statstiles";
-import TickCard from "micro/tickers/tickcard";
-import TickerView from "micro/tickers/tickerview";
+import React from 'react';
+import TickCard from 'micro/tickers/tickcard';
+import TickerView from 'micro/tickers/tickerview';
 
 const ll = [
   {
-    symb: "AUD/JPY",
+    symb: 'AUD/JPY',
     prc: 79.013
   }, {
-    symb: "AUD/USD",
+    symb: 'AUD/USD',
     prc: 0.7588
   }, {
-    symb: "CAD/CHF",
+    symb: 'CAD/CHF',
     prc: 0.7514
   }, {
-    symb: "EUR/AUD",
+    symb: 'EUR/AUD',
     prc: 1.4694
   }, {
-    symb: "EUR/CAD",
+    symb: 'EUR/CAD',
     prc: 1.44065
   }, {
-    symb: "EUR/GBP",
+    symb: 'EUR/GBP',
     prc: 0.8368
   }, {
-    symb: "EUR/JPY",
+    symb: 'EUR/JPY',
     prc: 112.89
   }, {
-    symb: "USD/BRL",
+    symb: 'USD/BRL',
     prc: 3.85397
   }, {
-    symb: "USD/CAD",
+    symb: 'USD/CAD',
     prc: 1.31252
   }, {
-    symb: "GBP/JPY",
+    symb: 'GBP/JPY',
     prc: 138.921
   }, {
-    symb: "GBP/USD",
+    symb: 'GBP/USD',
     prc: 1.3325
   }
 ];
@@ -176,7 +175,7 @@ export default class LiveTickers extends React.PureComponent {
   render() {
     let {draggedCard, applyOutAni} = this.state;
     const tickCards = this.state.cardlist.map((itm, i) => {
-      let animation = ""
+      let animation = ''
       if (applyOutAni === i || draggedCard === i) {
         animation = i === draggedCard ? 'scaleSmall  ease-out 0.4s 1 forwards' : 'growBig  ease-out 0.3s 1 forwards';
       }
@@ -199,19 +198,19 @@ export default class LiveTickers extends React.PureComponent {
         )
     });
     return (
-      <div className="container-fluid wrapper">
-        <section id="cardContain">
+      <div className='container-fluid wrapper'>
+        <section id='cardContain'>
           {tickCards}
-          <div className="trade-card-holder normal-class">
-            <div id="AddTicker" onDragOver={this.dragEnter} onDrop={this.dropHandle}>
-              <i className="fa fa-plus big-fa" aria-hidden="true"></i>
+          <div className='trade-card-holder normal-class'>
+            <div id='AddTicker' onDragOver={this.dragEnter} onDrop={this.dropHandle}>
+              <i className='fa fa-plus big-fa' aria-hidden='true'></i>
             </div>
           </div>
         </section>
-        <section className="side-look-at" onDragEnter={this.sideEnter} onDrop={this.dropHandle} onDragLeave={this.sideLeave}>
+        <section className='side-look-at' onDragEnter={this.sideEnter} onDrop={this.dropHandle} onDragLeave={this.sideLeave}>
           <TickerView symbol={this.state.viewedTicker}/>
         </section>
-        <section id="bottomLookUp"></section>
+        <section id='bottomLookUp'></section>
       </div>
     )
   }
